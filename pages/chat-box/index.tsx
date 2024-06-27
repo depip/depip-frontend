@@ -9,7 +9,7 @@ import {Button} from "@nextui-org/react";
 let nextId = 0;
 let list = [
   { id: 0, value: "hi" },
-  { id: 1, value: "dkm" },
+  { id: 1, value: "hi hi" },
 ];
 const Page: NextPageWithLayout = () => {
   const [listMess, setListMess] = useState(list);
@@ -49,7 +49,7 @@ const Page: NextPageWithLayout = () => {
               <div className="flex items-center gap-2 mb-2">
                 <Image src={logoA} alt="logo" width={30} height={30}></Image>
                 <div className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 before:rounded-xl rounded-large shadow-small ml-1 z-10 rounded-lg p-2">
-                  <p className="text-tiny text-white/80">dkm m!</p>
+                  <p className="text-tiny text-white/80">hi m!</p>
                 </div>
               </div>
             </>
