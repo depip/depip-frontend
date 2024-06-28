@@ -17,7 +17,7 @@ const config: Config = {
       },
     },
     minHeight:{
-      'full': 'calc(100vh - 204px)'
+      'full': 'calc(100vh - 200px)'
     }
   },
   darkMode: "class",
