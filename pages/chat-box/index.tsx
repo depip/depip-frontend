@@ -52,7 +52,7 @@ const Page: NextPageWithLayout = () => {
   };
   const getChat = async (message) => {
     setLoading(true);
-    const res = await fetch('https://dev.depip.studio/bedrock/bedrock-agent',
+    const res = await fetch('https://dev.depip.studio/api/bedrock/bedrock-agent',
       {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
