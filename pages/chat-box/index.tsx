@@ -3,7 +3,7 @@ import { NextPageWithLayout } from "../_app";
 import Layout from "@/components/layout";
 import Image from "next/image";
 import logoA from "../../public/img/logo.svg";
-import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import { BreadcrumbItem, Breadcrumbs, Spinner } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { useAccount } from 'wagmi'
 import { IChat } from "../models/chat";
@@ -11,10 +11,9 @@ import { IChat } from "../models/chat";
 let nextId = 0;
 const Page: NextPageWithLayout = () => {
   const account = useAccount()
-  // const [listMess, setListMess] = useState<IChat[]>([]);
-  const listMess: IChat[] = [];
+  const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
-
+  const [isLoading, setLoading] = useState<Boolean>(false);
   const userChat = async (message) => {
     nextId++;
     const chat: IChat = {
@@ -23,21 +22,20 @@ const Page: NextPageWithLayout = () => {
       value: message,
       date: new Date()
     }
-    listMess.push(chat);
+    setListMess(listMess => ([...listMess, chat]));
     setValue('');
   }
   const onBotReply = async (message) => {
-    getChat(message).then(z => {
-      nextId++;
-      const reply: IChat = {
-        id: nextId,
-        from: 'bot',
-        value: z,
-        date: new Date()
-      }
-      listMess.push(reply);
-    });
-    
+    var botReply = await getChat(message);
+    nextId++;
+    const reply: IChat = {
+      id: nextId,
+      from: 'bot',
+      value: botReply,
+      date: new Date()
+    }
+    setLoading(false);
+    setListMess(listMess => ([...listMess, reply]));    
   }
   useEffect(() => {
     if (listMess.length > 0) {
@@ -46,14 +44,14 @@ const Page: NextPageWithLayout = () => {
         onBotReply(lastMessage?.value)
       }
     }
-  }, [value])
-  useEffect(() => {}, [listMess])
+  }, [listMess])
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       userChat(event.target.value)
     }
   };
   const getChat = async (message) => {
+    setLoading(true);
     const res = await fetch('https://dev.depip.studio/bedrock/bedrock-agent',
       {
         method: "POST",
@@ -114,7 +112,16 @@ const Page: NextPageWithLayout = () => {
             }
           }
           )}
-
+          {isLoading &&
+            <>
+              <div className="flex items-center gap-2 mb-2">
+                <Image src={logoA} alt="logo" width={30} height={30}></Image>
+                <div className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 before:rounded-xl rounded-large shadow-small ml-1 z-10 rounded-lg p-2">
+                  <Spinner />
+                </div>
+              </div>
+            </>
+          }
           {/* More messages can be added here */}
         </div>
 
