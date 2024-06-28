@@ -6,7 +6,7 @@ import logoA from "../../public/img/logo.svg";
 import { BreadcrumbItem, Breadcrumbs, Spinner } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { useAccount } from 'wagmi'
-import { IChat } from "../models/chat";
+import { IChat } from "../../components/models/chat";
 
 let nextId = 0;
 const Page: NextPageWithLayout = () => {
