@@ -24,6 +24,7 @@ const Page: NextPageWithLayout = () => {
   const [value, setValue] = useState<string>("");
   const [isLoading, setLoading] = useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLInputElement>(null);
+  let myTimeout;
   const userChat = (message) => {
     nextId++;
     const chat: IChat = {
@@ -34,13 +35,13 @@ const Page: NextPageWithLayout = () => {
     };
     setListMess((listMess) => [...listMess, chat]);
     setValue("");
+    clearInterval(myTimeout);
+    myTimeout = setInterval(() => {
+      scrollToBottom();
+    }, 1000);
   };
 
   const onBotReply = async (message) => {
-    setTimeout(() => {
-      scrollToBottom();
-    }, 100);
-
     var botReply = await getChat(message);
     nextId++;
     const reply: IChat = {
@@ -62,6 +63,13 @@ const Page: NextPageWithLayout = () => {
         onBotReply(lastMessage?.value);
       }
     }
+
+    window.addEventListener("wheel", (event) => {
+      if (myTimeout) {
+        clearInterval(myTimeout);
+        console.log("clearInterval");
+      }
+    });
   }, [listMess]);
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -223,7 +231,7 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
                         {index == listMess.length - 1 && (
                           <Typewriter
                             options={{
-                              delay: 0.1,
+                              delay: 1,
                               cursor: "",
                             }}
                             onInit={(typewriter) => {
@@ -277,7 +285,7 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
               </div>
             </>
           )}
-          <div className="p-10" ref={messagesEndRef} />
+          <div className="p-2" ref={messagesEndRef} />
         </div>
 
         {/* Chat input */}
