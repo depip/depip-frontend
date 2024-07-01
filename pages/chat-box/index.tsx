@@ -11,19 +11,19 @@ import {
   Spinner,
 } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
-import { useAccount } from 'wagmi'
+import { useAccount } from "wagmi";
 import { IChat } from "../../components/models/chat";
 import ConnectButtonC from "@/components/connect-button";
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 
 let nextId = 0;
+let intervalId;
 const Page: NextPageWithLayout = () => {
   const { address, isConnected } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
   const [isLoading, setLoading] = useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  let myTimeout;
   const userChat = (message) => {
     nextId++;
     const chat: IChat = {
@@ -34,8 +34,10 @@ const Page: NextPageWithLayout = () => {
     };
     setListMess((listMess) => [...listMess, chat]);
     setValue("");
-    clearInterval(myTimeout);
-    myTimeout = setInterval(() => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    intervalId = setInterval(() => {
       scrollToBottom();
     }, 1000);
   };
@@ -50,10 +52,8 @@ const Page: NextPageWithLayout = () => {
       date: new Date(),
     };
 
-    setTimeout(() => {
-      setLoading(false);
-      setListMess((listMess) => [...listMess, reply]);
-    }, 100);
+    setListMess((listMess) => [...listMess, reply]);
+    setLoading(false);
   };
   useEffect(() => {
     if (listMess.length > 0) {
@@ -64,9 +64,8 @@ const Page: NextPageWithLayout = () => {
     }
 
     window.addEventListener("wheel", (event) => {
-      if (myTimeout) {
-        clearInterval(myTimeout);
-        console.log("clearInterval");
+      if (intervalId) {
+        clearInterval(intervalId);
       }
     });
   }, [listMess]);
@@ -80,7 +79,7 @@ const Page: NextPageWithLayout = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        "https://dev.depip.studio/bedrock/bedrock-agent",
+        `${process.env.NEXT_PUBLIC_API}bedrock/bedrock-agent`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -94,14 +93,7 @@ const Page: NextPageWithLayout = () => {
       const data = JSON.parse(text);
       return data.completion;
     } catch (e: any) {
-      return `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.`;
+      return e.message;
     }
   };
 
@@ -220,7 +212,7 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
                     <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-500 rounded-e-xl rounded-es-xl dark:bg-gray-900">
                       <div className="flex items-center space-x-2 rtl:space-x-reverse">
                         <span className="text-sm font-semibold text-green-300 dark:text-green-300">
-                          bot pro vip aura depip
+                          Bot
                         </span>
                       </div>
                       <div className="text-sm font-normal py-2.5 text-white dark:text-white">
@@ -238,6 +230,7 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
                                 .typeString(item.value)
                                 .callFunction(() => {
                                   scrollToBottom();
+                                  clearInterval(intervalId);
                                 })
                                 .start();
                             }}
