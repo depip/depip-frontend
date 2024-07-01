@@ -11,11 +11,10 @@ import {
   Spinner,
 } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
-import { useAccount, useEnsAvatar } from "wagmi";
-import { IChat } from "../models/chat";
-import Typewriter from "typewriter-effect";
-import { normalize } from "viem/ens";
+import { useAccount } from 'wagmi'
+import { IChat } from "../../components/models/chat";
 import ConnectButtonC from "@/components/connect-button";
+import Typewriter from 'typewriter-effect';
 
 let nextId = 0;
 const Page: NextPageWithLayout = () => {
