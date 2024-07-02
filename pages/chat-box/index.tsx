@@ -133,9 +133,9 @@ const Page: NextPageWithLayout = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m1 9 4-4-4-4"
                 />
               </svg>
@@ -158,9 +158,9 @@ const Page: NextPageWithLayout = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m1 9 4-4-4-4"
                 />
               </svg>
@@ -172,50 +172,50 @@ const Page: NextPageWithLayout = () => {
         </ol>
       </nav>
 
-      <div className="w-full mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <div className="px-4 py-4 h-[calc(100vh-400px)] mb-[58px] overflow-auto">
+      <div className="w-full mt-4 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="px-8 py-8 h-[calc(100vh-400px)] mb-[58px] overflow-auto">
           {listMess.map((item, index) => {
             if (item.from == address ?? "user") {
               return (
-                <>
+                <div key={index}>
                   <div className="flex items-start gap-2.5 mb-4">
                     <img
                       className="w-8 h-8 rounded-full"
                       src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                       alt={address}
                     />
-                    <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-500">
+                    <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-900">
                       <div className="flex items-center space-x-2 rtl:space-x-reverse">
                         <span className="text-sm font-semibold text-yellow-600 dark:text-yellow-300">
-                          {address}
+                          {`${address?.substring(0,6)} ... ${address?.substring(address.length-6, address.length)}`}
                         </span>
                       </div>
                       <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
                         {item.value}
                       </p>
-                      <span className="text-sm font-normal text-gray-500 dark:text-gray-900">
+                      <span className="text-sm font-normal text-gray-500 dark:text-white-900">
                         send {format(Date.now(), "hh:mm:ss")}
                       </span>
                     </div>
                   </div>
-                </>
+                </div>
               );
             } else if (item.from == "bot") {
               return (
-                <>
+                <div key={index}>
                   <div className="flex items-start gap-2.5 mb-4">
                     <img
                       className="w-8 h-8 rounded-full"
                       src={logoA.src}
                       alt="bot"
                     />
-                    <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-500 rounded-e-xl rounded-es-xl dark:bg-gray-900">
+                    <div className="flex flex-col">
                       <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                        <span className="text-sm font-semibold text-green-300 dark:text-green-300">
+                        <span className="text-sm font-semibold text-green-500 dark:text-green-300">
                           Bot
                         </span>
                       </div>
-                      <div className="text-sm font-normal py-2.5 text-white dark:text-white">
+                      <div className="text-sm font-normal py-2.5 text-black dark:text-white">
                         {index != listMess.length - 1 && (
                           <span>{item.value}</span>
                         )}
@@ -237,12 +237,12 @@ const Page: NextPageWithLayout = () => {
                           />
                         )}
                       </div>
-                      <span className="text-sm font-normal text-gray-200 dark:text-gray-400">
+                      <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                         received {format(Date.now(), "hh:mm:ss")}
                       </span>
                     </div>
                   </div>
-                </>
+                </div>
               );
             }
           })}
@@ -255,7 +255,7 @@ const Page: NextPageWithLayout = () => {
                   src={logoA.src}
                   alt="bot"
                 />
-                <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-500 rounded-e-xl rounded-es-xl dark:bg-gray-900">
+                <div className="flex flex-col leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl">
                   <svg
                     aria-hidden="true"
                     role="status"

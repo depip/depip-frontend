@@ -4,11 +4,15 @@ import { useTheme } from "next-themes";
 import { Switch } from "@nextui-org/switch";
 import { Avatar, Badge, Image } from "@nextui-org/react";
 import { MoonIcon, SunIcon } from "./icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navnar = () => {
   const { theme, setTheme } = useTheme();
   const [isSelected, setIsSelected] = useState(true);
+  useEffect(() => {
+    theme == "dark" ? setIsSelected(false) : setIsSelected(true);
+  }, [theme]);
+
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -37,9 +41,9 @@ const Navnar = () => {
                   y2="17.813"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#FFD569" />
-                  <stop offset="0.515056" stop-color="#FC8E4F" />
-                  <stop offset="1" stop-color="#FF697B" />
+                  <stop stopColor="#FFD569" />
+                  <stop offset="0.515056" stopColor="#FC8E4F" />
+                  <stop offset="1" stopColor="#FF697B" />
                 </linearGradient>
               </defs>
             </svg>
@@ -49,9 +53,9 @@ const Navnar = () => {
           </a>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
             <Switch
-              // isSelected={isSelected}
+              isSelected={isSelected}
               size="md"
-              color="secondary"
+              color="default"
               thumbIcon={({ isSelected, className }) =>
                 isSelected ? (
                   <SunIcon className={className} />
@@ -59,10 +63,12 @@ const Navnar = () => {
                   <MoonIcon className={className} />
                 )
               }
-              onValueChange={(isSelected) => {
-                isSelected ? setTheme("light") : setTheme("dark");
+              onValueChange={(isSel) => {
+                console.log(isSel);
+                setTheme(isSel ? "light" : "dark");
               }}
             ></Switch>
+
             <ConnectButtonC></ConnectButtonC>
           </div>
         </div>
