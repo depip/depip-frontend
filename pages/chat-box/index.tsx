@@ -9,7 +9,6 @@ import ConnectButtonC from "@/components/connect-button";
 import Typewriter from "typewriter-effect";
 import BotReply from "@/serivces/bot-api";
 
-let nextId = 0;
 let intervalId;
 const Page: NextPageWithLayout = () => {
   const { address, isConnected } = useAccount();
@@ -17,11 +16,9 @@ const Page: NextPageWithLayout = () => {
   const [value, setValue] = useState<string>("");
   const [isLoading, setLoading] = useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  
+
   const userChat = (message) => {
-    nextId++;
     const chat: IChat = {
-      id: nextId,
       from: address ?? "user",
       value: message,
       date: new Date(),
@@ -40,9 +37,7 @@ const Page: NextPageWithLayout = () => {
     setLoading(true);
 
     const res = await BotReply({ prompt: message, sessionId: address });
-    nextId++;
     const reply: IChat = {
-      id: nextId,
       from: "bot",
       value: res.completion,
       date: new Date(),
@@ -177,7 +172,7 @@ const Page: NextPageWithLayout = () => {
                             {item.value}
                           </p>
                           <span className="text-sm font-normal text-gray-500 dark:text-white-900">
-                            send {format(Date.now(), "hh:mm:ss")}
+                            send {format(item.date, "hh:mm:ss")}
                           </span>
                         </div>
                       </div>
@@ -221,7 +216,7 @@ const Page: NextPageWithLayout = () => {
                             )}
                           </div>
                           <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                            received {format(Date.now(), "hh:mm:ss")}
+                            received {format(item.date, "hh:mm:ss")}
                           </span>
                         </div>
                       </div>

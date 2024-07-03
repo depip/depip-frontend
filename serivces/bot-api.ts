@@ -11,8 +11,8 @@ const BotReply = async (params: {
         body: JSON.stringify(params),
       }
     );
-    const text = await res.text();
-    return JSON.parse(text);
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error("Error retrieving data:", error);
     throw new Error("Could not get data");
