@@ -9,7 +9,25 @@ import "@rainbow-me/rainbowkit/styles.css";
 import "../styles/globals.scss";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import axios from "axios";
+import localFont from "next/font/local";
+
+export const GeistSans = localFont({
+  src: "../assets/fonts/geist-sans/Geist-Variable.woff2",
+  variable: "--font-geist",
+  weight: "100 900",
+});
+
+export const CabinetGrotesk = localFont({
+  src: "../assets/fonts/CabinetGrotesk/CabinetGrotesk-Variable.woff2",
+  variable: "--font-cabinet-grotesk",
+  weight: "100 900",
+});
+
+export const RetroComputer = localFont({
+  src: "../assets/fonts/retro-computer/retro_computer_personal_use.ttf",
+  variable: "--font-retro-computer",
+  weight: "100 900",
+});
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -18,8 +36,6 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
-
-
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
@@ -30,7 +46,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider modalSize="compact">
-              <div className="text-foreground bg-background">
+              <div
+                className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} text-foreground bg-background`}
+              >
                 {getLayout(<Component {...pageProps} />)}
               </div>
             </RainbowKitProvider>

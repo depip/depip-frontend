@@ -1,184 +1,94 @@
 import type { ReactElement } from "react";
 import Layout from "../components/layout";
 import type { NextPageWithLayout } from "./_app";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardFooter,
-  CardHeader,
-  Image,
-  LinkIcon,
-} from "@nextui-org/react";
-import Link from "next/link";
+import background from "../assets/images/bg-home.png";
 
-const Page: NextPageWithLayout = () => {
+import Link from "next/link";
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
+import mouseImg from "@/assets/images/mouse.svg";
+import ipImg1 from "@/assets/images/ip-item-1.svg";
+import ipImg2 from "@/assets/images/ip-item-2.svg";
+import ipImg3 from "@/assets/images/ip-item-3.svg";
+import ipImg4 from "@/assets/images/ip-item-4.svg";
+import Image from "next/image";
+
+const Page = () => {
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
-        <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
-          <a
-            href="#"
-            className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-blue-400 mb-2"
-          >
-            <svg
-              className="w-2.5 h-2.5 me-1.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 14"
-            >
-              <path d="M11 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm8.585 1.189a.994.994 0 0 0-.9-.138l-2.965.983a1 1 0 0 0-.685.949v8a1 1 0 0 0 .675.946l2.965 1.02a1.013 1.013 0 0 0 1.032-.242A1 1 0 0 0 20 12V2a1 1 0 0 0-.415-.811Z" />
-            </svg>
-            Tutorial
-          </a>
-          <h1 className="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">
-            How to using bot
-          </h1>
-          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </p>
+    <>
+      <section className="bg-[url(../assets/images/bg-home.png)] bg-cover h-screen relative">
+        <Navbar />
+        <div className="flex flex-col justify-center items-center h-[calc(100vh-80px)] mx-auto max-w-screen-xl">
+          <div className="font-cabinet font-bold text-[64px] leading-[110%] tracking-tight text-white text-center">
+            As every unique idea deserves
+            <br /> its own Web3 rights.
+          </div>
+          <div className="font-geist text-2xl font-medium leading-7 tracking-tight text-center text-white mt-6">
+            Think. Create. Make it viral under your name. All on-chain.
+          </div>
           <Link
             href="/chat-box"
-            className="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+            className="text-[#1D1F1E] bg-white flex justify-center items-center py-5 px-8 font-retrocomputer mt-10 hover:bg-[#FEA933] hover:rounded-full"
           >
-            Go to bot
-            <svg
-              className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
+            Explore more
           </Link>
         </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
-            <a
-              href="#"
-              className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 mb-2"
-            >
-              <svg
-                className="w-2.5 h-2.5 me-1.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 18 18"
-              >
-                <path d="M17 11h-2.722L8 17.278a5.512 5.512 0 0 1-.9.722H17a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1ZM6 0H1a1 1 0 0 0-1 1v13.5a3.5 3.5 0 1 0 7 0V1a1 1 0 0 0-1-1ZM3.5 15.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM16.132 4.9 12.6 1.368a1 1 0 0 0-1.414 0L9 3.55v9.9l7.132-7.132a1 1 0 0 0 0-1.418Z" />
-              </svg>
-              Why do we use bot?
-            </a>
-            <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">
-              Start with aura bot
-            </h2>
-            <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
-            <Link
-              href="/chat-box"
-              className="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center"
-            >
-              Read more
-              <svg
-                className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-            </Link>
+        <div className="absolute bottom-16 w-full z-10 ">
+          <Link className="block mx-auto w-12 p-3" href="/">
+            <Image
+              src={mouseImg}
+              alt="mouse"
+              height={mouseImg.height}
+              width={mouseImg.width}
+            ></Image>
+          </Link>
+        </div>
+      </section>
+      <section className="bg-white">
+        <div className="mx-auto max-w-screen-xl flex flex-col justify-center items-center py-[120px]">
+          <div className="font-cabinet font-bold text-5xl leading-[110%] tracking-tight text-[#1D1F1E] text-center">
+            IP Assets with Programmable Licenses
           </div>
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
-            <a
-              href="#"
-              className="bg-purple-100 text-purple-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2"
-            >
-              <svg
-                className="w-2.5 h-2.5 me-1.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 16"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 4 1 8l4 4m10-8 4 4-4 4M11 1 9 15"
-                />
-              </svg>
-              Where
-            </a>
-            <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">
-              Where can I get bot
-            </h2>
-            <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words which don't look even
-              slightly believable. If you are going to use a passage of Lorem
-              Ipsum, you need to be sure there isn't anything embarrassing
-              hidden in the middle of text.
-            </p>
-            <Link
-              href="/chat-box"
-              className="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center"
-            >
-              read more
-              <svg
-                className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-            </Link>
+          <div className="font-geist text-xl font-normal leading-7 tracking-tight text-center text-[#646A69] mt-6">
+            Register any of your creative works as on-chain IP Assets and allow
+            others to use it under your terms through <br /> licensing.
+            Free-to-use or incentive-based monetizing, you make the rules.
+          </div>
+          <div className="flex flex-row">
+            <Image
+              src={ipImg1}
+              alt="ipImg1"
+              height={ipImg1.height}
+              width={ipImg1.width}
+            ></Image>
+            <Image
+              src={ipImg2}
+              alt="ipImg2"
+              height={ipImg2.height}
+              width={ipImg2.width}
+            ></Image>
+            <Image
+              src={ipImg3}
+              alt="ipImg3"
+              height={ipImg3.height}
+              width={ipImg3.width}
+            ></Image>
+            <Image
+              src={ipImg4}
+              alt="ipImg4"
+              height={ipImg4.height}
+              width={ipImg4.width}
+            ></Image>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 };
 
-Page.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+// Page.getLayout = function getLayout(page: ReactElement) {
+//   return <Layout>{page}</Layout>;
+// };
 
 export default Page;

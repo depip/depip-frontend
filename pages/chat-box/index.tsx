@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import { NextPageWithLayout } from "../_app";
 import Layout from "@/components/layout";
-import logoA from "../../public/img/logo.svg";
+import logoDepip from "@/assets/images/logo-depip.svg";
 import { parseISO, format } from "date-fns";
 import { useAccount } from "wagmi";
 import { IChat } from "../../components/models/chat";
 import ConnectButtonC from "@/components/connect-button";
 import Typewriter from "typewriter-effect";
 import BotReply from "@/serivces/bot-api";
+import Image from "next/image";
 
 let intervalId;
 const Page: NextPageWithLayout = () => {
@@ -182,9 +183,9 @@ const Page: NextPageWithLayout = () => {
                   return (
                     <div key={index}>
                       <div className="flex items-start gap-2.5 mb-4">
-                        <img
+                        <Image
                           className="w-8 h-8 rounded-full"
-                          src={logoA.src}
+                          src={logoDepip}
                           alt="bot"
                         />
                         <div className="flex flex-col">
@@ -228,9 +229,9 @@ const Page: NextPageWithLayout = () => {
               {isLoading && (
                 <>
                   <div className="flex items-center gap-2.5 mb-10">
-                    <img
+                    <Image
                       className="w-8 h-8 rounded-full"
-                      src={logoA.src}
+                      src={logoDepip}
                       alt="bot"
                     />
                     <div className="text-xs font-medium leading-none text-center text-blue-800 animate-pulse dark:text-blue-200">

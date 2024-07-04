@@ -10,7 +10,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto min-h-full">
+      <div className="container mx-auto min-h-full font-sans">
         <div className="p-4">
           <main>{children}</main>
         </div>
