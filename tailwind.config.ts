@@ -23,10 +23,8 @@ const config: Config = {
       geist: ["var(--font-geist)"],
       cabinet: ["var(--font-cabinet-grotesk)"],
       retrocomputer: ["var(--font-retro-computer)"],
-    },
-    text: {
-      reversed: '#fff',
-    },
+    }
+    
   },
   darkMode: "class",
   plugins: [nextui()],

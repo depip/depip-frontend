@@ -22,3 +22,6 @@
 input:focus-visible {
   outline: none;
 }
+* {
+  scroll-behavior: smooth;
+}
