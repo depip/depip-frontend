@@ -1,0 +1,19 @@
+<svg width="1440" height="320" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="40" height="40" transform="matrix(-1 0 0 1 80 0)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 40 40)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 80 80)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 40 120)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 80 160)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 40 200)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 80 240)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 40 280)" fill="white"/>
+<rect width="1280" height="320" transform="translate(80)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1440 0)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1400 40)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1440 80)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1400 120)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1440 160)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1400 200)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1440 240)" fill="white"/>
+<rect width="40" height="40" transform="matrix(-1 0 0 1 1400 280)" fill="white"/>
+</svg>
