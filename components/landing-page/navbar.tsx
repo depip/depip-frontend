@@ -22,7 +22,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-white hover:underline"
                   aria-current="page"
                 >
                   About
@@ -31,7 +31,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-white hover:underline"
                   aria-current="page"
                 >
                   How it works
@@ -40,7 +40,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/app"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-white hover:underline"
                   aria-current="page"
                 >
                   Our applications
@@ -49,7 +49,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-white hover:underline"
                   aria-current="page"
                 >
                   Partners
