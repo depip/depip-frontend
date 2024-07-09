@@ -5,7 +5,7 @@ import twitter from "@/assets/images/twitter.svg";
 import facebook from "@/assets/images/facebook.svg";
 import discord from "@/assets/images/discord.svg";
 
-const NavbarLandingPage = () => {
+const Navbar = () => {
   return (
     <>
       <nav className="bg-transparent font-sans h-[80px]">
@@ -86,4 +86,4 @@ const NavbarLandingPage = () => {
   );
 };
 
-export default NavbarLandingPage;
+export default Navbar;

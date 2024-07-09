@@ -4,7 +4,7 @@ import Layout from "@/components/layout";
 import logoDepip from "@/assets/images/logo-depip.svg";
 import { parseISO, format } from "date-fns";
 import { useAccount } from "wagmi";
-import { IChat } from "../../components/models/chat";
+import { IChat } from "../../models/chat";
 import ConnectButtonC from "@/components/connect-button";
 import Typewriter from "typewriter-effect";
 import BotReply from "@/serivces/bot-api";
