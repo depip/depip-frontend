@@ -1,10 +1,8 @@
 import Link from "next/link";
 import ConnectButtonC from "./connect-button";
 import { useTheme } from "next-themes";
-import { Switch } from "@nextui-org/switch";
 import Image from "next/image";
-import { MoonIcon, SunIcon } from "./icon";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import logoDepip from "@/assets/images/logo-depip.svg";
 import twitter from "@/assets/images/twitter.svg";
 import facebook from "@/assets/images/facebook.svg";
@@ -12,9 +10,8 @@ import discord from "@/assets/images/discord.svg";
 
 const Navnar = () => {
   const { theme, setTheme } = useTheme();
-  const [isSelected, setIsSelected] = useState(true);
   useEffect(() => {
-    theme == "dark" ? setIsSelected(false) : setIsSelected(true);
+    setTheme("light");
   }, [theme]);
 
   return (
@@ -92,23 +89,6 @@ const Navnar = () => {
             </Link>
           </div>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
-            <Switch
-              isSelected={isSelected}
-              size="md"
-              color="default"
-              thumbIcon={({ isSelected, className }) =>
-                isSelected ? (
-                  <SunIcon className={className} />
-                ) : (
-                  <MoonIcon className={className} />
-                )
-              }
-              onValueChange={(isSel) => {
-                console.log(isSel);
-                setTheme(isSel ? "light" : "dark");
-              }}
-            ></Switch>
-
             <ConnectButtonC></ConnectButtonC>
           </div>
         </div>

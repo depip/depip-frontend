@@ -7,7 +7,6 @@ import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { config } from "../config";
 import "@rainbow-me/rainbowkit/styles.css";
 import "../styles/globals.scss";
-import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import localFont from "next/font/local";
 
@@ -41,20 +40,18 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const queryClient = new QueryClient();
   return (
-    <NextUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="dark">
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider modalSize="compact">
-              <div
-                className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} text-foreground bg-background`}
-              >
-                {getLayout(<Component {...pageProps} />)}
-              </div>
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
-      </NextThemesProvider>
-    </NextUIProvider>
+    <NextThemesProvider attribute="class" defaultTheme="light">
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider modalSize="compact">
+            <div
+              className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} text-foreground bg-background`}
+            >
+              {getLayout(<Component {...pageProps} />)}
+            </div>
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
+    </NextThemesProvider>
   );
 }
