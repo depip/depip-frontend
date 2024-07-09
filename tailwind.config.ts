@@ -15,15 +15,12 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
-    minHeight: {
-      full: "calc(100vh - 200px)",
-    },
     fontFamily: {
       geist: ["var(--font-geist)"],
       cabinet: ["var(--font-cabinet-grotesk)"],
       retrocomputer: ["var(--font-retro-computer)"],
-    }
-    
+      pixel: ["var(--font-pixel-operator)"],
+    },
   },
   darkMode: "class",
   plugins: [],

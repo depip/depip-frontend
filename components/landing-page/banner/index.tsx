@@ -16,7 +16,7 @@ const Banner = () => {
           Think. Create. Make it viral under your name. All on-chain.
         </div>
         <Link
-          href="/chat-box"
+          href="/app"
           className="text-[#1D1F1E] bg-white flex justify-center items-center py-5 px-8 font-retrocomputer mt-10 hover:bg-[#FEA933] hover:rounded-full"
         >
           Explore more

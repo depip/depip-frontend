@@ -39,7 +39,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/chat-box"
+                  href="/app"
                   className="text-gray-900 dark:text-white hover:underline"
                   aria-current="page"
                 >
