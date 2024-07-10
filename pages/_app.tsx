@@ -65,7 +65,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider modalSize="compact" avatar={CustomAvatar}>
             <div
-              className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} text-foreground bg-background`}
+              className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-stone-50`}
             >
               {getLayout(<Component {...pageProps} />)}
             </div>

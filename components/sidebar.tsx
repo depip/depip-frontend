@@ -1,28 +1,18 @@
-import Link from "next/link";
-import ConnectButtonC from "./connect-button";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import { useEffect } from "react";
-import logoDepip from "@/assets/images/logo-depip.svg";
-import twitter from "@/assets/images/twitter.svg";
-import facebook from "@/assets/images/facebook.svg";
-import discord from "@/assets/images/discord.svg";
-
-const SideBar = () => {
-  const { theme, setTheme } = useTheme();
-  useEffect(() => {
-    setTheme("light");
-  }, [theme]);
-
+const SideBar = ({ isOpen, setIsOpen }) => {
   return (
     <>
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-[360px] h-screen p-6 transition-transform -translate-x-full sm:translate-x-0"
+        className={`fixed top-0 left-0 z-40 w-[360px] h-screen p-6 transition-all bg-stone-50 ${
+          isOpen ? "left-0" : "-left-[360px]"
+        }`}
         aria-label="Sidebar"
       >
         <div className="flex-col h-full justify-start items-start gap-10 inline-flex">
-          <div className="flex-col justify-start items-start gap-2 flex">
+          <div
+            className="flex-col justify-start items-start gap-2 flex"
+            onClick={() => setIsOpen(false)}
+          >
             <div className="relative">
               <svg
                 width="97"
