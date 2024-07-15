@@ -3,9 +3,10 @@ import genAVT from "@/utils";
 import { FC, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
-const DefaultPage = ({ onClick }) => {
+const DefaultPage = ({ onClick, openForm }) => {
   const { address, isConnected } = useAccount();
   const [avatar, setAvatar] = useState<string>("");
+
   useEffect(() => {
     if (address) {
       setAvatar(genAVT(address as string));
@@ -13,7 +14,11 @@ const DefaultPage = ({ onClick }) => {
   }, [address]);
 
   return (
-    <div className="w-full flex-col justify-start items-start gap-12 inline-flex px-20">
+    <div
+      className={`w-full flex-col justify-start items-start gap-12 inline-flex transition-all ${
+        openForm ? ("pl-0 pr-[424px]") : "px-20"
+      }`}
+    >
       <div className="flex-col justify-start items-start gap-6 flex">
         <div className="w-12 h-12 justify-center items-center inline-flex">
           <img
