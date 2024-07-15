@@ -8,7 +8,6 @@ import { IChat } from "@/models/chat";
 import BotReply from "@/serivces/bot-api";
 import genAVT from "@/utils";
 import DefaultPage from "@/components/default-page";
-import Typewriter from "typewriter-effect";
 import ChatBox from "@/components/chat-box";
 
 let intervalId;
