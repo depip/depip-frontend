@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import Typewriter from "typewriter-effect";
+import { TypeAnimation } from "react-type-animation";
 
 const ChatBox = ({
   openForm,
@@ -74,26 +74,38 @@ const ChatBox = ({
                   </div>
                   <div className="text-sm font-normal py-2.5 text-black dark:text-white">
                     {index != listMess.length - 1 && (
-                           <div dangerouslySetInnerHTML={{__html: item.value.replace(/\n/g, '<br>')}}></div>
+                      // <div
+                      //   dangerouslySetInnerHTML={{
+                      //     __html: item.value.replace(/\n/g, "<br>"),
+                      //   }}
+                      // ></div>
+                      <span style={{ whiteSpace: "pre-line" }}>
+                        {item.value}
+                      </span>
                     )}
                     {index == listMess.length - 1 && (
-                      <Typewriter
-                        options={{
-                          delay: 1,
-                          cursor: ""
-                        }}
-                        onInit={(typewriter) => {
-                          typewriter
-                            .typeString(item.value.replace(/\n/g, '<br>'))
-                            .callFunction(() => {
-                              scrollToBottom();
-                              clearInterval(intervalId);
-                            })
-                            .start();
-                        }}
+                      // <Typewriter
+                      //   options={{
+                      //     delay: 1,
+                      //     cursor: ""
+                      //   }}
+                      //   onInit={(typewriter) => {
+                      //     typewriter
+                      //       .typeString(item.value.replace(/\n/g, '<br>'))
+                      //       .callFunction(() => {
+                      //         scrollToBottom();
+                      //         clearInterval(intervalId);
+                      //       })
+                      //       .start();
+                      //   }}
+                      // />
+                      <TypeAnimation
+                        sequence={[item.value]}
+                        wrapper="span"
+                        speed={99}
+                        style={{ whiteSpace: "pre-line" }}
                       />
                     )}
-            
                   </div>
                   <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                     received {format(item.date, "hh:mm:ss")}
