@@ -10,6 +10,7 @@ import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
 import utils from "@/utils";
 import { useSidebar } from "@/provider/sidebar.provider";
+import { useChat } from "@/provider/chat.provider";
 let intervalId;
 const Index: NextPageWithLayout = () => {
   const { address, isConnected } = useAccount();
@@ -19,12 +20,12 @@ const Index: NextPageWithLayout = () => {
   const [isLoading, setLoading] = useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLInputElement>(null);
   const { isSidebarOpen, setTypeForm } = useSidebar();
+  const { dataChat } = useChat();
 
   const userChat = (message) => {
     const chat: IChat = {
       from: address ?? "user",
-      value: message,
-      date: new Date(),
+      value: [message],
     };
     setListMess((listMess) => [...listMess, chat]);
     setValue("");
@@ -41,23 +42,11 @@ const Index: NextPageWithLayout = () => {
 
     const res = await BotReply({ prompt: message, sessionId: address });
     if (res.completion) {
-      const { scriptContent, remainingHtml } = utils.extractScriptAndRemaining(
-        res.completion
-      );
-      if (scriptContent) {
-        const objForm = JSON.parse(scriptContent);
-        if (objForm && objForm?.create_ip_asset) {
-          switch (objForm.create_ip_asset) {
-            case "create_ip_asset":
-              setTypeForm(1);
-              break;
-          }
-        }
-      }
+      const chunks = utils.extractStringAndScripts(res.completion);
+      
       const reply: IChat = {
         from: "bot",
-        value: remainingHtml,
-        date: new Date(),
+        value: chunks,
       };
 
       setListMess((listMess) => [...listMess, reply]);
@@ -67,8 +56,8 @@ const Index: NextPageWithLayout = () => {
   useEffect(() => {
     if (listMess.length > 0) {
       var lastMessage = listMess[listMess.length - 1];
-      if (lastMessage?.from != "bot" && lastMessage?.value != "") {
-        onBotReply(lastMessage?.value);
+      if (lastMessage?.from != "bot" && lastMessage?.value.length > 0) {
+        onBotReply(lastMessage?.value[0]);
       }
     }
 
@@ -78,6 +67,11 @@ const Index: NextPageWithLayout = () => {
       }
     });
   }, [listMess]);
+  useEffect(() => {
+    if (dataChat) {
+      userChat(dataChat);
+    }
+  }, [dataChat]);
 
   useEffect(() => {
     if (address) {

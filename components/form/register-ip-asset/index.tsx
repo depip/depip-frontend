@@ -1,3 +1,4 @@
+import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import registerIpAsset from "@/serivces/form-api";
 import { useState } from "react";
@@ -5,6 +6,7 @@ import { useForm } from "react-hook-form";
 
 const FormRegisterIPAsset = () => {
   const { toggleSidebar } = useSidebar();
+  const { setDataChat } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
   const {
     register,
@@ -16,6 +18,7 @@ const FormRegisterIPAsset = () => {
     const res = await registerIpAsset(data);
     if (res) {
       toggleSidebar();
+      setDataChat(res);
     }
 
     setLoading(false);

@@ -1,5 +1,10 @@
 export interface IChat {
   from: string;
-  value: string;
-  date: Date;
+  value: IRepplyContent[];
+}
+
+export interface IRepplyContent {
+  type: "script" | "string";
+  content: string;
+  json?: any;
 }

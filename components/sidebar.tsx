@@ -1,7 +1,9 @@
+import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
+  const { setDataChat } = useChat();
   return (
     <>
       <aside
@@ -66,7 +68,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setTypeForm(1)}
+                  onClick={() => setDataChat("Register IP asset")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg

@@ -12,6 +12,7 @@ import localFont from "next/font/local";
 import logoDepip from "@/assets/images/logo-depip.svg";
 import utils from "@/utils";
 import { SidebarProvider } from "@/provider/sidebar.provider";
+import { ChatProvider } from "@/provider/chat.provider";
 
 export const GeistSans = localFont({
   src: "../assets/fonts/geist-sans/Geist-Variable.woff2",
@@ -66,11 +67,13 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider modalSize="compact" avatar={CustomAvatar}>
             <SidebarProvider>
-              <div
-                className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-stone-50`}
-              >
-                {getLayout(<Component {...pageProps} />)}
-              </div>
+              <ChatProvider>
+                <div
+                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-stone-50`}
+                >
+                  {getLayout(<Component {...pageProps} />)}
+                </div>
+              </ChatProvider>
             </SidebarProvider>
           </RainbowKitProvider>
         </QueryClientProvider>

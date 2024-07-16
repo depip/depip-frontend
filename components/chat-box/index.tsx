@@ -11,7 +11,8 @@ const ChatBox = ({
   isLoading,
   messagesEndRef,
 }) => {
-  const { isSidebarOpen, toggleSidebar } = useSidebar();
+  const { isSidebarOpen, setTypeForm } = useSidebar();
+
   return (
     <div
       className={`grow overflow-auto transition-all ${
@@ -39,7 +40,7 @@ const ChatBox = ({
                   </div>
                 </div>
                 <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
-                  <p className="text-sm font-normal">{item.value}</p>
+                  <p className="text-sm font-normal">{item.value[0]}</p>
                   {/* <span className="text-sm font-normal text-gray-500 dark:text-white-900">
                     send {format(item.date, "hh:mm:ss")}
                   </span> */}
@@ -75,13 +76,8 @@ const ChatBox = ({
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-sm font-normal py-2.5 text-black dark:text-white">
-                    {index != listMess.length - 1 && (
-                      // <div
-                      //   dangerouslySetInnerHTML={{
-                      //     __html: item.value.replace(/\n/g, "<br>"),
-                      //   }}
-                      // ></div>
+                  <div className="text-sm font-normal py-2.5 text-black">
+                    {/* {index != listMess.length - 1 && (
                       <span style={{ whiteSpace: "pre-line" }}>
                         {item.value}
                       </span>
@@ -99,11 +95,41 @@ const ChatBox = ({
                         speed={99}
                         style={{ whiteSpace: "pre-line" }}
                       />
-                    )}
+                    )} */}
+                    {item.value.map((value, index) => {
+                      if (value.type == "string") {
+                        return (
+                          <span style={{ whiteSpace: "pre-line" }}>
+                            {value.content}
+                          </span>
+                        );
+                      } else if (value.type == "script") {
+                        if (value.json?.type == "CREATE_IP_ASSET") {
+                          return (
+                            <button
+                              onClick={() => setTypeForm(1)}
+                              className="w-auto px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex"
+                            >
+                              <span className="text-white text-xs font-normal font-pixel uppercase">
+                                {value.json?.type.replace(/_/g, " ")}
+                              </span>
+                            </button>
+                          );
+                        } else {
+                          return (
+                            <button
+                              onClick={() => setTypeForm(1)}
+                              className="w-auto px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex"
+                            >
+                              <span className="text-white text-xs font-normal font-pixel uppercase">
+                                {value.json?.type.replace(/_/g, " ")}
+                              </span>
+                            </button>
+                          );
+                        }
+                      }
+                    })}
                   </div>
-                  {/* <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                    received {format(item.date, "hh:mm:ss")}
-                  </span> */}
                 </div>
               </div>
             </div>
