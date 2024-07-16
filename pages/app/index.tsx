@@ -6,10 +6,10 @@ import { format } from "date-fns";
 import { useAccount } from "wagmi";
 import { IChat } from "@/models/chat";
 import BotReply from "@/serivces/bot-api";
-import genAVT from "@/utils";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
-
+import utils from "@/utils";
+import { useSidebar } from "@/provider/sidebar.provider";
 let intervalId;
 const Index: NextPageWithLayout = () => {
   const { address, isConnected } = useAccount();
@@ -18,17 +18,8 @@ const Index: NextPageWithLayout = () => {
   const [avatar, setAvatar] = useState<string>("");
   const [isLoading, setLoading] = useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const [openForm, setOpenForm] = useState<boolean>(false);
-  const [typeForm, setTypeForm] = useState<string>("");
+  const { isSidebarOpen, setTypeForm } = useSidebar();
 
-  const handleClick = (type) => {
-    if (type === typeForm) {
-      setOpenForm(!openForm);
-    } else {
-      setOpenForm(true);
-      setTypeForm(type);
-    }
-  };
   const userChat = (message) => {
     const chat: IChat = {
       from: address ?? "user",
@@ -49,14 +40,29 @@ const Index: NextPageWithLayout = () => {
     setLoading(true);
 
     const res = await BotReply({ prompt: message, sessionId: address });
-    const reply: IChat = {
-      from: "bot",
-      value: res.completion,
-      date: new Date(),
-    };
+    if (res.completion) {
+      const { scriptContent, remainingHtml } = utils.extractScriptAndRemaining(
+        res.completion
+      );
+      if (scriptContent) {
+        const objForm = JSON.parse(scriptContent);
+        if (objForm && objForm?.create_ip_asset) {
+          switch (objForm.create_ip_asset) {
+            case "create_ip_asset":
+              setTypeForm(1);
+              break;
+          }
+        }
+      }
+      const reply: IChat = {
+        from: "bot",
+        value: remainingHtml,
+        date: new Date(),
+      };
 
-    setListMess((listMess) => [...listMess, reply]);
-    setLoading(false);
+      setListMess((listMess) => [...listMess, reply]);
+      setLoading(false);
+    }
   };
   useEffect(() => {
     if (listMess.length > 0) {
@@ -75,7 +81,7 @@ const Index: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (address) {
-      setAvatar(genAVT(address as string));
+      setAvatar(utils.genAVT(address as string));
     }
   }, [address]);
 
@@ -91,16 +97,9 @@ const Index: NextPageWithLayout = () => {
   };
   return (
     <div className="relative h-full flex flex-col pt-[118px] p-4">
-      <SideBarRight
-        openForm={openForm}
-        setOpenForm={setOpenForm}
-        typeForm={typeForm}
-      />
-      {listMess.length == 0 && (
-        <DefaultPage onClick={handleClick} openForm={openForm} />
-      )}
+      <SideBarRight />
+      {listMess.length == 0 && <DefaultPage />}
       <ChatBox
-        openForm={openForm}
         listMess={listMess}
         address={address}
         avatar={avatar}
@@ -112,7 +111,7 @@ const Index: NextPageWithLayout = () => {
 
       <div
         className={`w-full transition-all ${
-          openForm ? "pl-0 pr-[424px]" : "px-20"
+          isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
         }`}
       >
         <input

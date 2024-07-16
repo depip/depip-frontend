@@ -1,22 +1,23 @@
-import useSelectFormType from "@/hooks/useSelectFormType";
-import genAVT from "@/utils";
+import { useSidebar } from "@/provider/sidebar.provider";
+import utils from "@/utils";
 import { FC, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
-const DefaultPage = ({ onClick, openForm }) => {
-  const { address, isConnected } = useAccount();
+const DefaultPage = () => {
+  const { address } = useAccount();
   const [avatar, setAvatar] = useState<string>("");
+  const { isSidebarOpen, setTypeForm } = useSidebar();
 
   useEffect(() => {
     if (address) {
-      setAvatar(genAVT(address as string));
+      setAvatar(utils.genAVT(address as string));
     }
   }, [address]);
 
   return (
     <div
       className={`w-full flex-col justify-start items-start gap-12 inline-flex transition-all ${
-        openForm ? ("pl-0 pr-[424px]") : "px-20"
+        isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
       }`}
     >
       <div className="flex-col justify-start items-start gap-6 flex">
@@ -49,7 +50,9 @@ const DefaultPage = ({ onClick, openForm }) => {
         </div>
         <div className="justify-start items-start gap-3 inline-flex w-full">
           <div
-            onClick={() => onClick("Register IP asset")}
+            onClick={() => {
+              setTypeForm(1);
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -78,7 +81,9 @@ const DefaultPage = ({ onClick, openForm }) => {
             </div>
           </div>
           <div
-            onClick={() => onClick("Register license")}
+            onClick={() => {
+              setTypeForm(2);
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -107,7 +112,9 @@ const DefaultPage = ({ onClick, openForm }) => {
             </div>
           </div>
           <div
-            onClick={() => onClick("Mint NFT")}
+            onClick={() => {
+              setTypeForm(3);
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -136,7 +143,9 @@ const DefaultPage = ({ onClick, openForm }) => {
             </div>
           </div>
           <div
-            onClick={() => onClick("My Asset")}
+            onClick={() => {
+              setTypeForm(4);
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">

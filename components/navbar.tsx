@@ -13,7 +13,7 @@ const Navnar = ({ onClick }) => {
 
   return (
     <>
-      <nav className="fixed z-30 top-0 left-0 w-screen bg-stone-50">
+      <nav className="fixed z-30 top-0 left-0 w-screen bg-white">
         <div className="flex flex-wrap justify-between items-center p-6">
           <div onClick={onClick} className="flex items-center">
             <svg

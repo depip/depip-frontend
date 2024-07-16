@@ -1,6 +1,6 @@
-import { minidenticon } from 'minidenticons'
+import { minidenticon } from "minidenticons";
 
-export default function genAVT(adress: string) {
+const genAVT = (adress: string) => {
   if (adress && adress?.length > 5) {
     const key = adress.slice(adress.length - 5, adress.length);
     return (
@@ -12,4 +12,32 @@ export default function genAVT(adress: string) {
       encodeURIComponent(minidenticon("default", 80, 80))
     );
   }
+};
+
+function extractScriptAndRemaining(htmlString) {
+  const scriptStart = htmlString.indexOf("<script");
+  const scriptEnd = htmlString.indexOf("</script>") + "</script>".length;
+
+  if (scriptStart === -1 || scriptEnd === -1) {
+    return {
+      scriptContent: "",
+      remainingHtml: htmlString,
+    };
+  }
+
+  const scriptContent = htmlString.substring(scriptStart, scriptEnd);
+  const cleanScriptContent = scriptContent.replace(
+    /<script[^>]*>|<\/script>/gi,
+    ""
+  );
+
+  const remainingHtml =
+    htmlString.substring(0, scriptStart) + htmlString.substring(scriptEnd);
+
+  return {
+    scriptContent: cleanScriptContent,
+    remainingHtml,
+  };
 }
+
+export default { genAVT, extractScriptAndRemaining };

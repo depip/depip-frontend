@@ -1,9 +1,12 @@
+import { useSidebar } from "@/provider/sidebar.provider";
+
 const SideBar = ({ isOpen, setIsOpen }) => {
+  const { isSidebarOpen, setTypeForm } = useSidebar();
   return (
     <>
       <aside
         id="default-sidebar"
-        className={`fixed top-0 left-0 z-40 w-[360px] h-screen p-6 transition-all bg-stone-50 ${
+        className={`fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-stone-50 ${
           isOpen ? "left-0" : "-left-[360px]"
         }`}
         aria-label="Sidebar"
@@ -61,7 +64,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 Get started
               </div>
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
-                <div className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
+                <div
+                  className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  onClick={() => setTypeForm(1)}
+                >
                   <div className="w-4 h-4 relative">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +91,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </div>
                   </div>
                 </div>
-                <div className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
+                <div
+                  className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  onClick={() => setTypeForm(2)}
+                >
                   <div className="w-4 h-4 relative">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +118,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </div>
                   </div>
                 </div>
-                <div className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
+                <div
+                  className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  onClick={() => setTypeForm(3)}
+                >
                   <div className="w-4 h-4 relative">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +145,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </div>
                   </div>
                 </div>
-                <div className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex">
+                <div
+                  className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  onClick={() => setTypeForm(4)}
+                >
                   <div className="w-4 h-4 relative">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +175,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
             <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
-              <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
+              {/* <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Recent
               </div>
               <div className="self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex-col justify-start items-start flex">
@@ -266,7 +281,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="grow"></div>

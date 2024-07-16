@@ -10,7 +10,8 @@ import "../styles/globals.scss";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import localFont from "next/font/local";
 import logoDepip from "@/assets/images/logo-depip.svg";
-import genAVT from "@/utils";
+import utils from "@/utils";
+import { SidebarProvider } from "@/provider/sidebar.provider";
 
 export const GeistSans = localFont({
   src: "../assets/fonts/geist-sans/Geist-Variable.woff2",
@@ -37,7 +38,7 @@ export const PixelOperator = localFont({
 });
 
 const CustomAvatar: AvatarComponent = ({ address, size }) => {
-  const avatar = genAVT(address);
+  const avatar = utils.genAVT(address);
   return (
     <img
       src={avatar}
@@ -64,11 +65,13 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider modalSize="compact" avatar={CustomAvatar}>
-            <div
-              className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-stone-50`}
-            >
-              {getLayout(<Component {...pageProps} />)}
-            </div>
+            <SidebarProvider>
+              <div
+                className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-stone-50`}
+              >
+                {getLayout(<Component {...pageProps} />)}
+              </div>
+            </SidebarProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

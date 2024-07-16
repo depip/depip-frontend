@@ -1,13 +1,16 @@
-const FormCreateIPAsset = ({ typeForm, setOpenForm }) => {
+import { useSidebar } from "@/provider/sidebar.provider";
+
+const FormMintNFT = () => {
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-zinc-900 text-xs font-normal font-pixel uppercase tracking-tight">
-          {typeForm}
+          Mint NFT
         </div>
         <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
-          onClick={() => setOpenForm(false)}
+          onClick={() => toggleSidebar()}
         >
           <div className="w-6 h-6 relative">
             <svg
@@ -85,7 +88,7 @@ const FormCreateIPAsset = ({ typeForm, setOpenForm }) => {
         <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
           <div className="rounded-lg flex-col justify-center items-start inline-flex">
             <button
-              onClick={() => setOpenForm(false)}
+              onClick={() => toggleSidebar}
               className="self-stretch text-zinc-900 text-xs font-normal font-pixel uppercase leading-[18px]"
             >
               Cancel
@@ -103,4 +106,4 @@ const FormCreateIPAsset = ({ typeForm, setOpenForm }) => {
     </div>
   );
 };
-export default FormCreateIPAsset;
+export default FormMintNFT;
