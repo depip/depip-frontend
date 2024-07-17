@@ -1,6 +1,6 @@
 const BotReply = async (params: {
   prompt: string;
-  sessionId: `0x${string}` | undefined;
+  sessionId: string;
 }) => {
   try {
     const res = await fetch(

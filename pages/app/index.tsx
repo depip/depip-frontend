@@ -20,7 +20,7 @@ const Index: NextPageWithLayout = () => {
   const [isLoading, setLoading] = useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLInputElement>(null);
   const { isSidebarOpen, setTypeForm } = useSidebar();
-  const { dataChat } = useChat();
+  const { dataChat, sessionId, setSessionId } = useChat();
 
   const userChat = (message) => {
     const chat: IChat = {
@@ -40,10 +40,10 @@ const Index: NextPageWithLayout = () => {
   const onBotReply = async (message) => {
     setLoading(true);
 
-    const res = await BotReply({ prompt: message, sessionId: address });
+    const res = await BotReply({ prompt: message, sessionId: sessionId });
     if (res.completion) {
       const chunks = utils.extractStringAndScripts(res.completion);
-      
+
       const reply: IChat = {
         from: "bot",
         value: chunks,
@@ -74,8 +74,16 @@ const Index: NextPageWithLayout = () => {
   }, [dataChat]);
 
   useEffect(() => {
+    if (sessionId) {
+      setListMess([]);
+    }
+  }, [sessionId]);
+
+  useEffect(() => {
     if (address) {
       setAvatar(utils.genAVT(address as string));
+      const date = new Date();
+      setSessionId(address + date.getTime());
     }
   }, [address]);
 

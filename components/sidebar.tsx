@@ -1,9 +1,17 @@
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
+import { useAccount } from "wagmi";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
-  const { setDataChat } = useChat();
+  const { address } = useAccount();
+  const { setDataChat, sessionId, setSessionId } = useChat();
+  const newSessionId = () => {
+    if (address) {
+      const date = new Date();
+      setSessionId(address + date.getTime());
+    }
+  };
   return (
     <>
       <aside
@@ -36,7 +44,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
           <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
-            <div className="w-auto h-10 px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex">
+            <div
+              onClick={() => newSessionId()}
+              className="w-auto h-10 px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex"
+            >
               <div className="rounded-lg justify-center items-center flex">
                 <div className="w-4 h-4 relative">
                   <svg
