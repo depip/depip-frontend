@@ -1,12 +1,34 @@
+import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
+import api from "@/serivces/form-api";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const FormAttachPilTerm = () => {
-  const { isSidebarOpen, toggleSidebar } = useSidebar();
+  const { toggleSidebar } = useSidebar();
+  const { setDataChat } = useChat();
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const res = await api.registerIpAsset(data);
+    if (res) {
+      toggleSidebar();
+
+      setDataChat(JSON.stringify(res));
+    }
+
+    setLoading(false);
+  };
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
-        <div className="opacity-80 text-zinc-900 text-xs font-normal font-pixel uppercase tracking-tight">
-          My Asset
+        <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
+          Register IP Asset
         </div>
         <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
@@ -31,62 +53,80 @@ const FormAttachPilTerm = () => {
           </div>
         </div>
       </div>
-      <div className="self-stretch h-[284px] flex-col justify-start items-start gap-4 flex">
-        <div className="self-stretch h-[84px] flex-col justify-start items-start gap-2 flex">
-          <div className="self-stretch text-zinc-900/80 text-sm font-semibold font-geist leading-tight">
-            License term
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full flex flex-col gap-4"
+      >
+        <div className="flex-col justify-start items-start gap-4 flex">
+          <div className="self-stretch flex-col justify-start items-start gap-2 flex">
+            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
+              License Terms Id
+            </div>
+            <div className="w-full flex flex-col gap-1">
+              <input
+                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
+                  errors.termId
+                    ? "border-red-500"
+                    : "border-zinc-900/10"
+                } `}
+                placeholder="Enter License Terms Id"
+                id="termId"
+                type="text"
+                {...register("termId", { required: true })}
+              />
+              {errors.termId && (
+                <p className=" text-sm text-red-600 dark:text-red-500">
+                  License Terms Id Address is required
+                </p>
+              )}
+            </div>
           </div>
-          <div className="self-stretch  overflow-hidden rounded-lg border border-zinc-900/10 justify-between items-center inline-flex bg-white">
-            <input
-              className="text-zinc-900/40 text-base font-medium font-geist leading-normal  p-4"
-              placeholder="Choose a license term"
-            />
-
-          
-          </div>
-        </div>
-        <div className="self-stretch h-[84px] flex-col justify-start items-start gap-2 flex">
-          <div className="self-stretch text-zinc-900/80 text-sm font-semibold font-geist leading-tight">
-            Metadata 1
-          </div>
-          <div className="self-stretch overflow-hidden rounded-lg border border-zinc-900/10 justify-start items-start gap-4 inline-flex">
-            <input
-              className="text-zinc-900/40 text-base font-medium font-geist leading-normal p-4 w-full"
-              placeholder="Enter metadata"
-            />
-          </div>
-        </div>
-        <div className="self-stretch h-[84px] flex-col justify-start items-start gap-2 flex">
-          <div className="self-stretch text-zinc-900/80 text-sm font-semibold font-geist leading-tight">
-            Metadata 2
-          </div>
-          <div className="self-stretch overflow-hidden rounded-lg border border-zinc-900/10 justify-start items-start gap-4 inline-flex">
-            <input
-              className="text-zinc-900/40 text-base font-medium font-geist leading-normal p-4 w-full"
-              placeholder="Enter metadata"
-            />
-          </div>
-        </div>
-      </div>
-      <div className="self-stretch justify-end items-start gap-2 inline-flex">
-        <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
-          <div className="rounded-lg flex-col justify-center items-start inline-flex">
-            <button
-              onClick={() => toggleSidebar}
-              className="self-stretch text-zinc-900 text-xs font-normal font-pixel uppercase leading-[18px]"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-        <div className="px-6 py-3 rounded-[80px] bg-gradient-to-br from-gray-600  to-black border border-white justify-center items-center gap-2 flex">
-          <div className="rounded-lg flex-col justify-center items-start inline-flex">
-            <button className="self-stretch text-white text-xs font-normal font-pixel uppercase leading-[18px]">
-              Submit
-            </button>
+          <div className="self-stretch flex-col justify-start items-start gap-2 flex">
+            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
+              ipId
+            </div>
+            <div className="w-full flex flex-col gap-1">
+              <input
+                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
+                  errors.ipId ? "border-red-500" : "border-zinc-900/10"
+                } `}
+                placeholder="Enter ipId"
+                type="text"
+                id="ipId"
+                {...register("ipId", { required: true })}
+              />
+              {errors.tokenId && (
+                <p className="text-sm text-red-600 dark:text-red-500">
+                  ipId is required
+                </p>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+        <div className="self-stretch justify-end items-start gap-2 inline-flex">
+          <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
+            <div className="rounded-lg flex-col justify-center items-start inline-flex">
+              <button
+                onClick={() => toggleSidebar()}
+                className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div className="px-6 py-3 rounded-[80px] bg-gradient-to-br from-gray-600  to-black border border-white justify-center items-center gap-2 flex">
+            <div className="rounded-lg flex-col justify-center items-start inline-flex">
+              <button
+                type="submit"
+                className="self-stretch text-white text-xs font-light font-pixel uppercase leading-[18px]"
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading..." : "Submit"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

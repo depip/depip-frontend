@@ -7,6 +7,7 @@ import FormMintLicenseToken from "../form/mint-license-token";
 
 const SideBarRight = () => {
   const { isSidebarOpen, type } = useSidebar();
+  console.log(type);
   return (
     <>
       <aside
@@ -16,14 +17,20 @@ const SideBarRight = () => {
         }`}
         aria-label="Sidebar"
       >
-        {type == "CREATE_IP_ASSET" && (
+        {(type.toLowerCase() == "create_ip_asset" ||
+          type == "createIpAsset") && (
           <FormRegisterIPAsset></FormRegisterIPAsset>
         )}
-        {type == "REGISTER_PIL_TERM" && (
+        {(type.toLowerCase() == "register_pil_term" ||
+          type == "registerPilTerm") && (
           <FormRegisterPilTerm></FormRegisterPilTerm>
         )}
-        {type == "ATTACH_PIL_TERM" && <FormAttachPilTerm></FormAttachPilTerm>}
-        {type == "MINT_LICENSE_TOKEN" && (
+        {(type.toLowerCase() == "attach_pil_term" ||
+          type == "attachPilTermToIpAsset") && (
+          <FormAttachPilTerm></FormAttachPilTerm>
+        )}
+        {(type.toLowerCase() == "mint_license_token" ||
+          type == "mintLicenseToken") && (
           <FormMintLicenseToken></FormMintLicenseToken>
         )}
       </aside>

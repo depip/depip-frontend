@@ -1,9 +1,12 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import api from "@/serivces/form-api";
+import { useChat } from "@/provider/chat.provider";
 
 const FormRegisterPilTerm = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
+  const { setDataChat } = useChat();
   const {
     handleSubmit,
     control,
@@ -13,9 +16,14 @@ const FormRegisterPilTerm = () => {
   } = useForm();
   const selectedType = watch("type", 1);
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission logic here
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const res = await api.licenceseTerms(data);
+    if (res) {
+      toggleSidebar();
+      setDataChat(JSON.stringify(res));
+    }
+    setLoading(false);
   };
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -70,9 +78,13 @@ const FormRegisterPilTerm = () => {
                     text-gray-800 text-base font-light font-geist leading-normal
                      border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
                   >
-                    <option value="1">Commercial Use License</option>
-                    <option value="2">Commercial Remix License</option>
-                    <option value="3">
+                    <option value="COMMERCIAL_USE">
+                      Commercial Use License
+                    </option>
+                    <option value="COMMERCIAL_REMIX">
+                      Commercial Remix License
+                    </option>
+                    <option value="NON_COMMERCIAL_REMIX">
                       Non-Commercial Social Remixing License
                     </option>
                   </select>
@@ -85,7 +97,8 @@ const FormRegisterPilTerm = () => {
               )}
             </div>
           </div>
-          {selectedType === "1" && (
+          {(selectedType == "COMMERCIAL_USE" ||
+            selectedType == "COMMERCIAL_REMIX") && (
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
@@ -119,7 +132,7 @@ const FormRegisterPilTerm = () => {
                         ? "border-red-500"
                         : "border-zinc-900/10"
                     } `}
-                    placeholder="Enter Currency"
+                    placeholder="Enter Minting Fee"
                     type="number"
                     id="mintingFee"
                     {...register("mintingFee", { required: true })}
@@ -133,7 +146,7 @@ const FormRegisterPilTerm = () => {
               </div>
             </>
           )}
-          {selectedType === "2" && (
+          {selectedType === "COMMERCIAL_REMIX" && (
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">

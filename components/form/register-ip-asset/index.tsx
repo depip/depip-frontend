@@ -1,6 +1,6 @@
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
-import registerIpAsset from "@/serivces/form-api";
+import api from "@/serivces/form-api";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -15,13 +15,11 @@ const FormRegisterIPAsset = () => {
   } = useForm();
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await registerIpAsset(data);
+    const res = await api.registerIpAsset(data);
     if (res) {
       toggleSidebar();
-
       setDataChat(JSON.stringify(res));
     }
-
     setLoading(false);
   };
   return (

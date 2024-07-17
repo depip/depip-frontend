@@ -111,7 +111,7 @@ const ChatBox = ({
                             className="w-auto px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex my-4"
                           >
                             <span className="text-white text-xs font-normal font-pixel uppercase">
-                              {value.json?.type.replace(/_/g, " ")}
+                              {value.json?.type?.replace(/_/g, " ") || value.json?.type}
                             </span>
                           </button>
                         );
