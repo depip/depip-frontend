@@ -1,15 +1,15 @@
 import React, { createContext, useState, useContext } from "react";
 
 const SidebarContext = createContext({
-  type: 1,
-  isSidebarOpen: true,
+  type: '',
+  isSidebarOpen: false,
   toggleSidebar: () => {},
   setTypeForm: (newtype) => {},
 });
 
 export const SidebarProvider = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [type, setType] = useState(1);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [type, setType] = useState('CREATE_IP_ASSET');
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

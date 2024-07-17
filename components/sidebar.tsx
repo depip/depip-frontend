@@ -68,7 +68,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Register IP asset")}
+                  onClick={() => setDataChat("CREATE IP ASSET")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -89,13 +89,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Register IP asset
+                      CREATE IP ASSET
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setTypeForm(2)}
+                  onClick={() => setDataChat("REGISTER PIL TERM")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -116,13 +116,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Register license
+                      REGISTER PIL TERM
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setTypeForm(3)}
+                  onClick={() => setDataChat("ATTACH PIL TERM")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -143,13 +143,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Mint NFT
+                      ATTACH PIL TERM
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setTypeForm(4)}
+                  onClick={() => setDataChat("MINT LICENSE TOKEN")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -170,7 +170,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      My Asset
+                      MINT LICENSE TOKEN
                     </div>
                   </div>
                 </div>

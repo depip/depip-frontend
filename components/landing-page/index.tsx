@@ -15,8 +15,8 @@ const LandingPage = () => {
         <IpAssets></IpAssets>
         <SharingEconomy></SharingEconomy>
         <AIPowered></AIPowered>
-        <OurApplications></OurApplications>
-        <Honored></Honored>
+        {/* <OurApplications></OurApplications>
+        <Honored></Honored> */}
         <Subscribe></Subscribe>
         <Footer />
       </div>

@@ -15,7 +15,7 @@ const BotReply = async (params: {
     return data;
   } catch (error) {
     console.error("Error retrieving data:", error);
-    throw new Error("Could not get data");
+    return ("something when wrong please try again");
   }
 };
 

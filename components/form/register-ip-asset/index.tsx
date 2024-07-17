@@ -18,7 +18,8 @@ const FormRegisterIPAsset = () => {
     const res = await registerIpAsset(data);
     if (res) {
       toggleSidebar();
-      setDataChat(res);
+
+      setDataChat(JSON.stringify(res));
     }
 
     setLoading(false);
@@ -26,7 +27,7 @@ const FormRegisterIPAsset = () => {
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
-        <div className="opacity-80 text-zinc-900 text-xs font-normal font-pixel uppercase tracking-tight">
+        <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
           Register IP Asset
         </div>
         <div
@@ -58,12 +59,12 @@ const FormRegisterIPAsset = () => {
       >
         <div className="flex-col justify-start items-start gap-4 flex">
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
-            <div className="self-stretch text-zinc-900/80 text-sm font-semibold font-geist leading-tight">
+            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
               NFT Address
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
-                className={`rounded-lg border text-zinc-900/40 text-base font-medium font-geist leading-normal p-4 w-full ${
+                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.nftAddress ? "border-red-500" : "border-zinc-900/10"
                 } `}
                 placeholder="Enter NFT Address"
@@ -79,12 +80,12 @@ const FormRegisterIPAsset = () => {
             </div>
           </div>
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
-            <div className="self-stretch text-zinc-900/80 text-sm font-semibold font-geist leading-tight">
+            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
               Token Id
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
-                className={`rounded-lg border text-zinc-900/40 text-base font-medium font-geist leading-normal p-4 w-full ${
+                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.tokenId ? "border-red-500" : "border-zinc-900/10"
                 } `}
                 placeholder="Enter Token Id"
@@ -105,7 +106,7 @@ const FormRegisterIPAsset = () => {
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
                 onClick={() => toggleSidebar()}
-                className="self-stretch text-zinc-900 text-xs font-normal font-pixel uppercase leading-[18px]"
+                className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >
                 Cancel
               </button>
@@ -115,7 +116,7 @@ const FormRegisterIPAsset = () => {
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
                 type="submit"
-                className="self-stretch text-white text-xs font-normal font-pixel uppercase leading-[18px]"
+                className="self-stretch text-white text-xs font-light font-pixel uppercase leading-[18px]"
                 disabled={isLoading}
               >
                 {isLoading ? "Loading..." : "Submit"}

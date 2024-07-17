@@ -1,12 +1,12 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 
-const FormMintNFT = () => {
+const FormAttachPilTerm = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-zinc-900 text-xs font-normal font-pixel uppercase tracking-tight">
-          Mint NFT
+          My Asset
         </div>
         <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
@@ -42,23 +42,7 @@ const FormMintNFT = () => {
               placeholder="Choose a license term"
             />
 
-            <div className="w-5 h-5 relative mr-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M5.83366 6.66663H4.16699V8.33329H5.83366V9.99996H7.50033V11.6666H9.16699V13.3333H10.8337V11.6666H12.5003V9.99996H14.167L14.167 8.33329H15.8337V6.66663H14.167V8.33329H12.5003V9.99996H10.8337V11.6666H9.16699V9.99996H7.50033V8.33329H5.83366V6.66663Z"
-                  fill="#1C1C1C"
-                  fill-opacity="0.8"
-                />
-              </svg>
-            </div>
+          
           </div>
         </div>
         <div className="self-stretch h-[84px] flex-col justify-start items-start gap-2 flex">
@@ -106,4 +90,4 @@ const FormMintNFT = () => {
     </div>
   );
 };
-export default FormMintNFT;
+export default FormAttachPilTerm;

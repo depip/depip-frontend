@@ -104,29 +104,17 @@ const ChatBox = ({
                           </span>
                         );
                       } else if (value.type == "script") {
-                        if (value.json?.type == "CREATE_IP_ASSET") {
-                          return (
-                            <button
-                              onClick={() => setTypeForm(1)}
-                              className="w-auto px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex"
-                            >
-                              <span className="text-white text-xs font-normal font-pixel uppercase">
-                                {value.json?.type.replace(/_/g, " ")}
-                              </span>
-                            </button>
-                          );
-                        } else {
-                          return (
-                            <button
-                              onClick={() => setTypeForm(1)}
-                              className="w-auto px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex"
-                            >
-                              <span className="text-white text-xs font-normal font-pixel uppercase">
-                                {value.json?.type.replace(/_/g, " ")}
-                              </span>
-                            </button>
-                          );
-                        }
+                        // if (value.json?.type == "CREATE_IP_ASSET")
+                        return (
+                          <button
+                            onClick={() => setTypeForm(value.json?.type)}
+                            className="w-auto px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex my-4"
+                          >
+                            <span className="text-white text-xs font-normal font-pixel uppercase">
+                              {value.json?.type.replace(/_/g, " ")}
+                            </span>
+                          </button>
+                        );
                       }
                     })}
                   </div>

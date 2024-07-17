@@ -1,9 +1,9 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { useSidebar } from "@/provider/sidebar.provider";
-import FormRegisterLicense from "../form/register-license";
-import FormMintNFT from "../form/mint-nft";
-import FormMyAsset from "../form/my-asset";
 import FormRegisterIPAsset from "../form/register-ip-asset";
+import FormRegisterPilTerm from "../form/register-pil-term";
+import FormAttachPilTerm from "../form/attach-pil-term";
+import FormMintLicenseToken from "../form/mint-license-token";
 
 const SideBarRight = () => {
   const { isSidebarOpen, type } = useSidebar();
@@ -16,10 +16,16 @@ const SideBarRight = () => {
         }`}
         aria-label="Sidebar"
       >
-        {type == 1 && <FormRegisterIPAsset></FormRegisterIPAsset>}
-        {type == 2 && <FormRegisterLicense></FormRegisterLicense>}
-        {type == 3 && <FormMintNFT></FormMintNFT>}
-        {type == 4 && <FormMyAsset></FormMyAsset>}
+        {type == "CREATE_IP_ASSET" && (
+          <FormRegisterIPAsset></FormRegisterIPAsset>
+        )}
+        {type == "REGISTER_PIL_TERM" && (
+          <FormRegisterPilTerm></FormRegisterPilTerm>
+        )}
+        {type == "ATTACH_PIL_TERM" && <FormAttachPilTerm></FormAttachPilTerm>}
+        {type == "MINT_LICENSE_TOKEN" && (
+          <FormMintLicenseToken></FormMintLicenseToken>
+        )}
       </aside>
     </>
   );

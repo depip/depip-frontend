@@ -1,3 +1,4 @@
+import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import utils from "@/utils";
 import { FC, useEffect, useState } from "react";
@@ -7,6 +8,7 @@ const DefaultPage = () => {
   const { address } = useAccount();
   const [avatar, setAvatar] = useState<string>("");
   const { isSidebarOpen, setTypeForm } = useSidebar();
+  const { setDataChat } = useChat();
 
   useEffect(() => {
     if (address) {
@@ -50,9 +52,7 @@ const DefaultPage = () => {
         </div>
         <div className="justify-start items-start gap-3 inline-flex w-full">
           <div
-            onClick={() => {
-              setTypeForm(1);
-            }}
+            onClick={() => setDataChat("CREATE IP ASSET")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -76,14 +76,12 @@ const DefaultPage = () => {
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                Register IP asset
+                CREATE IP ASSET
               </div>
             </div>
           </div>
           <div
-            onClick={() => {
-              setTypeForm(2);
-            }}
+            onClick={() => setDataChat("REGISTER PIL TERM")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -107,14 +105,12 @@ const DefaultPage = () => {
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                Register license
+                REGISTER PIL TERM
               </div>
             </div>
           </div>
           <div
-            onClick={() => {
-              setTypeForm(3);
-            }}
+            onClick={() => setDataChat("ATTACH PIL TERM")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -138,14 +134,12 @@ const DefaultPage = () => {
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                Mint NFT
+                ATTACH PIL TERM
               </div>
             </div>
           </div>
           <div
-            onClick={() => {
-              setTypeForm(4);
-            }}
+            onClick={() => setDataChat("MINT LICENSE TOKEN")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -169,7 +163,7 @@ const DefaultPage = () => {
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                My Asset
+                MINT LICENSE TOKEN
               </div>
             </div>
           </div>
