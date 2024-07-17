@@ -14,7 +14,7 @@ const FormRegisterPilTerm = () => {
     register,
     formState: { errors },
   } = useForm();
-  const selectedType = watch("type", 1);
+  const selectedType = watch("type", "COMMERCIAL_USE");
 
   const onSubmit = async (data) => {
     setLoading(true);
