@@ -33,7 +33,7 @@ export const RetroComputer = localFont({
 });
 
 export const PixelOperator = localFont({
-  src: "../assets/fonts/Pixel_Operator/PixelOperator8.woff",
+  src: "../assets/fonts/Pixel_Operator/PixelOperator8.ttf",
   variable: "--font-pixel-operator",
   weight: "100 900",
 });
@@ -69,7 +69,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <SidebarProvider>
               <ChatProvider>
                 <div
-                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-stone-50`}
+                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-[#FAF9EF]`}
                 >
                   {getLayout(<Component {...pageProps} />)}
                 </div>

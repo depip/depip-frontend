@@ -12,7 +12,7 @@ const SideBarRight = () => {
     <>
       <aside
         id="right-sidebar"
-        className={`fixed top-[88px z-40 w-[424px] h-screen p-6 transition-all bg-stone-50 ${
+        className={`fixed top-[88px z-40 w-[424px] h-screen p-6 transition-all bg-[#FAF9EF] ${
           isSidebarOpen ? "right-0" : "-right-[424px]"
         }`}
         aria-label="Sidebar"

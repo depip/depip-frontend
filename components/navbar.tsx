@@ -1,9 +1,10 @@
 import Link from "next/link";
-import ConnectButtonC from "./connect-button";
+import ConnectButtonCustom from "./connect-button";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import logoDepip from "@/assets/images/logo-depip.svg";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Navnar = ({ onClick }) => {
   const { theme, setTheme } = useTheme();
@@ -13,7 +14,7 @@ const Navnar = ({ onClick }) => {
 
   return (
     <>
-      <nav className="fixed z-30 top-0 left-0 w-screen bg-white">
+      <nav className="fixed z-30 top-0 left-0 w-screen">
         <div className="flex flex-wrap justify-between items-center p-6">
           <div onClick={onClick} className="flex items-center">
             <svg
@@ -34,7 +35,7 @@ const Navnar = ({ onClick }) => {
           <div className="hidden lg:flex lg:items-center"></div>
           <div className="flex items-center"></div>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
-            <ConnectButtonC></ConnectButtonC>
+            <ConnectButton></ConnectButton>
           </div>
         </div>
       </nav>

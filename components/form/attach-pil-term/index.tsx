@@ -1,3 +1,4 @@
+import Button from "@/components/button";
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
@@ -65,9 +66,7 @@ const FormAttachPilTerm = () => {
             <div className="w-full flex flex-col gap-1">
               <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
-                  errors.termId
-                    ? "border-red-500"
-                    : "border-zinc-900/10"
+                  errors.termId ? "border-red-500" : "border-zinc-900/10"
                 } `}
                 placeholder="Enter License Terms Id"
                 id="termId"
@@ -114,17 +113,9 @@ const FormAttachPilTerm = () => {
               </button>
             </div>
           </div>
-          <div className="px-6 py-3 rounded-[80px] bg-gradient-to-br from-gray-600  to-black border border-white justify-center items-center gap-2 flex">
-            <div className="rounded-lg flex-col justify-center items-start inline-flex">
-              <button
-                type="submit"
-                className="self-stretch text-white text-xs font-light font-pixel uppercase leading-[18px]"
-                disabled={isLoading}
-              >
-                {isLoading ? "Loading..." : "Submit"}
-              </button>
-            </div>
-          </div>
+          <Button type="submit" disabled={isLoading} className="px-6 py-3">
+            {isLoading ? "Loading..." : "Submit"}
+          </Button>
         </div>
       </form>
     </div>

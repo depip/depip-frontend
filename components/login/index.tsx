@@ -1,9 +1,10 @@
-import ConnectButtonC from "../connect-button";
+import ConnectButtonCustom from "../connect-button";
 import Link from "next/link";
 
 const Login = () => {
   return (
-    <div className="w-screen] h-screen relative bg-stone-50 flex items-center justify-center">
+    <div className="w-screen] h-screen relative bg-[#FAF9EF] flex items-center justify-center">
+      <div className="bg-[url('../assets/images/app-bg-2.png')] absolute top-0 left-0 w-full h-[105px]"></div>
       <div className="flex flex-col gap-60">
         <div className="flex-col justify-start items-center gap-14 inline-flex">
           <svg
@@ -24,11 +25,11 @@ const Login = () => {
             <div className="text-center text-black text-5xl font-bold font-['Cabinet Grotesk Variable'] leading-[52.80px]">
               Welcome to DePIP studio
             </div>
-            <div className="text-center text-zinc-900/opacity-40 text-xl font-normal font-['Geist Variable'] leading-7">
+            <div className="text-center text-gray-400 text-xl font-normal font-['Geist Variable'] leading-7">
               Connect your wallet to exprience
             </div>
           </div>
-          <ConnectButtonC />
+          <ConnectButtonCustom />
         </div>
         <div className="flex-col justify-start items-center gap-8 inline-flex">
           <div className="flex items-center">
@@ -79,23 +80,24 @@ const Login = () => {
             </Link>
           </div>
           <div className="self-stretch h-[54px] flex-col justify-start items-center gap-1.5 flex">
-            <div className="text-zinc-900/opacity-40 text-base font-medium font-['Inter'] leading-normal">
+            <div className="text-gray-400 text-base font-medium font-['Inter'] leading-normal">
               DePIP Studio 2024. All rights reserved.
             </div>
             <div className="justify-start items-start gap-2 inline-flex">
-              <div className="text-zinc-900/opacity-40 text-base font-medium font-['Inter'] leading-normal">
+              <div className="text-gray-400 text-base font-medium font-['Inter'] leading-normal">
                 Discover
               </div>
-              <div className="text-zinc-900/opacity-40 text-base font-medium font-['Inter'] leading-normal">
+              <div className="text-gray-400 text-base font-medium font-['Inter'] leading-normal">
                 ·‎
               </div>
-              <div className="text-zinc-900/opacity-40 text-base font-medium font-['Inter'] leading-normal">
+              <div className="text-gray-400 text-base font-medium font-['Inter'] leading-normal">
                 Privacy
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div className="bg-[url('../assets/images/app-bg.png')] absolute bottom-0 left-0 w-full h-[100px] opacity-10"></div>
     </div>
   );
 };

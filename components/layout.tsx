@@ -17,7 +17,7 @@ const Layout: FC<Props> = ({ children }) => {
         <>
           <Navbar onClick={() => setIsOpen(true)} />
           <SideBar isOpen={isOpen} setIsOpen={setIsOpen}/>
-          <div className="lg:ml-[360px] h-screen bg-stone-50">
+          <div className="lg:ml-[360px] h-screen bg-[#FAF9EF]">
             <main className="h-full">{children}</main>
           </div>
         </>

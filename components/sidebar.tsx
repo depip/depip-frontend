@@ -1,6 +1,7 @@
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useAccount } from "wagmi";
+import Button from "./button";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
@@ -16,7 +17,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     <>
       <aside
         id="default-sidebar"
-        className={`fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-stone-50 ${
+        className={`fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
           isOpen ? "left-0" : "-left-[360px]"
         }`}
         aria-label="Sidebar"
@@ -44,34 +45,28 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
           <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
-            <div
-              onClick={() => newSessionId()}
-              className="w-auto h-10 px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex"
-            >
-              <div className="rounded-lg justify-center items-center flex">
-                <div className="w-4 h-4 relative">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M7.33366 2.6665H8.66699V3.99984V7.33317H13.3337V8.6665H8.66699V11.9998V13.3332H7.33366V11.9998V8.6665H2.66699V7.33317H7.33366V3.99984V2.6665Z"
-                      fill="white"
-                    />
-                  </svg>
-                </div>
+            <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
+              <div className="w-4 h-4 relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.33366 2.6665H8.66699V3.99984V7.33317H13.3337V8.6665H8.66699V11.9998V13.3332H7.33366V11.9998V8.6665H2.66699V7.33317H7.33366V3.99984V2.6665Z"
+                    fill="white"
+                  />
+                </svg>
               </div>
-              <div className="rounded-lg flex-col justify-center items-start inline-flex">
-                <div className="self-stretch text-white text-xs font-normal font-pixel uppercase leading-[18px]">
-                  New chat
-                </div>
+
+              <div className="text-xs font-normal font-pixel uppercase leading-5">
+                New chat
               </div>
-            </div>
+            </Button>
             <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Get started
