@@ -1,6 +1,7 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import { format } from "date-fns";
 import { TypeAnimation } from "react-type-animation";
+import Button from "../button";
 
 const ChatBox = ({
   listMess,
@@ -15,7 +16,7 @@ const ChatBox = ({
 
   return (
     <div
-      className={`grow overflow-auto transition-all ${
+      className={`grow overflow-auto transition-all pt-2 ${
         isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
       }`}
     >
@@ -26,7 +27,7 @@ const ChatBox = ({
               <div className="flex flex-col items-end gap-4 mb-4">
                 <div className="flex gap-2">
                   <img
-                    className="w-6 h-6 rounded-full border border-gray-200"
+                    className="w-6 h-6 rounded-full"
                     src={avatar}
                     alt={address}
                   />
@@ -51,7 +52,7 @@ const ChatBox = ({
         } else if (item.from == "bot") {
           return (
             <div key={index}>
-              <div className="flex flex-col items-start gap-4 mb-4 ">
+              <div className="flex flex-col items-start gap-2 mb-4 ">
                 <div className="flex gap-2 items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +77,7 @@ const ChatBox = ({
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-sm font-normal py-2.5 text-black">
+                  <div className="text-sm font-normal text-black">
                     {/* {index != listMess.length - 1 && (
                       <span style={{ whiteSpace: "pre-line" }}>
                         {item.value}
@@ -106,14 +107,15 @@ const ChatBox = ({
                       } else if (value.type == "script") {
                         // if (value.json?.type == "CREATE_IP_ASSET")
                         return (
-                          <button
+                          <Button
                             onClick={() => setTypeForm(value.json?.type)}
-                            className="w-auto px-5 py-2 bg-gradient-to-br from-gray-600  to-black rounded-[80px] border border-white justify-center items-center gap-2 inline-flex my-4"
+                            className="px-5 py-2"
                           >
                             <span className="text-white text-xs font-normal font-pixel uppercase">
-                              {value.json?.type?.replace(/_/g, " ") || value.json?.type}
+                              {value.json?.type?.replace(/_/g, " ") ||
+                                value.json?.type}
                             </span>
-                          </button>
+                          </Button>
                         );
                       }
                     })}
@@ -134,7 +136,7 @@ const ChatBox = ({
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              className="min-w-8 min-h-8 rounded-full border border-gray-200"
+              className="min-w-6 min-h-6 w-6 h-6 rounded-full border border-gray-200"
             >
               <rect width="24" height="24" rx="12" fill="#111111" />
               <path

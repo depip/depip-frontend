@@ -17,7 +17,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     <>
       <aside
         id="default-sidebar"
-        className={`fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
+        className={`shadow-md fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
           isOpen ? "left-0" : "-left-[360px]"
         }`}
         aria-label="Sidebar"
@@ -74,7 +74,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("CREATE IP ASSET")}
+                  onClick={() => setDataChat("Create IP asset")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -95,13 +95,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      CREATE IP ASSET
+                      Create IP asset
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("REGISTER PIL TERM")}
+                  onClick={() => setDataChat("Register PIL Terms")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -122,13 +122,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      REGISTER PIL TERM
+                      Register PIL Terms
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("ATTACH PIL TERM")}
+                  onClick={() => setDataChat("Attach terms to an IP asset")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -149,13 +149,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      ATTACH PIL TERM
+                      Attach terms to an IP asset
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("MINT LICENSE TOKEN")}
+                  onClick={() => setDataChat("Mint a license token")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -176,7 +176,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      MINT LICENSE TOKEN
+                      Mint a license token
                     </div>
                   </div>
                 </div>
