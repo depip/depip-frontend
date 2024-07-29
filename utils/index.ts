@@ -1,4 +1,4 @@
-import { IRepplyContent } from "@/models/chat";
+import { IRepplyContent } from "@/models/interface.common";
 import { minidenticon } from "minidenticons";
 
 const genAVT = (adress: string) => {
