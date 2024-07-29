@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import api from "@/serivces/form-api";
 import { useChat } from "@/provider/chat.provider";
+import { PIL_TYPE } from "@/models/interface.common";
 
 const FormRegisterPilTerm = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
@@ -12,9 +13,11 @@ const FormRegisterPilTerm = () => {
     control,
     watch,
     register,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm();
-  const selectedType = watch("type", "COMMERCIAL_USE");
+  const selectedType: PIL_TYPE = watch("type", PIL_TYPE.COMMERCIAL_USE);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -25,6 +28,15 @@ const FormRegisterPilTerm = () => {
     }
     setLoading(false);
   };
+
+  const handleChange = () => {
+    const value = getValues();
+    Object.keys(value).forEach((key) => {
+      if (key === "type") return;
+      setValue(key, null);
+    });
+  };
+
   const [isLoading, setLoading] = useState<boolean>(false);
 
   return (
@@ -70,21 +82,25 @@ const FormRegisterPilTerm = () => {
                 name="type"
                 control={control}
                 rules={{ required: "Type is required" }}
-                defaultValue="1"
+                defaultValue={selectedType}
                 render={({ field }) => (
                   <select
                     {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleChange();
+                    }}
                     className="
                     text-gray-800 text-base font-light font-geist leading-normal
                      border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
                   >
-                    <option value="COMMERCIAL_USE">
+                    <option value={PIL_TYPE.COMMERCIAL_USE}>
                       Commercial Use License
                     </option>
-                    <option value="COMMERCIAL_REMIX">
+                    <option value={PIL_TYPE.COMMERCIAL_REMIX}>
                       Commercial Remix License
                     </option>
-                    <option value="NON_COMMERCIAL_REMIX">
+                    <option value={PIL_TYPE.NON_COMMERCIAL_REMIX}>
                       Non-Commercial Social Remixing License
                     </option>
                   </select>
@@ -97,8 +113,8 @@ const FormRegisterPilTerm = () => {
               )}
             </div>
           </div>
-          {(selectedType == "COMMERCIAL_USE" ||
-            selectedType == "COMMERCIAL_REMIX") && (
+          {(selectedType == PIL_TYPE.COMMERCIAL_USE ||
+            selectedType == PIL_TYPE.COMMERCIAL_REMIX) && (
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
@@ -146,7 +162,7 @@ const FormRegisterPilTerm = () => {
               </div>
             </>
           )}
-          {selectedType === "COMMERCIAL_REMIX" && (
+          {selectedType == PIL_TYPE.COMMERCIAL_REMIX && (
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">

@@ -1,3 +1,5 @@
+import { PIL_TYPE } from "@/models/interface.common";
+
 const registerIpAsset = async (params: {
   nftAddress: string;
   tokenId: string;
@@ -19,7 +21,7 @@ const registerIpAsset = async (params: {
 const licenceseTerms = async (params: {
   ipId: string;
   currency: string;
-  type: number;
+  type: PIL_TYPE;
   mintingFee: number;
 }) => {
   try {
@@ -80,4 +82,4 @@ const attackPILTerms = async (params: { ipId: string; termId: string }) => {
   }
 };
 
-export default { registerIpAsset, licenceseTerms, mintLicense };
+export default { registerIpAsset, licenceseTerms, mintLicense, attackPILTerms };

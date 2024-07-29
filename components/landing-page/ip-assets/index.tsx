@@ -1,9 +1,3 @@
-import Image from "next/image";
-import ipImg1 from "@/assets/images/ip-item-1.svg";
-import ipImg2 from "@/assets/images/ip-item-2.svg";
-import ipImg3 from "@/assets/images/ip-item-3.svg";
-import ipImg4 from "@/assets/images/ip-item-4.svg";
-
 const IpAssets = () => {
   return (
     <section className="bg-white py-[60px] lg:py-[120px] overflow-auto" id="section2">

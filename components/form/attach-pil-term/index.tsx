@@ -16,7 +16,7 @@ const FormAttachPilTerm = () => {
   } = useForm();
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await api.registerIpAsset(data);
+    const res = await api.attackPILTerms(data);
     if (res) {
       toggleSidebar();
 

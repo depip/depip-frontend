@@ -4,13 +4,13 @@ import { useEffect, useRef, useState, type ReactElement } from "react";
 import SideBarRight from "@/components/sidebar-right";
 import { format } from "date-fns";
 import { useAccount } from "wagmi";
-import { IChat } from "@/models/chat";
 import BotReply from "@/serivces/bot-api";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
 import utils from "@/utils";
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useChat } from "@/provider/chat.provider";
+import { IChat } from "@/models/interface.common";
 let intervalId;
 const Index: NextPageWithLayout = () => {
   const { address, isConnected } = useAccount();
