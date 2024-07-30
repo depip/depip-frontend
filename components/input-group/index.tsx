@@ -28,8 +28,16 @@ const InputGroup: React.FC<Props> = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage(event.target.files[0]);
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        console.log(reader.result);
+        setImage(reader.result);
+        userChat(event.target.value, reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
   const fileInputRef = useRef<HTMLInputElement>(null);

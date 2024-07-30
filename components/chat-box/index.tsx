@@ -7,50 +7,77 @@ const ChatBox = ({
   listMess,
   address,
   avatar,
-  scrollToBottom,
-  intervalId,
   isLoading,
   messagesEndRef,
 }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
-
+  console.log(listMess);
   return (
     <div
       className={`grow overflow-auto transition-all pt-2 ${
         isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
       }`}
     >
-      {listMess.map((item, index) => {
-        if (item.from == address ?? "user") {
-          return (
-            <div key={index}>
-              <div className="flex flex-col items-end gap-4 mb-4">
-                <div className="flex gap-2">
-                  <img
-                    className="w-6 h-6 rounded-full"
-                    src={avatar}
-                    alt={address}
-                  />
-                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                    <span className="text-sm font-semibold text-yellow-600 dark:text-yellow-300">
-                      {`${address?.substring(0, 6)} ... ${address?.substring(
-                        address.length - 6,
-                        address.length
-                      )}`}
-                    </span>
+      {listMess.map((item, index) => (
+        <>
+          {item.from == address && (
+            <>
+              {item.value[0]?.type == "image" ? (
+                <div key={index}>
+                  <div className="flex flex-col items-end gap-4 mb-4">
+                    <div className="flex gap-2">
+                      <img
+                        className="w-6 h-6 rounded-full"
+                        src={avatar}
+                        alt={address}
+                      />
+                      <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span className="text-sm font-semibold text-yellow-600 dark:text-yellow-300">
+                          {`${address?.substring(
+                            0,
+                            6
+                          )} ... ${address?.substring(
+                            address.length - 6,
+                            address.length
+                          )}`}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
+                      <img src={item.value[0]?.file}></img>
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
-                  <p className="text-sm font-normal">{item.value[0]}</p>
-                  {/* <span className="text-sm font-normal text-gray-500 dark:text-white-900">
-                    send {format(item.date, "hh:mm:ss")}
-                  </span> */}
+              ) : (
+                <div key={index}>
+                  <div className="flex flex-col items-end gap-4 mb-4">
+                    <div className="flex gap-2">
+                      <img
+                        className="w-6 h-6 rounded-full"
+                        src={avatar}
+                        alt={address}
+                      />
+                      <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span className="text-sm font-semibold text-yellow-600 dark:text-yellow-300">
+                          {`${address?.substring(
+                            0,
+                            6
+                          )} ... ${address?.substring(
+                            address.length - 6,
+                            address.length
+                          )}`}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
+                      <p className="text-sm font-normal">{item.value[0].content}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        } else if (item.from == "bot") {
-          return (
+              )}
+            </>
+          )}
+          {item.from == "bot" && (
             <div key={index}>
               <div className="flex flex-col items-start gap-2 mb-4 ">
                 <div className="flex gap-2 items-center justify-center">
@@ -97,16 +124,15 @@ const ChatBox = ({
                         style={{ whiteSpace: "pre-line" }}
                       />
                     )} */}
-                    {item.value.map((value, index) => {
-                      if (value.type == "string") {
-                        return (
+                    {item.value.map((value, index) => (
+                      <>
+                        {value.type == "string" && (
                           <span style={{ whiteSpace: "pre-line" }}>
                             {value.content}
                           </span>
-                        );
-                      } else if (value.type == "script") {
-                        // if (value.json?.type == "CREATE_IP_ASSET")
-                        return (
+                        )}
+
+                        {value.type == "script" && (
                           <Button
                             onClick={() => setTypeForm(value.json?.type)}
                             className="px-5 py-2"
@@ -116,16 +142,16 @@ const ChatBox = ({
                                 value.json?.type}
                             </span>
                           </Button>
-                        );
-                      }
-                    })}
+                        )}
+                      </>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
-          );
-        }
-      })}
+          )}
+        </>
+      ))}
 
       {isLoading && (
         <>

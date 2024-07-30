@@ -1,12 +1,13 @@
 export interface IChat {
   from: string;
-  value: IRepplyContent[];
+  value: IChatContent[];
 }
 
-export interface IRepplyContent {
-  type: "script" | "string";
+export interface IChatContent {
+  type: "script" | "string" | "image";
   content: string;
   json?: any;
+  file?: any;
 }
 
 export enum PIL_TYPE {

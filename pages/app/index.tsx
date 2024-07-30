@@ -17,19 +17,34 @@ const Index: NextPageWithLayout = () => {
   const { address, isConnected } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
   const messagesEndRef = useRef<HTMLInputElement>(null);
   const { dataChat, sessionId, setSessionId } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const userChat = (message) => {
-    const chat: IChat = {
-      from: address ?? "user",
-      value: [message],
-    };
+  const userChat = (message, _image = "") => {
+    let chat: IChat;
+    if (!_image) {
+      chat = {
+        from: address ?? "user",
+        value: [{ type: "string", content: message }],
+      };
+    } else {
+      chat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "image",
+            content: "image",
+            file: _image,
+          },
+        ],
+      };
+    }
     setListMess((listMess) => [...listMess, chat]);
     setValue("");
+    setImage("");
     if (intervalId) {
       clearInterval(intervalId);
     }
@@ -58,7 +73,7 @@ const Index: NextPageWithLayout = () => {
     if (listMess.length > 0) {
       var lastMessage = listMess[listMess.length - 1];
       if (lastMessage?.from != "bot" && lastMessage?.value.length > 0) {
-        onBotReply(lastMessage?.value[0]);
+        onBotReply(lastMessage?.value[0]?.content);
       }
     }
 
@@ -100,8 +115,6 @@ const Index: NextPageWithLayout = () => {
         listMess={listMess}
         address={address}
         avatar={avatar}
-        scrollToBottom={scrollToBottom}
-        intervalId={intervalId}
         isLoading={isLoading}
         messagesEndRef={messagesEndRef}
       ></ChatBox>

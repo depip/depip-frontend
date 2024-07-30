@@ -7,7 +7,6 @@ import FormMintLicenseToken from "../form/mint-license-token";
 
 const SideBarRight = () => {
   const { isSidebarOpen, type } = useSidebar();
-  console.log(type);
   return (
     <>
       <aside
