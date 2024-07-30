@@ -17,7 +17,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     <>
       <aside
         id="default-sidebar"
-        className={`shadow-md fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
+        className={`border-r fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
           isOpen ? "left-0" : "-left-[360px]"
         }`}
         aria-label="Sidebar"

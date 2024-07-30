@@ -11,16 +11,17 @@ import utils from "@/utils";
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useChat } from "@/provider/chat.provider";
 import { IChat } from "@/models/interface.common";
+import InputGroup from "@/components/input-group";
 let intervalId;
 const Index: NextPageWithLayout = () => {
   const { address, isConnected } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
   const [avatar, setAvatar] = useState<string>("");
-  const [isLoading, setLoading] = useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { isSidebarOpen, setTypeForm } = useSidebar();
   const { dataChat, sessionId, setSessionId } = useChat();
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const userChat = (message) => {
     const chat: IChat = {
@@ -87,16 +88,10 @@ const Index: NextPageWithLayout = () => {
     }
   }, [address]);
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      if (isLoading) return;
-      userChat(event.target.value);
-    }
-  };
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   return (
     <div className="relative h-full flex flex-col pt-[118px] p-4">
       <SideBarRight />
@@ -110,21 +105,14 @@ const Index: NextPageWithLayout = () => {
         isLoading={isLoading}
         messagesEndRef={messagesEndRef}
       ></ChatBox>
-
-      <div
-        className={`w-full transition-all ${
-          isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
-        }`}
-      >
-        <input
-          type="text"
-          placeholder="Tell me what you're thinking about..."
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full px-5 py-3"
-          onChange={(event) => setValue(event.target.value)}
-          onKeyDown={handleKeyDown}
-          value={value}
-        />
-      </div>
+      <InputGroup
+        isLoading={isLoading}
+        userChat={userChat}
+        value={value}
+        setValue={setValue}
+        image={image}
+        setImage={setImage}
+      ></InputGroup>
     </div>
   );
 };
