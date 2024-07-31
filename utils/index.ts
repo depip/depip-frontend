@@ -1,4 +1,4 @@
-import { IRepplyContent } from "@/models/interface.common";
+import { IChatContent } from "@/models/interface.common";
 import { minidenticon } from "minidenticons";
 
 const genAVT = (adress: string) => {
@@ -15,9 +15,9 @@ const genAVT = (adress: string) => {
   }
 };
 
-function extractStringAndScripts(stringString: string): IRepplyContent[] {
+function extractStringAndScripts(stringString: string): IChatContent[] {
   let remainingstring = stringString;
-  let chunks: IRepplyContent[] = [];
+  let chunks: IChatContent[] = [];
 
   const startScriptTag = "<script";
   const endScriptTag = "</script>";
