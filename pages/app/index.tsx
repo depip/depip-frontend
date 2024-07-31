@@ -20,7 +20,13 @@ const Index: NextPageWithLayout = () => {
   const [image, setImage] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { dataChat, sessionId, setSessionId } = useChat();
+  const {
+    dataChat,
+    sessionId,
+    setSessionId,
+    setSessionContent,
+    sessionContent,
+  } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const userChat = (message, _image = "") => {
@@ -66,6 +72,7 @@ const Index: NextPageWithLayout = () => {
       };
 
       setListMess((listMess) => [...listMess, reply]);
+      setSessionContent(listMess);
       setLoading(false);
     }
   };
@@ -90,10 +97,16 @@ const Index: NextPageWithLayout = () => {
   }, [dataChat]);
 
   useEffect(() => {
-    if (sessionId) {
-      setListMess([]);
+    if (sessionContent) {
+      setListMess(sessionContent);
     }
-  }, [sessionId]);
+  }, [sessionContent]);
+
+  // useEffect(() => {
+  //   if (sessionId) {
+  //     setListMess([]);
+  //   }
+  // }, [sessionId]);
 
   useEffect(() => {
     if (address) {

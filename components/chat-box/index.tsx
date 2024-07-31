@@ -11,7 +11,6 @@ const ChatBox = ({
   messagesEndRef,
 }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
-  console.log(listMess);
   return (
     <div
       className={`grow overflow-auto transition-all pt-2 ${

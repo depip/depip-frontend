@@ -33,7 +33,6 @@ const InputGroup: React.FC<Props> = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log(reader.result);
         setImage(reader.result);
         userChat(event.target.value, reader.result);
       };

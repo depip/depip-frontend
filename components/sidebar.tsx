@@ -2,16 +2,39 @@ import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useAccount } from "wagmi";
 import Button from "./button";
+import { useEffect, useState } from "react";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
   const { address } = useAccount();
-  const { setDataChat, sessionId, setSessionId } = useChat();
+  const { setDataChat, setSessionId, setSessionContent } = useChat();
   const newSessionId = () => {
     if (address) {
       const date = new Date();
       setSessionId(address + date.getTime());
+      setSessionContent([]);
     }
+  };
+  const [logChat, setLogChat] = useState([]);
+  useEffect(() => {
+    loadListSession();
+  }, []);
+
+  const loadListSession = () => {
+    try {
+      if (!address) return;
+      const listChat = window.localStorage.getItem(address);
+      const _logChat = listChat ? JSON.parse(listChat) : [];
+      setLogChat(_logChat);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClickSession = (item) => {
+    setSessionId(item.sessionId);
+    setSessionContent(item.content);
+    loadListSession();
   };
   return (
     <>
@@ -183,113 +206,46 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
             <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
-              {/* <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
-                Recent
+              <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
+                Session
               </div>
-              <div className="self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex-col justify-start items-start flex">
-                <div className="self-stretch px-4 py-3 bg-gradient-to-b from-white to-white border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
+              {logChat.map((item: any) => (
+                <>
+                  {item.sessionId && (
+                    <div
+                      onClick={() => handleClickSession(item)}
+                      className="cursor-pointer self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex-col justify-start items-start flex"
                     >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
-                        fill="#1C1C1C"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal truncate w-[240px]">
-                      I got this manga art and want to turn it into an IP asset.
+                      <div className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
+                        <div className="w-4 h-4 relative">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
+                              fill="#1C1C1C"
+                            />
+                          </svg>
+                        </div>
+                        <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                          <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[240px]">
+                            {item.content[0]?.value[0]?.content}
+                          </div>
+                          {/* <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
+                        5 hours ago
+                      </div> */}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
-                        fill="#1C1C1C"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[240px]">
-                      In the mood for a specific genre like shonen, shoujo, or
-                      slice-of-life? Swap recommendations!
-                    </div>
-                    <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
-                      20 minutes ago
-                    </div>
-                  </div>
-                </div>
-                <div className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
-                        fill="#1C1C1C"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[240px]">
-                      Got a wild theory about your favorite series
-                    </div>
-                    <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
-                      5 hours ago
-                    </div>
-                  </div>
-                </div>
-                <div className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex">
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
-                        fill="#1C1C1C"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[240px]">
-                      Identifying obscure titles based on descriptions
-                    </div>
-                    <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
-                      10 hours ago
-                    </div>
-                  </div>
-                </div>
-              </div> */}
+                  )}
+                </>
+              ))}
             </div>
           </div>
           <div className="grow"></div>
