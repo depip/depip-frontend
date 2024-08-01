@@ -97,7 +97,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Create IP asset")}
+                  onClick={() => setDataChat("Get started")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -118,13 +118,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Create IP asset
+                      Get started
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Register PIL Terms")}
+                  onClick={() => setDataChat("What is IP?")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -145,13 +145,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Register PIL Terms
+                      What is IP?
                     </div>
                   </div>
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Attach terms to an IP asset")}
+                  onClick={() => setDataChat("Full process")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -172,7 +172,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Attach terms to an IP asset
+                      Full process
                     </div>
                   </div>
                 </div>
@@ -199,7 +199,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Mint a license token
+                      Register ip asset
                     </div>
                   </div>
                 </div>

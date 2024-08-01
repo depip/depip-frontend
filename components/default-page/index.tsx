@@ -52,7 +52,7 @@ const DefaultPage = () => {
         </div>
         <div className="justify-start items-start gap-3 inline-flex w-full">
           <div
-            onClick={() => setDataChat("CREATE IP ASSET")}
+            onClick={() => setDataChat("Get started")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -75,13 +75,13 @@ const DefaultPage = () => {
               </div>
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
-              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                CREATE IP ASSET
+              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
+                Get started
               </div>
             </div>
           </div>
           <div
-            onClick={() => setDataChat("REGISTER PIL TERM")}
+            onClick={() => setDataChat("What is IP?")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -104,13 +104,13 @@ const DefaultPage = () => {
               </div>
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
-              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                REGISTER PIL TERM
+              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
+                What is IP?
               </div>
             </div>
           </div>
           <div
-            onClick={() => setDataChat("ATTACH PIL TERM")}
+            onClick={() => setDataChat("Full process")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -133,13 +133,13 @@ const DefaultPage = () => {
               </div>
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
-              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                ATTACH PIL TERM
+              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
+                Full process
               </div>
             </div>
           </div>
           <div
-            onClick={() => setDataChat("MINT LICENSE TOKEN")}
+            onClick={() => setDataChat("Register ip asset")}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -162,8 +162,8 @@ const DefaultPage = () => {
               </div>
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
-              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal">
-                MINT LICENSE TOKEN
+              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
+                Register ip asset
               </div>
             </div>
           </div>
