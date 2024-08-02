@@ -89,12 +89,16 @@ const mintAndRegistryIp = async (params: {
   file: File;
 }) => {
   try {
+    const formData = new FormData();
+    formData.append('file', params.file);
+    formData.append('name', params.name);
+    formData.append('description', params.description);
+    formData.append('recipient', params.recipient);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API}SPG/mintAndRegistryIp`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(params),
+        body: formData,
       }
     );
     const data = await res.json();
