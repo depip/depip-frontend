@@ -25,7 +25,7 @@
     "swr": "^2.2.5",
     "use-dark-mode": "^2.3.1",
     "viem": "2.x",
-    "wagmi": "^2.10.7",
+    "wagmi": "^2.12.2",
     "yup": "^1.4.0"
   },
   "devDependencies": {
