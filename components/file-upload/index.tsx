@@ -2,18 +2,18 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { useController } from "react-hook-form";
 
 const FileUpload = ({ setValue }) => {
   const [previews, setPreviews] = useState([]);
-
+  const [fileError, setFileError] = useState(null);
   const onDrop = (acceptedFiles) => {
-    setValue("file", acceptedFiles[0]);
-    // Create previews for image files
-    const previews = acceptedFiles.map((file) => URL.createObjectURL(file));
-    setPreviews(previews);
+    if (acceptedFiles.length > 0) {
+      setValue("file", acceptedFiles[0]);
+      setFileError(null);
+      const previews = acceptedFiles.map((file) => URL.createObjectURL(file));
+      setPreviews(previews);
+    }
   };
-
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
       onDrop,
@@ -21,6 +21,7 @@ const FileUpload = ({ setValue }) => {
         "image/*": [],
       },
       multiple: false,
+      maxSize: 5 * 1024 * 1024,
     });
 
   // Cleanup object URLs when component unmounts
@@ -73,6 +74,8 @@ const FileUpload = ({ setValue }) => {
             className="w-[100px] h-[100px] m-1 rounded-lg border-2 border-gray-200"
           />
         ))}
+
+        {fileError && <p>{fileError}</p>}
         <input {...getInputProps()} />
       </div>
     </>

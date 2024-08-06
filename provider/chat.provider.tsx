@@ -26,8 +26,6 @@ export const ChatProvider = ({ children }) => {
       jsonChat.push({ sessionId: sessionId, content: sessionContent });
       jsonChat = JSON.stringify(jsonChat);
       window.localStorage.setItem(address, jsonChat);
-      console.log(jsonChat);
-      console.log(window.localStorage);
     } catch (error) {
       console.error(error);
     }

@@ -72,7 +72,7 @@ const Index: NextPageWithLayout = () => {
       };
 
       setListMess((listMess) => [...listMess, reply]);
-      setSessionContent(listMess);
+      setSessionContent([...listMess, reply]);
       setLoading(false);
     }
   };

@@ -6,6 +6,23 @@ import api from "@/serivces/form-api";
 import Button from "@/components/button";
 import FileUpload from "@/components/file-upload";
 import { useAccount } from "wagmi";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  description: yup.string().required("Description is required"),
+  recipient: yup
+    .string()
+    .matches(/^0x[a-fA-F0-9]{40}$/, "Address not valid")
+    .required("Address is required"),
+  file: yup
+    .mixed()
+    .required("File is required")
+    .test("fileSize", "The file is too large", (value: any) => {
+      return value && value.size <= 5 * 1024 * 1024;
+    }),
+});
 
 const MintAndRegistryIp = () => {
   const { toggleSidebar } = useSidebar();
@@ -17,16 +34,20 @@ const MintAndRegistryIp = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
     setValue,
+    control,
+    reset,
   } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       name: "",
       description: "",
-      recipient: address as string,
-      file: null,
+      recipient: address,
     },
   });
   const onSubmit = async (data) => {
+    console.log(errors);
     if (!data.file) return;
     setLoading(true);
     const res = await api.mintAndRegistryIp(data);
@@ -46,7 +67,10 @@ const MintAndRegistryIp = () => {
         </div>
         <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
-          onClick={() => toggleSidebar()}
+          onClick={() => {
+            toggleSidebar();
+            reset();
+          }}
         >
           <div className="w-6 h-6 relative">
             <svg
@@ -83,11 +107,11 @@ const MintAndRegistryIp = () => {
                 } `}
                 placeholder="Enter name"
                 type="text"
-                {...register("name", { required: true })}
+                {...register("name")}
               />
               {errors.name && (
                 <p className=" text-sm text-red-600 dark:text-red-500">
-                  Name is required
+                  {errors.name.message}
                 </p>
               )}
             </div>
@@ -103,11 +127,11 @@ const MintAndRegistryIp = () => {
                 } `}
                 placeholder="Enter description"
                 type="text"
-                {...register("description", { required: true })}
+                {...register("description")}
               />
               {errors.description && (
                 <p className="text-sm text-red-600 dark:text-red-500">
-                  Description is required
+                  {errors.description.message}
                 </p>
               )}
             </div>
@@ -118,7 +142,7 @@ const MintAndRegistryIp = () => {
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
-                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
+                className={`rounded-lg border text-gray-800 text-xs font-light font-geist leading-normal p-4 w-full ${
                   errors.recipient ? "border-red-500" : "border-zinc-900/10"
                 } `}
                 placeholder="Enter recipient"
@@ -127,19 +151,34 @@ const MintAndRegistryIp = () => {
               />
               {errors.recipient && (
                 <p className="text-sm text-red-600 dark:text-red-500">
-                  Recipient is required
+                  {errors.recipient.message}
                 </p>
               )}
             </div>
           </div>
-
-          <FileUpload setValue={setValue}></FileUpload>
+          <Controller
+            name="file"
+            control={control}
+            render={({ field }) => (
+              <FileUpload
+                setValue={setValue}
+              ></FileUpload>
+            )}
+          />
+          {errors.file && (
+            <p className="text-sm text-red-600 dark:text-red-500">
+              {errors.file.message}
+            </p>
+          )}
         </div>
         <div className="self-stretch justify-end items-start gap-2 inline-flex">
           <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
-                onClick={() => toggleSidebar()}
+                onClick={() => {
+                  toggleSidebar();
+                  reset();
+                }}
                 className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >
                 Cancel
