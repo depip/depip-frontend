@@ -3,6 +3,7 @@ import { useSidebar } from "@/provider/sidebar.provider";
 import { useAccount } from "wagmi";
 import Button from "./button";
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
@@ -13,6 +14,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       const date = new Date();
       setSessionId(address + date.getTime());
       setSessionContent([]);
+      loadListSession();
     }
   };
   const [logChat, setLogChat] = useState([]);
@@ -35,6 +37,20 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     setSessionId(item.sessionId);
     setSessionContent(item.content);
     loadListSession();
+  };
+  const deleteSession = (item) => {
+    if (!address) return;
+    const listChat = window.localStorage.getItem(address);
+    const _logChat = listChat ? JSON.parse(listChat) : [];
+    const _logchatdel = _logChat.filter((x) => x.sessionId !== item.sessionId);
+    const jsonChat = JSON.stringify(_logchatdel);
+    window.localStorage.setItem(address, jsonChat);
+    loadListSession();
+  };
+  const getTime = (sessionId: string) => {
+    const timestring = sessionId.replace(address as string, "");
+    const date = new Date(parseInt(timestring));
+    return format(date, "dd/MM/yyyy HH:mm");
   };
   return (
     <>
@@ -209,43 +225,68 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Session
               </div>
-              {logChat.map((item: any) => (
-                <>
-                  {item.sessionId && (
-                    <div
-                      onClick={() => handleClickSession(item)}
-                      className="cursor-pointer self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex-col justify-start items-start flex"
-                    >
-                      <div className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex">
-                        <div className="w-4 h-4 relative">
+              <div className="flex flex-col gap-2 overflow-auto max-h-52">
+                {logChat.map((item: any) => (
+                  <>
+                    {item.sessionId && (
+                      <div className="cursor-pointer self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex justify-start items-center min-h-14">
+                        <div
+                          onClick={() => handleClickSession(item)}
+                          className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex"
+                        >
+                          <div className="w-4 h-4 relative">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
+                                fill="#1C1C1C"
+                              />
+                            </svg>
+                          </div>
+                          <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                            <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[200px]">
+                              {item.content[0]?.value[0]?.content}
+                            </div>
+                            <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
+                              {getTime(item.sessionId)}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className="p-4"
+                          onClick={(event) => {
+                            event.preventDefault;
+                            deleteSession(item);
+                          }}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
                             fill="none"
                           >
                             <path
                               fill-rule="evenodd"
                               clip-rule="evenodd"
-                              d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
+                              d="M5 5H7V7H5V5ZM9 9H7V7H9V9ZM11 11H9V9H11V11ZM13 11H11V13H9V15H7V17H5V19H7V17H9V15H11V13H13V15H15V17H17V19H19V17H17V15H15V13H13V11ZM15 9V11H13V9H15ZM17 7V9H15V7H17ZM17 7V5H19V7H17Z"
                               fill="#1C1C1C"
+                              fill-opacity="0.8"
                             />
                           </svg>
                         </div>
-                        <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                          <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[240px]">
-                            {item.content[0]?.value[0]?.content}
-                          </div>
-                          {/* <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
-                        5 hours ago
-                      </div> */}
-                        </div>
                       </div>
-                    </div>
-                  )}
-                </>
-              ))}
+                    )}
+                  </>
+                ))}
+              </div>
             </div>
           </div>
           <div className="grow"></div>
