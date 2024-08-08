@@ -4,10 +4,11 @@ export interface IChat {
 }
 
 export interface IChatContent {
-  type: "script" | "string" | "image";
+  type: "script" | "string" | "image" | "link";
   content: string;
   json?: any;
   file?: any;
+  link?: string;
 }
 
 export enum PIL_TYPE {

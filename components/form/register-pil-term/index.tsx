@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import api from "@/serivces/form-api";
 import { useChat } from "@/provider/chat.provider";
 import { PIL_TYPE } from "@/models/interface.common";
+import { useAccount } from "wagmi";
 
 const FormRegisterPilTerm = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
@@ -18,13 +19,22 @@ const FormRegisterPilTerm = () => {
     formState: { errors },
   } = useForm();
   const selectedType: PIL_TYPE = watch("type", PIL_TYPE.COMMERCIAL_USE);
-
+  const { address } = useAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.licenceseTerms(data);
     if (res) {
       toggleSidebar();
-      setDataChat(JSON.stringify(res));
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: res,
+          },
+        ],
+      };
+      setDataChat(dataChat);
     }
     setLoading(false);
   };

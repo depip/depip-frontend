@@ -1,15 +1,8 @@
 import { useSidebar } from "@/provider/sidebar.provider";
-import { format } from "date-fns";
-import { TypeAnimation } from "react-type-animation";
 import Button from "../button";
+import Link from "next/link";
 
-const ChatBox = ({
-  listMess,
-  address,
-  avatar,
-  isLoading,
-  messagesEndRef,
-}) => {
+const ChatBox = ({ listMess, address, avatar, isLoading, messagesEndRef }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
   return (
     <div
@@ -21,7 +14,7 @@ const ChatBox = ({
         <>
           {item.from == address && (
             <>
-              {item.value[0]?.type == "image" ? (
+              {item.value[0]?.type == "image" && (
                 <div key={index}>
                   <div className="flex flex-col items-end gap-4 mb-4">
                     <div className="flex gap-2">
@@ -47,7 +40,8 @@ const ChatBox = ({
                     </div>
                   </div>
                 </div>
-              ) : (
+              )}
+              {item.value[0]?.type == "link" && (
                 <div key={index}>
                   <div className="flex flex-col items-end gap-4 mb-4">
                     <div className="flex gap-2">
@@ -69,7 +63,45 @@ const ChatBox = ({
                       </div>
                     </div>
                     <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
-                      <p className="text-sm font-normal">{item.value[0].content}</p>
+                      <p className="text-sm font-normal">
+                        {item.value[0].content}
+                      </p>
+                      <Link
+                        href={item.value[0].link}
+                        target="_blank"
+                        className="text-blue-600 underline dark:text-blue-500"
+                      >
+                        {item.value[0].link}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {item.value[0]?.type == "string" && (
+                <div key={index}>
+                  <div className="flex flex-col items-end gap-4 mb-4">
+                    <div className="flex gap-2">
+                      <img
+                        className="w-6 h-6 rounded-full"
+                        src={avatar}
+                        alt={address}
+                      />
+                      <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span className="text-sm font-semibold text-yellow-600 dark:text-yellow-300">
+                          {`${address?.substring(
+                            0,
+                            6
+                          )} ... ${address?.substring(
+                            address.length - 6,
+                            address.length
+                          )}`}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
+                      <p className="text-sm font-normal">
+                        {item.value[0].content}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -141,6 +173,11 @@ const ChatBox = ({
                                 value.json?.type}
                             </span>
                           </Button>
+                        )}
+                        {value.type == "link" && (
+                          <a href={value.link} className="px-5 py-2">
+                            {value.link}
+                          </a>
                         )}
                       </>
                     ))}

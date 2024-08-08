@@ -52,8 +52,20 @@ const MintAndRegistryIp = () => {
     setLoading(true);
     const res = await api.mintAndRegistryIp(data);
     if (res) {
-      toggleSidebar();
-      setDataChat(JSON.stringify(res));
+      if (res.ipasset.status == "success") {
+        toggleSidebar();
+        const dataChat = {
+          from: address ?? "user",
+          value: [
+            {
+              type: "link",
+              content: "Click link to view this asset",
+              link: `https://ip.dev.aurascan.io/ip/detail/${res.ipasset.ipId}`,
+            },
+          ],
+        };
+        setDataChat(dataChat);
+      }
     }
 
     setLoading(false);
@@ -160,9 +172,7 @@ const MintAndRegistryIp = () => {
             name="file"
             control={control}
             render={({ field }) => (
-              <FileUpload
-                setValue={setValue}
-              ></FileUpload>
+              <FileUpload setValue={setValue}></FileUpload>
             )}
           />
           {errors.file && (

@@ -4,6 +4,7 @@ import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAccount } from "wagmi";
 
 const FormAttachPilTerm = () => {
   const { toggleSidebar } = useSidebar();
@@ -14,13 +15,22 @@ const FormAttachPilTerm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { address } = useAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.attackPILTerms(data);
     if (res) {
       toggleSidebar();
-
-      setDataChat(JSON.stringify(res));
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: res,
+          },
+        ],
+      };
+      setDataChat(dataChat);
     }
 
     setLoading(false);

@@ -1,8 +1,9 @@
+"use client";
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useAccount } from "wagmi";
 
 const chatContext = createContext({
-  dataChat: "",
+  dataChat: {},
   setDataChat: (data) => {},
   sessionId: "",
   setSessionId: (data) => {},
@@ -11,7 +12,7 @@ const chatContext = createContext({
 });
 
 export const ChatProvider = ({ children }) => {
-  const [dataChat, setDataChat] = useState("");
+  const [dataChat, setDataChat] = useState({});
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState([]);
   const { address } = useAccount();

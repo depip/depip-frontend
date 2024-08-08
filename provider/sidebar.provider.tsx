@@ -1,7 +1,8 @@
+"use client";
 import React, { createContext, useState, useContext } from "react";
 
 const SidebarContext = createContext({
-  type: '',
+  type: "",
   isSidebarOpen: false,
   toggleSidebar: () => {},
   setTypeForm: (newtype) => {},
@@ -9,7 +10,7 @@ const SidebarContext = createContext({
 
 export const SidebarProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [type, setType] = useState('CREATE_IP_ASSET');
+  const [type, setType] = useState("CREATE_IP_ASSET");
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

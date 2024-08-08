@@ -3,11 +3,13 @@ import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAccount } from "wagmi";
 
 const FormRegisterIPAsset = () => {
   const { toggleSidebar } = useSidebar();
   const { setDataChat } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const { address } = useAccount();
   const {
     register,
     handleSubmit,
@@ -18,7 +20,16 @@ const FormRegisterIPAsset = () => {
     const res = await api.registerIpAsset(data);
     if (res) {
       toggleSidebar();
-      setDataChat(JSON.stringify(res));
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: res,
+          },
+        ],
+      };
+      setDataChat(dataChat);
     }
     setLoading(false);
   };

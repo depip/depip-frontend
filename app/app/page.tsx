@@ -1,5 +1,5 @@
+"use client";
 import Layout from "@/components/layout";
-import { NextPageWithLayout } from "../_app";
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import SideBarRight from "@/components/sidebar-right";
 import { format } from "date-fns";
@@ -13,7 +13,7 @@ import { useChat } from "@/provider/chat.provider";
 import { IChat } from "@/models/interface.common";
 import InputGroup from "@/components/input-group";
 let intervalId;
-const Index: NextPageWithLayout = () => {
+const Index = () => {
   const { address, isConnected } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
@@ -29,26 +29,8 @@ const Index: NextPageWithLayout = () => {
   } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const userChat = (message, _image = "") => {
-    let chat: IChat;
-    if (!_image) {
-      chat = {
-        from: address ?? "user",
-        value: [{ type: "string", content: message }],
-      };
-    } else {
-      chat = {
-        from: address ?? "user",
-        value: [
-          {
-            type: "image",
-            content: "image",
-            file: _image,
-          },
-        ],
-      };
-    }
-    setListMess((listMess) => [...listMess, chat]);
+  const userChat = (dataChat) => {
+    setListMess((listMess) => [...listMess, dataChat]);
     setValue("");
     setImage("");
     if (intervalId) {
@@ -79,7 +61,11 @@ const Index: NextPageWithLayout = () => {
   useEffect(() => {
     if (listMess.length > 0) {
       var lastMessage = listMess[listMess.length - 1];
-      if (lastMessage?.from != "bot" && lastMessage?.value.length > 0) {
+      if (
+        lastMessage?.from != "bot" &&
+        lastMessage?.value.length > 0 &&
+        lastMessage?.value[0]?.type == "string"
+      ) {
         onBotReply(lastMessage?.value[0]?.content);
       }
     }
@@ -121,30 +107,28 @@ const Index: NextPageWithLayout = () => {
   };
 
   return (
-    <div className="relative h-full flex flex-col pt-[118px] p-4">
-      <SideBarRight />
-      {listMess.length == 0 && <DefaultPage />}
-      <ChatBox
-        listMess={listMess}
-        address={address}
-        avatar={avatar}
-        isLoading={isLoading}
-        messagesEndRef={messagesEndRef}
-      ></ChatBox>
-      <InputGroup
-        isLoading={isLoading}
-        userChat={userChat}
-        value={value}
-        setValue={setValue}
-        image={image}
-        setImage={setImage}
-      ></InputGroup>
-    </div>
+    <Layout>
+      <div className="relative h-full flex flex-col pt-[118px] p-4">
+        <SideBarRight />
+        {listMess.length == 0 && <DefaultPage />}
+        <ChatBox
+          listMess={listMess}
+          address={address}
+          avatar={avatar}
+          isLoading={isLoading}
+          messagesEndRef={messagesEndRef}
+        ></ChatBox>
+        <InputGroup
+          isLoading={isLoading}
+          userChat={userChat}
+          value={value}
+          setValue={setValue}
+          image={image}
+          setImage={setImage}
+        ></InputGroup>
+      </div>
+    </Layout>
   );
-};
-
-Index.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
 };
 
 export default Index;

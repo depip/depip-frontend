@@ -1,5 +1,6 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useRef, useState } from "react";
+import { useAccount } from "wagmi";
 
 type Props = {
   isLoading: boolean;
@@ -18,12 +19,22 @@ const InputGroup: React.FC<Props> = ({
   image,
   setImage,
 }) => {
-  const { isSidebarOpen, setTypeForm } = useSidebar();
+  const { isSidebarOpen } = useSidebar();
+  const { address } = useAccount();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (isLoading) return;
-      userChat(event.target.value);
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: event.target.value,
+          },
+        ],
+      };
+      userChat(dataChat);
     }
   };
 
@@ -34,7 +45,17 @@ const InputGroup: React.FC<Props> = ({
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);
-        userChat(event.target.value, reader.result);
+        const dataChat = {
+          from: address ?? "user",
+          value: [
+            {
+              type: "image",
+              content: event.target.value,
+              file: reader.result,
+            },
+          ],
+        };
+        userChat(dataChat);
       };
       reader.readAsDataURL(file);
     }

@@ -194,7 +194,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 </div>
                 <div
                   className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Mint a license token")}
+                  onClick={() => setDataChat("Register ip asset")}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -232,7 +232,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       <div className="cursor-pointer self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex justify-start items-center min-h-14">
                         <div
                           onClick={() => handleClickSession(item)}
-                          className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex"
+                          className="self-stretch pl-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex"
                         >
                           <div className="w-4 h-4 relative">
                             <svg
