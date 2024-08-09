@@ -113,7 +113,12 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Get started")}
+                  onClick={() =>
+                    setDataChat({
+                      from: address ?? "user",
+                      value: [{ type: "string", content: "Get started" }],
+                    })
+                  }
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -140,7 +145,12 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("What is IP?")}
+                  onClick={() =>
+                    setDataChat({
+                      from: address ?? "user",
+                      value: [{ type: "string", content: "What is IP?" }],
+                    })
+                  }
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -167,7 +177,12 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 </div>
                 <div
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Full process")}
+                  onClick={() =>
+                    setDataChat({
+                      from: address ?? "user",
+                      value: [{ type: "string", content: "Full process" }],
+                    })
+                  }
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -194,7 +209,12 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 </div>
                 <div
                   className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => setDataChat("Register ip asset")}
+                  onClick={() =>
+                    setDataChat({
+                      from: address ?? "user",
+                      value: [{ type: "string", content: "Register ip asset" }],
+                    })
+                  }
                 >
                   <div className="w-4 h-4 relative">
                     <svg
