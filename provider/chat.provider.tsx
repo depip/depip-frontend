@@ -4,6 +4,7 @@ import { useAccount } from "@particle-network/connectkit";
 import { useEthereum } from "@particle-network/auth-core-modal";
 import { SmartAccount } from "@particle-network/aa";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
+import { Transaction } from "ethers";
 
 export type Transaction = {
   to: string;
@@ -77,7 +78,7 @@ export const ChatProvider = ({ children }) => {
     ]);
 
     await smartAccount.sendTransaction({
-      tx: sessionKey.transactions,
+      tx: sessionKey.transactions as Transaction,
     });
 
     setSessionId(sessionKey[0]);
