@@ -52,7 +52,12 @@ const DefaultPage = () => {
         </div>
         <div className="justify-start items-start gap-3 inline-flex w-full">
           <div
-            onClick={() => setDataChat("Get started")}
+            onClick={() =>
+              setDataChat({
+                from: address ?? "user",
+                value: [{ type: "string", content: "Get started" }],
+              })
+            }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -81,7 +86,12 @@ const DefaultPage = () => {
             </div>
           </div>
           <div
-            onClick={() => setDataChat("What is IP?")}
+            onClick={() =>
+              setDataChat({
+                from: address ?? "user",
+                value: [{ type: "string", content: "What is IP?" }],
+              })
+            }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -110,7 +120,12 @@ const DefaultPage = () => {
             </div>
           </div>
           <div
-            onClick={() => setDataChat("Full process")}
+            onClick={() =>
+              setDataChat({
+                from: address ?? "user",
+                value: [{ type: "string", content: "Full process" }],
+              })
+            }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -139,7 +154,12 @@ const DefaultPage = () => {
             </div>
           </div>
           <div
-            onClick={() => setDataChat("Register ip asset")}
+            onClick={() =>
+              setDataChat({
+                from: address ?? "user",
+                value: [{ type: "string", content: "Register ip asset" }],
+              })
+            }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
