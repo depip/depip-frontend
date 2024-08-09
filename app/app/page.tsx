@@ -3,7 +3,7 @@ import Layout from "@/components/layout";
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import SideBarRight from "@/components/sidebar-right";
 import { format } from "date-fns";
-import { useAccount } from "wagmi";
+import { useAccount } from '@particle-network/connectkit';
 import BotReply from "@/serivces/bot-api";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
@@ -14,7 +14,7 @@ import { IChat } from "@/models/interface.common";
 import InputGroup from "@/components/input-group";
 let intervalId;
 const Index = () => {
-  const { address, isConnected } = useAccount();
+  const account = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
@@ -62,8 +62,9 @@ const Index = () => {
     if (listMess.length > 0) {
       var lastMessage = listMess[listMess.length - 1];
       if (
+        lastMessage && 
+        lastMessage?.value &&
         lastMessage?.from != "bot" &&
-        lastMessage?.value.length > 0 &&
         lastMessage?.value[0]?.type == "string"
       ) {
         onBotReply(lastMessage?.value[0]?.content);
@@ -95,12 +96,12 @@ const Index = () => {
   // }, [sessionId]);
 
   useEffect(() => {
-    if (address) {
-      setAvatar(utils.genAVT(address as string));
+    if (account) {
+      setAvatar(utils.genAVT(account as string));
       const date = new Date();
-      setSessionId(address + date.getTime());
+      setSessionId(account + date.getTime());
     }
-  }, [address]);
+  }, [account]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -113,7 +114,7 @@ const Index = () => {
         {listMess.length == 0 && <DefaultPage />}
         <ChatBox
           listMess={listMess}
-          address={address}
+          address={account}
           avatar={avatar}
           isLoading={isLoading}
           messagesEndRef={messagesEndRef}

@@ -1,6 +1,6 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useRef, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount } from '@particle-network/connectkit';
 
 type Props = {
   isLoading: boolean;
@@ -20,13 +20,13 @@ const InputGroup: React.FC<Props> = ({
   setImage,
 }) => {
   const { isSidebarOpen } = useSidebar();
-  const { address } = useAccount();
+  const account = useAccount();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (isLoading) return;
       const dataChat = {
-        from: address ?? "user",
+        from: account ?? "user",
         value: [
           {
             type: "string",

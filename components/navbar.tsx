@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectButton } from "@particle-network/connectkit";
 
 const Navnar = ({ onClick }) => {
   const { theme, setTheme } = useTheme();

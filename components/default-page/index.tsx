@@ -2,19 +2,19 @@ import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import utils from "@/utils";
 import { FC, useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount } from '@particle-network/connectkit';
 
 const DefaultPage = () => {
-  const { address } = useAccount();
+  const account = useAccount();
   const [avatar, setAvatar] = useState<string>("");
   const { isSidebarOpen, setTypeForm } = useSidebar();
   const { setDataChat } = useChat();
 
   useEffect(() => {
-    if (address) {
-      setAvatar(utils.genAVT(address as string));
+    if (account) {
+      setAvatar(utils.genAVT(account as string));
     }
-  }, [address]);
+  }, [account]);
 
   return (
     <div
@@ -27,7 +27,7 @@ const DefaultPage = () => {
           <img
             className="w-12 h-12 rounded-full border border-gray-200"
             src={avatar}
-            alt={address}
+            alt={account}
           />
         </div>
         <div className="self-stretch">
@@ -35,9 +35,9 @@ const DefaultPage = () => {
             Hey&nbsp;
           </span>
           <span className="text-blue-400 text-xl font-normal font-pixel uppercase leading-[30px]">
-            {`${address?.substring(0, 6)}...${address?.substring(
-              address.length - 4,
-              address.length
+            {`${account?.substring(0, 6)}...${account?.substring(
+              account.length - 4,
+              account.length
             )}`}
           </span>
           <span className="text-black text-xl font-normal font-pixel uppercase leading-[30px]">

@@ -1,4 +1,5 @@
-import ConnectButtonCustom from "../connect-button";
+// import ConnectButtonCustom from "../connect-button";
+import { ConnectButton } from "@particle-network/connectkit";
 import Link from "next/link";
 
 const Login = () => {
@@ -29,7 +30,7 @@ const Login = () => {
               Connect your wallet to exprience
             </div>
           </div>
-          <ConnectButtonCustom />
+          <ConnectButton />
         </div>
         <div className="flex-col justify-start items-center gap-8 inline-flex">
           <div className="flex items-center">
