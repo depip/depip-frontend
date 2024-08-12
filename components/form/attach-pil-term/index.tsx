@@ -26,7 +26,7 @@ const FormAttachPilTerm = () => {
         value: [
           {
             type: "string",
-            content: res,
+            content: JSON.stringify(res),
           },
         ],
       };

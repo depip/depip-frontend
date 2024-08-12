@@ -73,6 +73,53 @@ const InputGroup: React.FC<Props> = ({
         isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
       }`}
     >
+      <div className="flex items-center gap-1 mb-1">
+        <div
+          className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded border border-blue-400 cursor-pointer"
+          onClick={() =>
+            userChat({
+              from: address ?? "user",
+              value: [{ type: "string", content: "Get started" }],
+            })
+          }
+        >
+          Get started
+        </div>
+        <div
+          className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400 cursor-pointer"
+          onClick={() =>
+            userChat({
+              from: address ?? "user",
+              value: [{ type: "string", content: "What is IP?" }],
+            })
+          }
+        >
+          What is IP?
+        </div>
+        <div
+          className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded border border-indigo-400 cursor-pointer"
+          onClick={() =>
+            userChat({
+              from: address ?? "user",
+              value: [{ type: "string", content: "Full process" }],
+            })
+          }
+        >
+          Full process
+        </div>
+        <div
+          className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded border border-pink-400 cursor-pointer"
+          onClick={() =>
+            userChat({
+              from: address ?? "user",
+              value: [{ type: "string", content: "Register ip asset" }],
+            })
+          }
+        >
+          Register ip asset
+        </div>
+      </div>
+
       <div className="bg-gray-50 border border-gray-300 rounded-lg w-full flex items-center overflow-hidden px-5 py-3">
         <input
           type="text"

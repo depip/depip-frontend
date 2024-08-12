@@ -25,7 +25,7 @@ const FormRegisterIPAsset = () => {
         value: [
           {
             type: "string",
-            content: res,
+            content: JSON.stringify(res),
           },
         ],
       };

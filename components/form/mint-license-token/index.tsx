@@ -25,7 +25,7 @@ const FormMintLicenseToken = () => {
         value: [
           {
             type: "string",
-            content: res,
+            content: JSON.stringify(res),
           },
         ],
       };

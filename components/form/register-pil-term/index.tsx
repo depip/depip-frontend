@@ -25,12 +25,13 @@ const FormRegisterPilTerm = () => {
     const res = await api.licenceseTerms(data);
     if (res) {
       toggleSidebar();
+      debugger;
       const dataChat = {
         from: address ?? "user",
         value: [
           {
             type: "string",
-            content: res,
+            content: JSON.stringify(res),
           },
         ],
       };
