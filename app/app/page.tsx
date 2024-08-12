@@ -3,7 +3,7 @@ import Layout from "@/components/layout";
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import SideBarRight from "@/components/sidebar-right";
 import { format } from "date-fns";
-import { useAccount } from '@particle-network/connectkit';
+import { useAccount } from "@particle-network/connectkit";
 import BotReply from "@/serivces/bot-api";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
@@ -23,7 +23,7 @@ const Index = () => {
   const {
     dataChat,
     sessionId,
-    setSessionId,
+    newSmartAccount,
     setSessionContent,
     sessionContent,
   } = useChat();
@@ -62,7 +62,7 @@ const Index = () => {
     if (listMess.length > 0) {
       var lastMessage = listMess[listMess.length - 1];
       if (
-        lastMessage && 
+        lastMessage &&
         lastMessage?.value &&
         lastMessage?.from != "bot" &&
         lastMessage?.value[0]?.type == "string"
@@ -99,7 +99,7 @@ const Index = () => {
     if (account) {
       setAvatar(utils.genAVT(account as string));
       const date = new Date();
-      setSessionId(account + date.getTime());
+      newSmartAccount();
     }
   }, [account]);
 

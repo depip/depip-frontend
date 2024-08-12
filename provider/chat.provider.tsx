@@ -2,17 +2,12 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useAccount } from "@particle-network/connectkit";
 import { useEthereum } from "@particle-network/auth-core-modal";
-import { SmartAccount } from "@particle-network/aa";
+import {
+  SmartAccount,
+  Transaction,
+  IEthereumProvider,
+} from "@particle-network/aa";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
-import { Transaction } from "ethers";
-
-export type Transaction = {
-  to: string;
-  value?: string;
-  data?: string;
-  nonce?: number | string;
-  gasLimit?: number | string;
-};
 
 const chatContext = createContext({
   dataChat: {},
@@ -61,27 +56,39 @@ export const ChatProvider = ({ children }) => {
             },
           ],
         },
+        // paymasterApiKeys: [
+        //   {
+        //     // Optional
+        //     chainId: 1,
+        //     apiKey: "Biconomy Paymaster API Key",
+        //   },
+        // ],
       },
     });
-    // const address = await smartAccount.getAddress();
+    smartAccount.setSmartAccountContract({
+      name: "BICONOMY",
+      version: "2.0.0",
+    });
     const address = await smartAccount.getAddress();
-    const sessionKey = await smartAccount.createSessions([
-      {
-        validUntil: 0,
-        validAfter: 0,
-        sessionValidationModule: "0x8E09744b738e9Fec4A4df7Ab5621f1857F6Fa175",
-        sessionKeyDataInAbi: [
-          ["address", "address", "uint256"],
-          [account, address, 1],
-        ],
-      },
-    ]);
+    console.log("address smartAccount");
+    console.log(address);
+    // const sessionKey = await smartAccount.createSessions([
+    //   {
+    //     validUntil: 0,
+    //     validAfter: 0,
+    //     sessionValidationModule: "0x8E09744b738e9Fec4A4df7Ab5621f1857F6Fa175",
+    //     sessionKeyDataInAbi: [
+    //       ["address", "address", "uint256"],
+    //       [account, address, 1],
+    //     ],
+    //   },
+    // ]);
+    // console.log(sessionKey);
+    // setSessionId(sessionKey[0]);
 
-    await smartAccount.sendTransaction({
-      tx: sessionKey.transactions as Transaction,
-    });
-
-    setSessionId(sessionKey[0]);
+    // await smartAccount.sendTransaction({
+    //   tx: sessionKey.transactions as Transaction[],
+    // });
   };
 
   return (

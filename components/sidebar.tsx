@@ -9,14 +9,14 @@ const SideBar = ({ isOpen, setIsOpen }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
   const account = useAccount();
   const { setDataChat, setSessionId, setSessionContent } = useChat();
-  const newSessionId = () => {
-    if (account) {
-      const date = new Date();
-      setSessionId(account + date.getTime());
-      setSessionContent([]);
-      loadListSession();
-    }
-  };
+  // const newSessionId = () => {
+  //   if (account) {
+  //     const date = new Date();
+  //     setSessionId(account + date.getTime());
+  //     setSessionContent([]);
+  //     loadListSession();
+  //   }
+  // };
   const [logChat, setLogChat] = useState([]);
   useEffect(() => {
     loadListSession();
@@ -84,7 +84,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
           <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
-            <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
+            {/* <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
               <div className="w-4 h-4 relative">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="text-xs font-normal font-pixel uppercase leading-5">
                 New chat
               </div>
-            </Button>
+            </Button> */}
             <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Get started
@@ -265,7 +265,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Session
               </div>
-              <div className="flex flex-col gap-2 overflow-auto max-h-52">
+              {/* <div className="flex flex-col gap-2 overflow-auto max-h-52">
                 {logChat.map((item: any) => (
                   <>
                     {item?.sessionId && (
@@ -326,7 +326,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     )}
                   </>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="grow"></div>

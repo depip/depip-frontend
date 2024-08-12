@@ -4,9 +4,6 @@ import Navbar from "./navbar";
 import SideBar from "./sidebar";
 import Login from "./login";
 import { useAccount } from "@particle-network/connectkit";
-import { SmartAccount } from "@particle-network/aa";
-import { Ethereum, EthereumSepolia } from "@particle-network/chains";
-import { useEthereum } from "@particle-network/auth-core-modal";
 type Props = {
   children: ReactNode;
 };

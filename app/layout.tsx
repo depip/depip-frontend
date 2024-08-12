@@ -6,17 +6,20 @@ import { ReactNode } from "react";
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ThemeProvider as NextThemesProvider } from "next-themes";
 // import { WagmiProvider } from "wagmi";
-// import { config } from "../config";
+// import "@rainbow-me/rainbowkit/styles.css";
 import { SidebarProvider } from "@/provider/sidebar.provider";
 import { ChatProvider } from "@/provider/chat.provider";
 import localFont from "next/font/local";
-// import "@rainbow-me/rainbowkit/styles.css";
 import "@particle-network/connectkit/dist/index.css";
 import "../styles/globals.scss";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ModalProvider } from "@particle-network/connectkit";
-import "@particle-network/connectkit/dist/index.css";
 import { evmWallets } from "@particle-network/connectors";
+import { AuthType } from "@particle-network/auth-core";
+import {
+  AuthCoreContextProvider,
+  PromptSettingType,
+} from "@particle-network/auth-core-modal";
 
 const GeistSans = localFont({
   src: "../assets/fonts/geist-sans/Geist-Variable.woff2",
@@ -56,19 +59,19 @@ const PixelOperator = localFont({
 export default function RootLayout({ children }: { children: ReactNode }) {
   // const queryClient = new QueryClient();
   const options = {
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '',
-    clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY || '',
-    appId: process.env.NEXT_PUBLIC_APP_ID || '',
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
+    clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY || "",
+    appId: process.env.NEXT_PUBLIC_APP_ID || "",
     chains: [Ethereum, EthereumSepolia],
     connectors: [
       ...evmWallets({
         projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
-        showQrModal: true,
-      })
+        showQrModal: false,
+      }),
     ],
     erc4337: {
-      name: "SIMPLE",
-      version: "1.0.0",
+      name: "BICONOMY",
+      version: "2.0.0",
     },
     wallet: {
       customStyle: {
@@ -83,19 +86,45 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}> */}
         {/* <RainbowKitProvider modalSize="compact" avatar={CustomAvatar}> */}
-        <ModalProvider options={options}>
-          <SidebarProvider>
-            <ChatProvider>
-              <main>
-                <div
-                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-[#FAF9EF]`}
-                >
-                  {children}
-                </div>
-              </main>
-            </ChatProvider>
-          </SidebarProvider>
-        </ModalProvider>
+        <AuthCoreContextProvider
+          options={{
+            projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
+            clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY || "",
+            appId: process.env.NEXT_PUBLIC_APP_ID || "",
+            authTypes: [AuthType.email, AuthType.google, AuthType.twitter],
+            themeType: "dark",
+            fiatCoin: "USD",
+            language: "en",
+            erc4337: {
+              name: "SIMPLE",
+              version: "1.0.0",
+            },
+            promptSettingConfig: {
+              promptPaymentPasswordSettingWhenSign: PromptSettingType.first,
+              promptMasterPasswordSettingWhenLogin: PromptSettingType.first,
+            },
+            wallet: {
+              visible: true,
+              customStyle: {
+                supportChains: [Ethereum, EthereumSepolia],
+              },
+            },
+          }}
+        >
+          <ModalProvider options={options}>
+            <SidebarProvider>
+              <ChatProvider>
+                <main>
+                  <div
+                    className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-[#FAF9EF]`}
+                  >
+                    {children}
+                  </div>
+                </main>
+              </ChatProvider>
+            </SidebarProvider>
+          </ModalProvider>
+        </AuthCoreContextProvider>
         {/* </RainbowKitProvider> */}
         {/* </QueryClientProvider>
           </WagmiProvider> */}
