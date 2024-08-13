@@ -1,33 +1,18 @@
 import { useChat } from "@/provider/chat.provider";
-import { useSidebar } from "@/provider/sidebar.provider";
 import {
   useAccount,
   useSmartAccount,
   useWallets,
 } from "@particle-network/connectkit";
-import Button from "./button";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { Utils } from "alchemy-sdk";
-import { UserOpParams } from "@particle-network/aa";
+import Button from "./button";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
-  const { isSidebarOpen, setTypeForm } = useSidebar();
   const { address, isConnected, chainId } = useAccount();
-  const { setDataChat, setSessionId, setSessionContent } = useChat();
-  const [session, setSession] = useState();
-  const smartAccount = useSmartAccount();
-  const [primaryWallet] = useWallets();
-  // const newSessionId = () => {
-  //   if (address) {
-  //     const date = new Date();
-  //     setSessionId(address + date.getTime());
-  //     setSessionContent([]);
-  //     loadListSession();
-  //   }
-  // };
-  const [logChat, setLogChat] = useState([]);
+  const { setDataChat, setSessionId, sessionId, setSessionContent } = useChat();
 
+  const smartAccount = useSmartAccount();
   const createSession = async () => {
     const sessionKey = await smartAccount?.createSessions([
       {
@@ -40,54 +25,32 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         ],
       },
     ]);
-    console.log(sessionKey);
-
-    const feeQuotesResult = await smartAccount?.getFeeQuotes(
-      sessionKey?.transactions as any[]
+    await smartAccount?.sendTransaction({
+      tx: sessionKey?.transactions as any[],
+    });
+    window.localStorage.setItem(
+      "sessionKey",
+      JSON.stringify(sessionKey.sessions)
     );
-
-    const gaslessUserOp = feeQuotesResult?.verifyingPaymasterGasless?.userOp;
-    const gaslessUserOpHash =
-      feeQuotesResult?.verifyingPaymasterGasless?.userOpHash;
-
-    const tokenPaymasterAddress =
-      feeQuotesResult?.tokenPaymaster?.tokenPaymasterAddress;
-    const tokenFeeQuotes = feeQuotesResult?.tokenPaymaster?.feeQuotes;
-
-    const tx: UserOpParams = {
-      tx:  sessionKey?.sessions as any[]
-    };
-
-    const userOpBundle = await smartAccount?.buildUserOperation(tx);
-    const userOp = userOpBundle?.userOp;
-    const userOpHash = userOpBundle?.userOpHash;
-    const txHash = await smartAccount?.sendUserOperation({ userOp, userOpHash });  
-
-    // const paidNativeUserOp = feeQuotesResult?.verifyingPaymasterNative?.userOp;
-    // const paidNativeUserOpHash = feeQuotesResult?.verifyingPaymasterNative?.userOpHash;
-
-    // const tokenPaymasterAddress = feeQuotesResult?.tokenPaymaster?.tokenPaymasterAddress;
-    // const tokenFeeQuotes = feeQuotesResult?.tokenPaymaster?.feeQuotes;
-
-    // const userOpA = sessionKey?.verifyingPaymasterGasless?.userOp;
-    // const userOpHashA = sessionKey?.verifyingPaymasterGasless?.userOpHash;
-    // const sessions = resCreateSessions.result.sessions; // the sessions you need to store locally
-    // userOpA?.signature = await this.mainSigner.signMessage(Utils.arrayify(userOpHashA));
-    // userOpA?.signature = await primaryWallet.getWalletClient().signMessage({Utils.arrayify(userOpHashA)});
-    // const walletClient = primaryWallet.getWalletClient();
-    // debugger;
-    // const transactionResponse = await walletClient.sendTransaction(
-    //   sessionKey?.transactions as any
-    // );
-
-    // console.log("Transaction sent:", transactionResponse);
-    // console.log(await smartAccount?.getAccount());
-    // console.log(sessionKey);
-    // await smartAccount?.sendTransaction({
-    //   tx: sessionKey?.transactions as any[],
-    // });
-    // setSession(sessionKey as any);
   };
+  useEffect(() => {
+    if (smartAccount) {
+      newSessionId();
+      const sessionKey = window.localStorage.getItem("sessionKey");
+      if (!sessionKey) {
+        createSession();
+      }
+    }
+  }, [smartAccount]);
+  const newSessionId = () => {
+    if (address) {
+      const date = new Date();
+      setSessionId(address + date.getTime());
+      setSessionContent([]);
+      loadListSession();
+    }
+  };
+  const [logChat, setLogChat] = useState([]);
 
   const loadListSession = () => {
     try {
@@ -101,9 +64,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
   };
 
   const handleClickSession = (item) => {
-    // setSessionId(item.sessionId);
-    // setSessionContent(item.content);
-    // loadListSession();
+    setSessionId(item.sessionId);
+    setSessionContent(item.content);
+    loadListSession();
   };
   const deleteSession = (item) => {
     if (!address) return;
@@ -151,10 +114,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
           <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
-            <Button
-              onClick={() => createSession()}
-              className="w-auto px-5 h-10"
-            >
+            <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
               <div className="w-4 h-4 relative">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -335,7 +295,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Session
               </div>
-              {/* <div className="flex flex-col gap-2 overflow-auto max-h-52">
+              <div className="flex flex-col gap-2 overflow-auto max-h-52">
                 {logChat.map((item: any) => (
                   <>
                     {item?.sessionId && (
@@ -396,7 +356,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     )}
                   </>
                 ))}
-              </div> */}
+              </div>
             </div>
           </div>
           <div className="grow"></div>

@@ -2,7 +2,7 @@
 
 import { ConnectKitProvider, createConfig } from "@particle-network/connectkit";
 import { authWalletConnectors } from "@particle-network/connectkit/auth";
-import { mainnet, solana, sepolia } from "@particle-network/connectkit/chains";
+import { sepolia } from "@particle-network/connectkit/chains";
 import { evmWalletConnectors } from "@particle-network/connectkit/evm";
 import {
   injected as solaInjected,
@@ -10,7 +10,7 @@ import {
 } from "@particle-network/connectkit/solana";
 import { wallet, EntryPosition } from "@particle-network/connectkit/wallet";
 import React from "react";
-import { aa } from '@particle-network/connectkit/aa';
+import { aa } from "@particle-network/connectkit/aa";
 
 const config = createConfig({
   projectId: "5d018b10-2afc-429e-acc0-0b0c23fe9644", // --
@@ -21,7 +21,7 @@ const config = createConfig({
     // Optional, label and sort wallets (to be shown in the connection modal)
     recommendedWallets: [
       { walletId: "metaMask", label: "Recommended" },
-      { walletId: "coinbaseWallet", label: "popular" },
+    //   { walletId: "coinbaseWallet", label: "popular" },
     ],
     splitEmailAndPhone: false, // Optional, displays Email and phone number entry separately
     collapseWalletList: false, // Optional, hide wallet list behind a button
@@ -62,11 +62,11 @@ const config = createConfig({
   ],
   plugins: [
     aa({
-        name: 'BICONOMY',
-        version: '2.0.0',
+      name: "BICONOMY",
+      version: "2.0.0",
     }),
   ],
-  chains: [mainnet, sepolia],
+  chains: [sepolia],
 });
 
 // Export ConnectKitProvider to be used within your index or layout file (or use createConfig directly within those files).
