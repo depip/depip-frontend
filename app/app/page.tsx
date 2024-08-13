@@ -2,19 +2,16 @@
 import Layout from "@/components/layout";
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import SideBarRight from "@/components/sidebar-right";
-import { format } from "date-fns";
-import { useAccount } from "@particle-network/connectkit";
 import BotReply from "@/serivces/bot-api";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
 import utils from "@/utils";
-import { useSidebar } from "@/provider/sidebar.provider";
 import { useChat } from "@/provider/chat.provider";
 import { IChat } from "@/models/interface.common";
 import InputGroup from "@/components/input-group";
 let intervalId;
 const Index = () => {
-  const { address, isConnected, chainId } = useAccount();
+  const { smartAddress } = useChat();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
@@ -90,12 +87,12 @@ const Index = () => {
   // }, [sessionId]);
 
   useEffect(() => {
-    if (address) {
-      setAvatar(utils.genAVT(address as string));
+    if (smartAddress) {
+      setAvatar(utils.genAVT(smartAddress as string));
       const date = new Date();
       // newSmartAccount();
     }
-  }, [address]);
+  }, [smartAddress]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -108,7 +105,7 @@ const Index = () => {
         {listMess.length == 0 && <DefaultPage />}
         <ChatBox
           listMess={listMess}
-          address={address}
+          address={smartAddress}
           avatar={avatar}
           isLoading={isLoading}
           messagesEndRef={messagesEndRef}

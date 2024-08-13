@@ -3,17 +3,17 @@ import { FC, ReactNode, use, useEffect, useState } from "react";
 import Navbar from "./navbar";
 import SideBar from "./sidebar";
 import Login from "./login";
-import { useAccount } from "@particle-network/connectkit";
+import { useChat } from "@/provider/chat.provider";
 type Props = {
   children: ReactNode;
 };
 
 const Layout: FC<Props> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const { address, isConnected, chainId } = useAccount();
+  const { smartAddress } = useChat();
   return (
     <>
-      {address ? (
+      {smartAddress ? (
         <>
           <Navbar onClick={() => setIsOpen(true)} />
           <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />

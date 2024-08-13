@@ -4,7 +4,6 @@ import { useForm, Controller } from "react-hook-form";
 import api from "@/serivces/form-api";
 import { useChat } from "@/provider/chat.provider";
 import { PIL_TYPE } from "@/models/interface.common";
-import { useAccount } from '@particle-network/connectkit';
 
 const FormRegisterPilTerm = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
@@ -19,15 +18,14 @@ const FormRegisterPilTerm = () => {
     formState: { errors },
   } = useForm();
   const selectedType: PIL_TYPE = watch("type", PIL_TYPE.COMMERCIAL_USE);
-  const { address, isConnected, chainId } = useAccount();
+  const { smartAddress } = useChat();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.licenceseTerms(data);
     if (res) {
       toggleSidebar();
-      debugger;
       const dataChat = {
-        from: address ?? "user",
+        from: smartAddress ?? "user",
         value: [
           {
             type: "string",

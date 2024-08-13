@@ -12,7 +12,7 @@ const ChatBox = ({ listMess, address, avatar, isLoading, messagesEndRef }) => {
     >
       {listMess.map((item, index) => (
         <>
-          {item.from == address && (
+          {item.from !== "bot" && (
             <>
               {item.value[0]?.type == "image" && (
                 <div key={index}>
