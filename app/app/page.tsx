@@ -3,7 +3,7 @@ import Layout from "@/components/layout";
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import SideBarRight from "@/components/sidebar-right";
 import { format } from "date-fns";
-import { useAccount } from "wagmi";
+import { useAccount } from "@particle-network/connectkit";
 import BotReply from "@/serivces/bot-api";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
@@ -14,19 +14,13 @@ import { IChat } from "@/models/interface.common";
 import InputGroup from "@/components/input-group";
 let intervalId;
 const Index = () => {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const {
-    dataChat,
-    sessionId,
-    setSessionId,
-    setSessionContent,
-    sessionContent,
-  } = useChat();
+  const { dataChat, sessionId, setSessionContent, sessionContent } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const userChat = (dataChat) => {
@@ -62,8 +56,9 @@ const Index = () => {
     if (listMess.length > 0) {
       var lastMessage = listMess[listMess.length - 1];
       if (
+        lastMessage &&
+        lastMessage?.value &&
         lastMessage?.from != "bot" &&
-        lastMessage?.value.length > 0 &&
         lastMessage?.value[0]?.type == "string"
       ) {
         onBotReply(lastMessage?.value[0]?.content);
@@ -98,7 +93,7 @@ const Index = () => {
     if (address) {
       setAvatar(utils.genAVT(address as string));
       const date = new Date();
-      setSessionId(address + date.getTime());
+      // newSmartAccount();
     }
   }, [address]);
 

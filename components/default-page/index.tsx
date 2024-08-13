@@ -2,19 +2,16 @@ import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import utils from "@/utils";
 import { FC, useEffect, useState } from "react";
-import { useAccount } from "wagmi";
 
 const DefaultPage = () => {
-  const { address } = useAccount();
   const [avatar, setAvatar] = useState<string>("");
   const { isSidebarOpen, setTypeForm } = useSidebar();
-  const { setDataChat } = useChat();
-
+  const { setDataChat, smartAddress } = useChat();
   useEffect(() => {
-    if (address) {
-      setAvatar(utils.genAVT(address as string));
+    if (smartAddress) {
+      setAvatar(utils.genAVT(smartAddress as string));
     }
-  }, [address]);
+  }, [smartAddress]);
 
   return (
     <div
@@ -27,7 +24,7 @@ const DefaultPage = () => {
           <img
             className="w-12 h-12 rounded-full border border-gray-200"
             src={avatar}
-            alt={address}
+            alt={smartAddress}
           />
         </div>
         <div className="self-stretch">
@@ -35,9 +32,9 @@ const DefaultPage = () => {
             Hey&nbsp;
           </span>
           <span className="text-blue-400 text-xl font-normal font-pixel uppercase leading-[30px]">
-            {`${address?.substring(0, 6)}...${address?.substring(
-              address.length - 4,
-              address.length
+            {`${smartAddress?.substring(0, 6)}...${smartAddress?.substring(
+              smartAddress.length - 4,
+              smartAddress.length
             )}`}
           </span>
           <span className="text-black text-xl font-normal font-pixel uppercase leading-[30px]">
@@ -54,8 +51,13 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: address ?? "user",
-                value: [{ type: "string", content: "Get started" }],
+                from: smartAddress ?? "user",
+                value: [
+                  {
+                    type: "string",
+                    content: "Get started",
+                  },
+                ],
               })
             }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
@@ -88,8 +90,13 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: address ?? "user",
-                value: [{ type: "string", content: "What is IP?" }],
+                from: smartAddress ?? "user",
+                value: [
+                  {
+                    type: "string",
+                    content: "What is IP?",
+                  },
+                ],
               })
             }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
@@ -122,8 +129,13 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: address ?? "user",
-                value: [{ type: "string", content: "Full process" }],
+                from: smartAddress ?? "user",
+                value: [
+                  {
+                    type: "string",
+                    content: "Full process",
+                  },
+                ],
               })
             }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
@@ -156,8 +168,13 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: address ?? "user",
-                value: [{ type: "string", content: "Register ip asset" }],
+                from: smartAddress ?? "user",
+                value: [
+                  {
+                    type: "string",
+                    content: "Register ip asset",
+                  },
+                ],
               })
             }
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"

@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import api from "@/serivces/form-api";
 import { useChat } from "@/provider/chat.provider";
 import { PIL_TYPE } from "@/models/interface.common";
-import { useAccount } from "wagmi";
+import { useAccount } from '@particle-network/connectkit';
 
 const FormRegisterPilTerm = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
@@ -19,7 +19,7 @@ const FormRegisterPilTerm = () => {
     formState: { errors },
   } = useForm();
   const selectedType: PIL_TYPE = watch("type", PIL_TYPE.COMMERCIAL_USE);
-  const { address } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.licenceseTerms(data);

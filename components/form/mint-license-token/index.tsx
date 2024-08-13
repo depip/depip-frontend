@@ -3,7 +3,7 @@ import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAccount } from "wagmi";
+import { useAccount } from '@particle-network/connectkit';
 
 const FormMintLicenseToken = () => {
   const { toggleSidebar } = useSidebar();
@@ -14,7 +14,7 @@ const FormMintLicenseToken = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { address } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.mintLicense(data);

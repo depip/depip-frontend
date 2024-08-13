@@ -5,7 +5,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import api from "@/serivces/form-api";
 import Button from "@/components/button";
 import FileUpload from "@/components/file-upload";
-import { useAccount } from "wagmi";
+import { useAccount } from '@particle-network/connectkit';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -28,7 +28,7 @@ const MintAndRegistryIp = () => {
   const { toggleSidebar } = useSidebar();
   const { setDataChat } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { address } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
 
   const {
     register,

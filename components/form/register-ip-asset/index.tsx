@@ -3,13 +3,13 @@ import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAccount } from "wagmi";
+import { useAccount } from '@particle-network/connectkit';
 
 const FormRegisterIPAsset = () => {
   const { toggleSidebar } = useSidebar();
   const { setDataChat } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { address } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const {
     register,
     handleSubmit,

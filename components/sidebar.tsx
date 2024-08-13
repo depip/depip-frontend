@@ -1,31 +1,33 @@
 import { useChat } from "@/provider/chat.provider";
-import { useSidebar } from "@/provider/sidebar.provider";
-import { useAccount } from "wagmi";
-import Button from "./button";
+import { useSmartAccount } from "@particle-network/connectkit";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import Button from "./button";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
-  const { isSidebarOpen, setTypeForm } = useSidebar();
-  const { address } = useAccount();
+  const { smartAddress } = useChat();
   const { setDataChat, setSessionId, setSessionContent } = useChat();
+
+  const smartAccount = useSmartAccount();
+  useEffect(() => {
+    if (smartAccount) {
+      newSessionId();
+    }
+  }, [smartAccount]);
   const newSessionId = () => {
-    if (address) {
+    if (smartAddress) {
       const date = new Date();
-      setSessionId(address + date.getTime());
+      setSessionId(smartAddress + date.getTime());
       setSessionContent([]);
       loadListSession();
     }
   };
   const [logChat, setLogChat] = useState([]);
-  useEffect(() => {
-    loadListSession();
-  }, []);
 
   const loadListSession = () => {
     try {
-      if (!address) return;
-      const listChat = window.localStorage.getItem(address);
+      if (!smartAddress) return;
+      const listChat = window.localStorage.getItem(smartAddress);
       const _logChat = listChat ? JSON.parse(listChat) : [];
       setLogChat(_logChat);
     } catch (error) {
@@ -39,16 +41,17 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     loadListSession();
   };
   const deleteSession = (item) => {
-    if (!address) return;
-    const listChat = window.localStorage.getItem(address);
+    if (!smartAddress) return;
+    const listChat = window.localStorage.getItem(smartAddress);
     const _logChat = listChat ? JSON.parse(listChat) : [];
     const _logchatdel = _logChat.filter((x) => x.sessionId !== item.sessionId);
     const jsonChat = JSON.stringify(_logchatdel);
-    window.localStorage.setItem(address, jsonChat);
+    window.localStorage.setItem(smartAddress, jsonChat);
     loadListSession();
   };
   const getTime = (sessionId: string) => {
-    const timestring = sessionId.replace(address as string, "");
+    const timestring = sessionId.replace(smartAddress as string, "");
+    if (!timestring) return "";
     const date = new Date(parseInt(timestring));
     return format(date, "dd/MM/yyyy HH:mm");
   };
@@ -115,8 +118,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: address ?? "user",
-                      value: [{ type: "string", content: "Get started" }],
+                      from: smartAddress ?? "user",
+                      value: [
+                        {
+                          type: "string",
+                          content: "Get started",
+                        },
+                      ],
                     })
                   }
                 >
@@ -147,8 +155,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: address ?? "user",
-                      value: [{ type: "string", content: "What is IP?" }],
+                      from: smartAddress ?? "user",
+                      value: [
+                        {
+                          type: "string",
+                          content: "What is IP?",
+                        },
+                      ],
                     })
                   }
                 >
@@ -179,8 +192,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: address ?? "user",
-                      value: [{ type: "string", content: "Full process" }],
+                      from: smartAddress ?? "user",
+                      value: [
+                        {
+                          type: "string",
+                          content: "Full process",
+                        },
+                      ],
                     })
                   }
                 >
@@ -211,8 +229,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: address ?? "user",
-                      value: [{ type: "string", content: "Register ip asset" }],
+                      from: smartAddress ?? "user",
+                      value: [
+                        {
+                          type: "string",
+                          content: "Register ip asset",
+                        },
+                      ],
                     })
                   }
                 >
@@ -248,7 +271,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="flex flex-col gap-2 overflow-auto max-h-52">
                 {logChat.map((item: any) => (
                   <>
-                    {item.sessionId && (
+                    {item?.sessionId && (
                       <div className="cursor-pointer self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex justify-start items-center min-h-14">
                         <div
                           onClick={() => handleClickSession(item)}
@@ -272,10 +295,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                           </div>
                           <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                             <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[200px]">
-                              {item.content[0]?.value[0]?.content}
+                              {item?.content[0]?.value[0]?.content || ""}
                             </div>
                             <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
-                              {getTime(item.sessionId)}
+                              {getTime(item?.sessionId)}
                             </div>
                           </div>
                         </div>

@@ -1,6 +1,15 @@
 "use client";
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useSmartAccount } from "@particle-network/connectkit";
+import { useEthereum } from "@particle-network/auth-core-modal";
+import {
+  SmartAccount,
+  Transaction,
+  IEthereumProvider,
+} from "@particle-network/aa";
+import { Ethereum, EthereumSepolia } from "@particle-network/chains";
+import { particleAuth } from "@particle-network/auth-core";
+import { sepolia } from "viem/chains";
 
 const chatContext = createContext({
   dataChat: {},
@@ -15,7 +24,7 @@ export const ChatProvider = ({ children }) => {
   const [dataChat, setDataChat] = useState({});
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState([]);
-  const { address } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   useEffect(() => {
     try {
       if (!address) return;
