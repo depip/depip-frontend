@@ -28,7 +28,7 @@ const MintAndRegistryIp = () => {
   const { toggleSidebar } = useSidebar();
   const { setDataChat } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
 
   const {
     register,
@@ -43,7 +43,7 @@ const MintAndRegistryIp = () => {
     defaultValues: {
       name: "",
       description: "",
-      recipient: account,
+      recipient: address,
     },
   });
   const onSubmit = async (data) => {
@@ -55,7 +55,7 @@ const MintAndRegistryIp = () => {
       if (res.ipasset.status == "success") {
         toggleSidebar();
         const dataChat = {
-          from: account ?? "user",
+          from: address ?? "user",
           value: [
             {
               type: "link",

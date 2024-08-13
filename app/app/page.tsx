@@ -14,19 +14,13 @@ import { IChat } from "@/models/interface.common";
 import InputGroup from "@/components/input-group";
 let intervalId;
 const Index = () => {
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const {
-    dataChat,
-    sessionId,
-    newSmartAccount,
-    setSessionContent,
-    sessionContent,
-  } = useChat();
+  const { dataChat, sessionId, setSessionContent, sessionContent } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const userChat = (dataChat) => {
@@ -96,12 +90,12 @@ const Index = () => {
   // }, [sessionId]);
 
   useEffect(() => {
-    if (account) {
-      setAvatar(utils.genAVT(account as string));
+    if (address) {
+      setAvatar(utils.genAVT(address as string));
       const date = new Date();
-      newSmartAccount();
+      // newSmartAccount();
     }
-  }, [account]);
+  }, [address]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -114,7 +108,7 @@ const Index = () => {
         {listMess.length == 0 && <DefaultPage />}
         <ChatBox
           listMess={listMess}
-          address={account}
+          address={address}
           avatar={avatar}
           isLoading={isLoading}
           messagesEndRef={messagesEndRef}

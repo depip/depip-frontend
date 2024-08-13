@@ -1,6 +1,6 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useRef, useState } from "react";
-import { useAccount } from '@particle-network/connectkit';
+import { useAccount } from "@particle-network/connectkit";
 
 type Props = {
   isLoading: boolean;
@@ -20,13 +20,13 @@ const InputGroup: React.FC<Props> = ({
   setImage,
 }) => {
   const { isSidebarOpen } = useSidebar();
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (isLoading) return;
       const dataChat = {
-        from: account ?? "user",
+        from: address ?? "user",
         value: [
           {
             type: "string",

@@ -10,10 +10,10 @@ type Props = {
 
 const Layout: FC<Props> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   return (
     <>
-      {account ? (
+      {address ? (
         <>
           <Navbar onClick={() => setIsOpen(true)} />
           <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />

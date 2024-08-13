@@ -19,14 +19,14 @@ const FormRegisterPilTerm = () => {
     formState: { errors },
   } = useForm();
   const selectedType: PIL_TYPE = watch("type", PIL_TYPE.COMMERCIAL_USE);
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.licenceseTerms(data);
     if (res) {
       toggleSidebar();
       const dataChat = {
-        from: account ?? "user",
+        from: address ?? "user",
         value: [
           {
             type: "string",

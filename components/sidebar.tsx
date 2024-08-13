@@ -1,31 +1,98 @@
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
-import { useAccount } from "@particle-network/connectkit";
+import {
+  useAccount,
+  useSmartAccount,
+  useWallets,
+} from "@particle-network/connectkit";
 import Button from "./button";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { Utils } from "alchemy-sdk";
+import { UserOpParams } from "@particle-network/aa";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const { setDataChat, setSessionId, setSessionContent } = useChat();
+  const [session, setSession] = useState();
+  const smartAccount = useSmartAccount();
+  const [primaryWallet] = useWallets();
   // const newSessionId = () => {
-  //   if (account) {
+  //   if (address) {
   //     const date = new Date();
-  //     setSessionId(account + date.getTime());
+  //     setSessionId(address + date.getTime());
   //     setSessionContent([]);
   //     loadListSession();
   //   }
   // };
   const [logChat, setLogChat] = useState([]);
-  useEffect(() => {
-    loadListSession();
-  }, []);
+
+  const createSession = async () => {
+    const sessionKey = await smartAccount?.createSessions([
+      {
+        validUntil: 0,
+        validAfter: 0,
+        sessionValidationModule: "0xB4AFbE412FD10cF1BFd57c5dcccdbE391352CF1b",
+        sessionKeyDataInAbi: [
+          ["address", "address", "uint256"],
+          [address, "0xda9872016526f2dfa1F4de4C441fb57f4851630F", 100],
+        ],
+      },
+    ]);
+    console.log(sessionKey);
+
+    const feeQuotesResult = await smartAccount?.getFeeQuotes(
+      sessionKey?.transactions as any[]
+    );
+
+    const gaslessUserOp = feeQuotesResult?.verifyingPaymasterGasless?.userOp;
+    const gaslessUserOpHash =
+      feeQuotesResult?.verifyingPaymasterGasless?.userOpHash;
+
+    const tokenPaymasterAddress =
+      feeQuotesResult?.tokenPaymaster?.tokenPaymasterAddress;
+    const tokenFeeQuotes = feeQuotesResult?.tokenPaymaster?.feeQuotes;
+
+    const tx: UserOpParams = {
+      tx:  sessionKey?.sessions as any[]
+    };
+
+    const userOpBundle = await smartAccount?.buildUserOperation(tx);
+    const userOp = userOpBundle?.userOp;
+    const userOpHash = userOpBundle?.userOpHash;
+    const txHash = await smartAccount?.sendUserOperation({ userOp, userOpHash });  
+
+    // const paidNativeUserOp = feeQuotesResult?.verifyingPaymasterNative?.userOp;
+    // const paidNativeUserOpHash = feeQuotesResult?.verifyingPaymasterNative?.userOpHash;
+
+    // const tokenPaymasterAddress = feeQuotesResult?.tokenPaymaster?.tokenPaymasterAddress;
+    // const tokenFeeQuotes = feeQuotesResult?.tokenPaymaster?.feeQuotes;
+
+    // const userOpA = sessionKey?.verifyingPaymasterGasless?.userOp;
+    // const userOpHashA = sessionKey?.verifyingPaymasterGasless?.userOpHash;
+    // const sessions = resCreateSessions.result.sessions; // the sessions you need to store locally
+    // userOpA?.signature = await this.mainSigner.signMessage(Utils.arrayify(userOpHashA));
+    // userOpA?.signature = await primaryWallet.getWalletClient().signMessage({Utils.arrayify(userOpHashA)});
+    // const walletClient = primaryWallet.getWalletClient();
+    // debugger;
+    // const transactionResponse = await walletClient.sendTransaction(
+    //   sessionKey?.transactions as any
+    // );
+
+    // console.log("Transaction sent:", transactionResponse);
+    // console.log(await smartAccount?.getAccount());
+    // console.log(sessionKey);
+    // await smartAccount?.sendTransaction({
+    //   tx: sessionKey?.transactions as any[],
+    // });
+    // setSession(sessionKey as any);
+  };
 
   const loadListSession = () => {
     try {
-      if (!account) return;
-      const listChat = window.localStorage.getItem(account);
+      if (!address) return;
+      const listChat = window.localStorage.getItem(address);
       const _logChat = listChat ? JSON.parse(listChat) : [];
       setLogChat(_logChat);
     } catch (error) {
@@ -34,21 +101,21 @@ const SideBar = ({ isOpen, setIsOpen }) => {
   };
 
   const handleClickSession = (item) => {
-    setSessionId(item.sessionId);
-    setSessionContent(item.content);
-    loadListSession();
+    // setSessionId(item.sessionId);
+    // setSessionContent(item.content);
+    // loadListSession();
   };
   const deleteSession = (item) => {
-    if (!account) return;
-    const listChat = window.localStorage.getItem(account);
+    if (!address) return;
+    const listChat = window.localStorage.getItem(address);
     const _logChat = listChat ? JSON.parse(listChat) : [];
     const _logchatdel = _logChat.filter((x) => x.sessionId !== item.sessionId);
     const jsonChat = JSON.stringify(_logchatdel);
-    window.localStorage.setItem(account, jsonChat);
+    window.localStorage.setItem(address, jsonChat);
     loadListSession();
   };
   const getTime = (sessionId: string) => {
-    const timestring = sessionId.replace(account as string, "");
+    const timestring = sessionId.replace(address as string, "");
     const date = new Date(parseInt(timestring));
     return format(date, "dd/MM/yyyy HH:mm");
   };
@@ -84,7 +151,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
           <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
-            {/* <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
+            <Button
+              onClick={() => createSession()}
+              className="w-auto px-5 h-10"
+            >
               <div className="w-4 h-4 relative">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +175,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="text-xs font-normal font-pixel uppercase leading-5">
                 New chat
               </div>
-            </Button> */}
+            </Button>
             <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Get started
@@ -115,7 +185,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: account ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",
@@ -152,7 +222,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: account ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",
@@ -189,7 +259,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: account ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",
@@ -226,7 +296,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: account ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",

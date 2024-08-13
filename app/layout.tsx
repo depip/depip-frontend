@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 // import Link from "next/link";
 // import { AvatarComponent, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 // import utils from "@/utils";
@@ -10,16 +10,8 @@ import { ReactNode } from "react";
 import { SidebarProvider } from "@/provider/sidebar.provider";
 import { ChatProvider } from "@/provider/chat.provider";
 import localFont from "next/font/local";
-import "@particle-network/connectkit/dist/index.css";
 import "../styles/globals.scss";
-import { Ethereum, EthereumSepolia } from "@particle-network/chains";
-import { ModalProvider } from "@particle-network/connectkit";
-import { evmWallets } from "@particle-network/connectors";
-import { AuthType } from "@particle-network/auth-core";
-import {
-  AuthCoreContextProvider,
-  PromptSettingType,
-} from "@particle-network/auth-core-modal";
+import { ParticleConnectkit } from "./ParticleConnectkit";
 
 const GeistSans = localFont({
   src: "../assets/fonts/geist-sans/Geist-Variable.woff2",
@@ -57,28 +49,6 @@ const PixelOperator = localFont({
 //   );
 // };
 export default function RootLayout({ children }: { children: ReactNode }) {
-  // const queryClient = new QueryClient();
-  const options = {
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
-    clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY || "",
-    appId: process.env.NEXT_PUBLIC_APP_ID || "",
-    chains: [Ethereum, EthereumSepolia],
-    connectors: [
-      ...evmWallets({
-        projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
-        showQrModal: false,
-      }),
-    ],
-    erc4337: {
-      name: "BICONOMY",
-      version: "2.0.0",
-    },
-    wallet: {
-      customStyle: {
-        supportChains: [Ethereum, EthereumSepolia],
-      },
-    },
-  };
   return (
     <html>
       <body>
@@ -86,45 +56,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}> */}
         {/* <RainbowKitProvider modalSize="compact" avatar={CustomAvatar}> */}
-        <AuthCoreContextProvider
-          options={{
-            projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
-            clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY || "",
-            appId: process.env.NEXT_PUBLIC_APP_ID || "",
-            authTypes: [AuthType.email, AuthType.google, AuthType.twitter],
-            themeType: "dark",
-            fiatCoin: "USD",
-            language: "en",
-            erc4337: {
-              name: "SIMPLE",
-              version: "1.0.0",
-            },
-            promptSettingConfig: {
-              promptPaymentPasswordSettingWhenSign: PromptSettingType.first,
-              promptMasterPasswordSettingWhenLogin: PromptSettingType.first,
-            },
-            wallet: {
-              visible: true,
-              customStyle: {
-                supportChains: [Ethereum, EthereumSepolia],
-              },
-            },
-          }}
-        >
-          <ModalProvider options={options}>
-            <SidebarProvider>
-              <ChatProvider>
-                <main>
-                  <div
-                    className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-[#FAF9EF]`}
-                  >
-                    {children}
-                  </div>
-                </main>
-              </ChatProvider>
-            </SidebarProvider>
-          </ModalProvider>
-        </AuthCoreContextProvider>
+
+        <ParticleConnectkit>
+          <SidebarProvider>
+            <ChatProvider>
+              <main>
+                <div
+                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-[#FAF9EF]`}
+                >
+                  {children}
+                </div>
+              </main>
+            </ChatProvider>
+          </SidebarProvider>
+        </ParticleConnectkit>
         {/* </RainbowKitProvider> */}
         {/* </QueryClientProvider>
           </WagmiProvider> */}

@@ -5,16 +5,16 @@ import { FC, useEffect, useState } from "react";
 import { useAccount } from "@particle-network/connectkit";
 
 const DefaultPage = () => {
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const [avatar, setAvatar] = useState<string>("");
   const { isSidebarOpen, setTypeForm } = useSidebar();
   const { setDataChat } = useChat();
 
   useEffect(() => {
-    if (account) {
-      setAvatar(utils.genAVT(account as string));
+    if (address) {
+      setAvatar(utils.genAVT(address as string));
     }
-  }, [account]);
+  }, [address]);
 
   return (
     <div
@@ -27,7 +27,7 @@ const DefaultPage = () => {
           <img
             className="w-12 h-12 rounded-full border border-gray-200"
             src={avatar}
-            alt={account}
+            alt={address}
           />
         </div>
         <div className="self-stretch">
@@ -35,9 +35,9 @@ const DefaultPage = () => {
             Hey&nbsp;
           </span>
           <span className="text-blue-400 text-xl font-normal font-pixel uppercase leading-[30px]">
-            {`${account?.substring(0, 6)}...${account?.substring(
-              account.length - 4,
-              account.length
+            {`${address?.substring(0, 6)}...${address?.substring(
+              address.length - 4,
+              address.length
             )}`}
           </span>
           <span className="text-black text-xl font-normal font-pixel uppercase leading-[30px]">
@@ -54,7 +54,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: account ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",
@@ -93,7 +93,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: account ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",
@@ -132,7 +132,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: account ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",
@@ -171,7 +171,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: account ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",

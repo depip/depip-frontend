@@ -15,14 +15,14 @@ const FormAttachPilTerm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const account = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.attackPILTerms(data);
     if (res) {
       toggleSidebar();
       const dataChat = {
-        from: account ?? "user",
+        from: address ?? "user",
         value: [
           {
             type: "string",
