@@ -1,11 +1,12 @@
 import { useChat } from "@/provider/chat.provider";
-import { useSmartAccount } from "@particle-network/connectkit";
+import { useAccount, useSmartAccount } from "@particle-network/connectkit";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Button from "./button";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
-  const { smartAddress } = useChat();
+  // const { smartAddress } = useChat();
+  const { address, isConnected } = useAccount();
   const { setDataChat, setSessionId, setSessionContent } = useChat();
 
   const smartAccount = useSmartAccount();
@@ -15,9 +16,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     }
   }, [smartAccount]);
   const newSessionId = () => {
-    if (smartAddress) {
+    if (address) {
       const date = new Date();
-      setSessionId(smartAddress + date.getTime());
+      setSessionId(address + date.getTime());
       setSessionContent([]);
       loadListSession();
     }
@@ -26,8 +27,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
 
   const loadListSession = () => {
     try {
-      if (!smartAddress) return;
-      const listChat = window.localStorage.getItem(smartAddress);
+      if (!address) return;
+      const listChat = window.localStorage.getItem(address);
       const _logChat = listChat ? JSON.parse(listChat) : [];
       setLogChat(_logChat);
     } catch (error) {
@@ -41,16 +42,16 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     loadListSession();
   };
   const deleteSession = (item) => {
-    if (!smartAddress) return;
-    const listChat = window.localStorage.getItem(smartAddress);
+    if (!address) return;
+    const listChat = window.localStorage.getItem(address);
     const _logChat = listChat ? JSON.parse(listChat) : [];
     const _logchatdel = _logChat.filter((x) => x.sessionId !== item.sessionId);
     const jsonChat = JSON.stringify(_logchatdel);
-    window.localStorage.setItem(smartAddress, jsonChat);
+    window.localStorage.setItem(address, jsonChat);
     loadListSession();
   };
   const getTime = (sessionId: string) => {
-    const timestring = sessionId.replace(smartAddress as string, "");
+    const timestring = sessionId.replace(address as string, "");
     if (!timestring) return "";
     const date = new Date(parseInt(timestring));
     return format(date, "dd/MM/yyyy HH:mm");
@@ -118,7 +119,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: smartAddress ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",
@@ -155,7 +156,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: smartAddress ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",
@@ -192,7 +193,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: smartAddress ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",
@@ -229,7 +230,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
-                      from: smartAddress ?? "user",
+                      from: address ?? "user",
                       value: [
                         {
                           type: "string",

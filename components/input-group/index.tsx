@@ -1,6 +1,7 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useRef, useState } from "react";
 import { useChat } from "@/provider/chat.provider";
+import { useAccount } from "@particle-network/connectkit";
 
 type Props = {
   isLoading: boolean;
@@ -20,12 +21,13 @@ const InputGroup: React.FC<Props> = ({
   setImage,
 }) => {
   const { isSidebarOpen } = useSidebar();
-  const { smartAddress } = useChat();
+  // const { smartAddress } = useChat();
+  const { address, isConnected } = useAccount();
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (isLoading) return;
       const dataChat = {
-        from: smartAddress ?? "user",
+        from: address ?? "user",
         value: [
           {
             type: "string",
@@ -45,7 +47,7 @@ const InputGroup: React.FC<Props> = ({
       reader.onloadend = () => {
         setImage(reader.result);
         const dataChat = {
-          from: smartAddress ?? "user",
+          from: address ?? "user",
           value: [
             {
               type: "image",
@@ -77,7 +79,7 @@ const InputGroup: React.FC<Props> = ({
           className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded border border-blue-400 cursor-pointer"
           onClick={() =>
             userChat({
-              from: smartAddress ?? "user",
+              from: address ?? "user",
               value: [{ type: "string", content: "Get started" }],
             })
           }
@@ -88,7 +90,7 @@ const InputGroup: React.FC<Props> = ({
           className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400 cursor-pointer"
           onClick={() =>
             userChat({
-              from: smartAddress ?? "user",
+              from: address ?? "user",
               value: [{ type: "string", content: "What is IP?" }],
             })
           }
@@ -99,7 +101,7 @@ const InputGroup: React.FC<Props> = ({
           className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded border border-indigo-400 cursor-pointer"
           onClick={() =>
             userChat({
-              from: smartAddress ?? "user",
+              from: address ?? "user",
               value: [{ type: "string", content: "Full process" }],
             })
           }
@@ -110,7 +112,7 @@ const InputGroup: React.FC<Props> = ({
           className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded border border-pink-400 cursor-pointer"
           onClick={() =>
             userChat({
-              from: smartAddress ?? "user",
+              from: address ?? "user",
               value: [{ type: "string", content: "Register ip asset" }],
             })
           }

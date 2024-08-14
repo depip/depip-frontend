@@ -1,14 +1,6 @@
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-// import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { ConnectButton } from "@particle-network/connectkit";
+import ConnectButtonCustom from "./connect-button";
 
 const Navnar = ({ onClick }) => {
-  const { theme, setTheme } = useTheme();
-  useEffect(() => {
-    setTheme("light");
-  }, [theme]);
-
   return (
     <>
       <nav className="fixed z-30 top-0 left-0 w-screen border-b">
@@ -32,7 +24,7 @@ const Navnar = ({ onClick }) => {
           <div className="hidden lg:flex lg:items-center"></div>
           <div className="flex items-center"></div>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
-            <ConnectButton></ConnectButton>
+            <ConnectButtonCustom></ConnectButtonCustom>
           </div>
         </div>
       </nav>

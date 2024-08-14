@@ -1,15 +1,6 @@
 "use client";
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useAccount, useSmartAccount } from "@particle-network/connectkit";
-import { useEthereum } from "@particle-network/auth-core-modal";
-import {
-  SmartAccount,
-  Transaction,
-  IEthereumProvider,
-} from "@particle-network/aa";
-import { Ethereum, EthereumSepolia } from "@particle-network/chains";
-import { particleAuth } from "@particle-network/auth-core";
-import { sepolia } from "viem/chains";
 
 const chatContext = createContext({
   dataChat: {},
@@ -56,9 +47,8 @@ export const ChatProvider = ({ children }) => {
         ],
       },
     ]);
-    await smartAccount?.sendTransaction({
-      tx: sessionKey?.transactions as any[],
-    });
+
+    await smartAccount?.sendTransaction(sessionKey?.verifyingPaymasterGasless);
     window.localStorage.setItem(
       "sessionKey",
       JSON.stringify(sessionKey.sessions)

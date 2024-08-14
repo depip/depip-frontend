@@ -2,6 +2,7 @@ import Button from "@/components/button";
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
+import { useAccount } from "@particle-network/connectkit";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -14,14 +15,15 @@ const FormAttachPilTerm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { smartAddress } = useChat();
+  // const { smartAddress } = useChat();
+  const { address, isConnected } = useAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await api.attackPILTerms(data);
     if (res) {
       toggleSidebar();
       const dataChat = {
-        from: smartAddress ?? "user",
+        from: address ?? "user",
         value: [
           {
             type: "string",

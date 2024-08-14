@@ -1,6 +1,7 @@
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
+import { useAccount } from "@particle-network/connectkit";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -8,7 +9,8 @@ const FormRegisterIPAsset = () => {
   const { toggleSidebar } = useSidebar();
   const { setDataChat } = useChat();
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { smartAddress } = useChat();
+  // const { smartAddress } = useChat();
+  const { address, isConnected } = useAccount();
   const {
     register,
     handleSubmit,
@@ -20,7 +22,7 @@ const FormRegisterIPAsset = () => {
     if (res) {
       toggleSidebar();
       const dataChat = {
-        from: smartAddress ?? "user",
+        from: address ?? "user",
         value: [
           {
             type: "string",

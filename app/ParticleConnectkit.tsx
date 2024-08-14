@@ -65,6 +65,11 @@ const config = createConfig({
       name: "BICONOMY",
       version: "2.0.0",
     }),
+    wallet({
+      // Optional configurations for the attached embedded wallet modal
+      entryPosition: EntryPosition.BR, // Alters the position in which the modal button appears upon login
+      visible: false, // Dictates whether or not the wallet modal is included/visible or not
+    }),
   ],
   chains: [sepolia],
 });

@@ -1,17 +1,19 @@
 import { useChat } from "@/provider/chat.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import utils from "@/utils";
+import { useAccount } from "@particle-network/connectkit";
 import { FC, useEffect, useState } from "react";
 
 const DefaultPage = () => {
   const [avatar, setAvatar] = useState<string>("");
   const { isSidebarOpen, setTypeForm } = useSidebar();
   const { setDataChat, smartAddress } = useChat();
+  const { address, isConnected } = useAccount();
   useEffect(() => {
-    if (smartAddress) {
-      setAvatar(utils.genAVT(smartAddress as string));
+    if (address) {
+      setAvatar(utils.genAVT(address as string));
     }
-  }, [smartAddress]);
+  }, [address]);
 
   return (
     <div
@@ -24,7 +26,7 @@ const DefaultPage = () => {
           <img
             className="w-12 h-12 rounded-full border border-gray-200"
             src={avatar}
-            alt={smartAddress}
+            alt={address}
           />
         </div>
         <div className="self-stretch">
@@ -32,9 +34,9 @@ const DefaultPage = () => {
             Hey&nbsp;
           </span>
           <span className="text-blue-400 text-xl font-normal font-pixel uppercase leading-[30px]">
-            {`${smartAddress?.substring(0, 6)}...${smartAddress?.substring(
-              smartAddress.length - 4,
-              smartAddress.length
+            {`${address?.substring(0, 6)}...${address?.substring(
+              address.length - 4,
+              address.length
             )}`}
           </span>
           <span className="text-black text-xl font-normal font-pixel uppercase leading-[30px]">
@@ -51,7 +53,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: smartAddress ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",
@@ -90,7 +92,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: smartAddress ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",
@@ -129,7 +131,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: smartAddress ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",
@@ -168,7 +170,7 @@ const DefaultPage = () => {
           <div
             onClick={() =>
               setDataChat({
-                from: smartAddress ?? "user",
+                from: address ?? "user",
                 value: [
                   {
                     type: "string",

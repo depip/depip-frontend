@@ -9,9 +9,11 @@ import utils from "@/utils";
 import { useChat } from "@/provider/chat.provider";
 import { IChat } from "@/models/interface.common";
 import InputGroup from "@/components/input-group";
+import { useAccount } from "@particle-network/connectkit";
 let intervalId;
 const Index = () => {
-  const { smartAddress } = useChat();
+  // const { smartAddress } = useChat();
+  const { address, isConnected } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
@@ -87,12 +89,12 @@ const Index = () => {
   // }, [sessionId]);
 
   useEffect(() => {
-    if (smartAddress) {
-      setAvatar(utils.genAVT(smartAddress as string));
+    if (address) {
+      setAvatar(utils.genAVT(address as string));
       const date = new Date();
       // newSmartAccount();
     }
-  }, [smartAddress]);
+  }, [address]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -105,7 +107,7 @@ const Index = () => {
         {listMess.length == 0 && <DefaultPage />}
         <ChatBox
           listMess={listMess}
-          address={smartAddress}
+          address={address}
           avatar={avatar}
           isLoading={isLoading}
           messagesEndRef={messagesEndRef}
