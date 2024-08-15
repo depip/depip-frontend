@@ -1,4 +1,4 @@
-import { IChatContent } from "@/models/interface.common";
+import { IChatContent } from "@/types/types";
 import { minidenticon } from "minidenticons";
 
 const genAVT = (adress: string) => {

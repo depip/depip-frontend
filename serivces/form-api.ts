@@ -1,5 +1,4 @@
-import { PIL_TYPE } from "@/types/types";
-
+import { PIL_TYPE } from "@/constant/constant";
 
 const registerIpAsset = async (params: {
   nftAddress: string;
