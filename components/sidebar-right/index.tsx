@@ -1,4 +1,3 @@
-import { FC, useContext, useEffect, useState } from "react";
 import { useSidebar } from "@/provider/sidebar.provider";
 import FormRegisterIPAsset from "../form/register-ip-asset";
 import FormRegisterPilTerm from "../form/register-pil-term";
@@ -12,7 +11,7 @@ const SideBarRight = () => {
     <>
       <aside
         id="right-sidebar"
-        className={`fixed top-[88px] z-40 w-[424px] h-screen p-6 transition-all bg-[#FAF9EF] ${
+        className={`fixed top-[88px] z-40 w-[424px] h-screen p-6 transition-all bg-white ${
           isSidebarOpen ? "right-0" : "-right-[424px]"
         }`}
         aria-label="Sidebar"

@@ -10,9 +10,3 @@ export interface IChatContent {
   file?: any;
   link?: string;
 }
-
-export enum PIL_TYPE {
-  NON_COMMERCIAL_REMIX,
-  COMMERCIAL_USE,
-  COMMERCIAL_REMIX,
-}

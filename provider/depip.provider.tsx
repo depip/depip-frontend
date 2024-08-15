@@ -1,42 +1,50 @@
 "use client";
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useAccount, useSmartAccount } from "@particle-network/connectkit";
-
-const chatContext = createContext({
+import { IChat } from "@/types/types";
+const depipContext = createContext({
   dataChat: {},
-  setDataChat: (data) => {},
+  setDataChat: (a) => {},
   sessionId: "",
-  setSessionId: (data) => {},
+  setSessionId: (a) => {},
   sessionContent: [],
-  setSessionContent: (data) => {},
+  setSessionContent: (a) => {},
   smartAddress: "",
-  setSmartAddress: (data) => {},
+  setSmartAddress: (a) => {},
+  sessionKey: {},
+  setSessionKey: (a) => {},
+  isSubmit: false,
+  setIsSubmit: (a) => {},
 });
 
-export const ChatProvider = ({ children }) => {
+export const DepipProvider = ({ children }) => {
   const [dataChat, setDataChat] = useState({});
   const [sessionId, setSessionId] = useState("");
+  const [sessionContent, setSessionContent] = useState<IChat[]>([]);
   const [smartAddress, setSmartAddress] = useState("");
-  const [sessionContent, setSessionContent] = useState([]);
-  const { address, isConnected, chainId } = useAccount();
+  const [sessionKey, setSessionKey] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const { address } = useAccount();
   useEffect(() => {
     try {
       if (!address) return;
-      const listChat = window.localStorage.getItem(address);
-      let jsonChat = listChat ? JSON.parse(listChat) : [];
-      if (jsonChat) {
-        jsonChat = jsonChat.filter((item) => item.sessionId !== sessionId);
+      if (sessionContent && sessionContent.length > 0) {
+        const listChat = window.localStorage.getItem(address);
+        let jsonChat = listChat ? JSON.parse(listChat) : [];
+        if (jsonChat) {
+          jsonChat = jsonChat.filter((item) => item.sessionId !== sessionId);
+        }
+        jsonChat.push({ sessionId: sessionId, content: sessionContent });
+        jsonChat = JSON.stringify(jsonChat);
+        window.localStorage.setItem(address, jsonChat);
       }
-      jsonChat.push({ sessionId: sessionId, content: sessionContent });
-      jsonChat = JSON.stringify(jsonChat);
-      window.localStorage.setItem(address, jsonChat);
     } catch (error) {
       console.error(error);
     }
   }, [sessionContent]);
   const smartAccount = useSmartAccount();
   const createSession = async () => {
-    const sessionKey = await smartAccount?.createSessions([
+    const _sessionKey = await smartAccount?.createSessions([
       {
         validUntil: 0,
         validAfter: 0,
@@ -48,10 +56,11 @@ export const ChatProvider = ({ children }) => {
       },
     ]);
 
-    await smartAccount?.sendTransaction(sessionKey?.verifyingPaymasterGasless);
+    await smartAccount?.sendTransaction(_sessionKey?.verifyingPaymasterGasless);
+    setSessionKey(_sessionKey.sessions);
     window.localStorage.setItem(
       "sessionKey",
-      JSON.stringify(sessionKey.sessions)
+      JSON.stringify(_sessionKey.sessions)
     );
   };
 
@@ -67,11 +76,14 @@ export const ChatProvider = ({ children }) => {
       const sessionKey = window.localStorage.getItem("sessionKey");
       if (!sessionKey) {
         createSession();
+      } else {
+        const _sessionKey = JSON.parse(sessionKey);
+        setSessionKey(_sessionKey);
       }
     }
   }, [smartAccount]);
   return (
-    <chatContext.Provider
+    <depipContext.Provider
       value={{
         dataChat,
         setDataChat,
@@ -81,11 +93,15 @@ export const ChatProvider = ({ children }) => {
         setSessionContent,
         smartAddress,
         setSmartAddress,
+        sessionKey,
+        setSessionKey,
+        isSubmit,
+        setIsSubmit,
       }}
     >
       {children}
-    </chatContext.Provider>
+    </depipContext.Provider>
   );
 };
 
-export const useChat = () => useContext(chatContext);
+export const useDepip = () => useContext(depipContext);

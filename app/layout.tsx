@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, useEffect } from "react";
 import { SidebarProvider } from "@/provider/sidebar.provider";
-import { ChatProvider } from "@/provider/chat.provider";
+import { DepipProvider } from "@/provider/depip.provider";
 import localFont from "next/font/local";
 import "../styles/globals.scss";
 import { ParticleConnectkit } from "./ParticleConnectkit";
@@ -25,7 +25,7 @@ const RetroComputer = localFont({
 });
 
 const PixelOperator = localFont({
-  src: "../assets/fonts/Pixel_Operator/PixelOperator8.ttf",
+  src: "../assets/fonts/Pixel_Operator/PixelOperator8.woff",
   variable: "--font-pixel-operator",
   weight: "100 900",
 });
@@ -36,15 +36,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <ParticleConnectkit>
           <SidebarProvider>
-            <ChatProvider>
+            <DepipProvider>
               <main>
                 <div
-                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-[#FAF9EF]`}
+                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-white`}
                 >
                   {children}
                 </div>
               </main>
-            </ChatProvider>
+            </DepipProvider>
           </SidebarProvider>
         </ParticleConnectkit>
       </body>

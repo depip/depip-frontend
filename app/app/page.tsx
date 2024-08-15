@@ -6,20 +6,19 @@ import BotReply from "@/serivces/bot-api";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";
 import utils from "@/utils";
-import { useChat } from "@/provider/chat.provider";
-import { IChat } from "@/models/interface.common";
 import InputGroup from "@/components/input-group";
 import { useAccount } from "@particle-network/connectkit";
+import { IChat } from "@/types/types";
+import { useDepip } from "@/provider/depip.provider";
 let intervalId;
 const Index = () => {
-  // const { smartAddress } = useChat();
   const { address, isConnected } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
   const [value, setValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { dataChat, sessionId, setSessionContent, sessionContent } = useChat();
+  const { dataChat, sessionId, setSessionContent, sessionContent } = useDepip();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const userChat = (dataChat) => {
@@ -82,17 +81,10 @@ const Index = () => {
     }
   }, [sessionContent]);
 
-  // useEffect(() => {
-  //   if (sessionId) {
-  //     setListMess([]);
-  //   }
-  // }, [sessionId]);
-
   useEffect(() => {
     if (address) {
       setAvatar(utils.genAVT(address as string));
       const date = new Date();
-      // newSmartAccount();
     }
   }, [address]);
 
@@ -112,14 +104,7 @@ const Index = () => {
           isLoading={isLoading}
           messagesEndRef={messagesEndRef}
         ></ChatBox>
-        <InputGroup
-          isLoading={isLoading}
-          userChat={userChat}
-          value={value}
-          setValue={setValue}
-          image={image}
-          setImage={setImage}
-        ></InputGroup>
+        <InputGroup isLoading={isLoading}></InputGroup>
       </div>
     </Layout>
   );

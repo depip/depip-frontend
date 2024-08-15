@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Login = () => {
   return (
-    <div className="w-screen] h-screen relative bg-[#FAF9EF] flex items-center justify-center">
+    <div className="w-screen] h-screen relative bg-white flex items-center justify-center">
       <div className="bg-[url('../assets/images/app-bg-2.png')] absolute top-0 left-0 w-full h-[105px]"></div>
       <div className="flex flex-col gap-60">
         <div className="flex-col justify-start items-center gap-14 inline-flex">

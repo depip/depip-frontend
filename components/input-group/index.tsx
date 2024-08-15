@@ -1,28 +1,17 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import { useRef, useState } from "react";
-import { useChat } from "@/provider/chat.provider";
+import { useDepip } from "@/provider/depip.provider";
 import { useAccount } from "@particle-network/connectkit";
 
 type Props = {
   isLoading: boolean;
-  userChat: any;
-  value: any;
-  setValue: any;
-  image: any;
-  setImage: any;
 };
 
-const InputGroup: React.FC<Props> = ({
-  isLoading,
-  userChat,
-  value,
-  setValue,
-  image,
-  setImage,
-}) => {
+const InputGroup: React.FC<Props> = ({ isLoading }) => {
   const { isSidebarOpen } = useSidebar();
-  // const { smartAddress } = useChat();
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
+  const { isSubmit, setDataChat } = useDepip();
+  const [value, setValue] = useState<string>("234");
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (isLoading) return;
@@ -35,7 +24,8 @@ const InputGroup: React.FC<Props> = ({
           },
         ],
       };
-      userChat(dataChat);
+      setDataChat(dataChat);
+      setValue("");
     }
   };
 
@@ -45,7 +35,6 @@ const InputGroup: React.FC<Props> = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result);
         const dataChat = {
           from: address ?? "user",
           value: [
@@ -56,7 +45,7 @@ const InputGroup: React.FC<Props> = ({
             },
           ],
         };
-        userChat(dataChat);
+        setDataChat(dataChat);
       };
       reader.readAsDataURL(file);
     }
@@ -78,9 +67,9 @@ const InputGroup: React.FC<Props> = ({
         <div
           className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded border border-blue-400 cursor-pointer"
           onClick={() =>
-            userChat({
+            setDataChat({
               from: address ?? "user",
-              value: [{ type: "string", content: "Get started" }],
+              value: [{ type: "string", content: "Hello, who are you?" }],
             })
           }
         >
@@ -89,7 +78,7 @@ const InputGroup: React.FC<Props> = ({
         <div
           className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400 cursor-pointer"
           onClick={() =>
-            userChat({
+            setDataChat({
               from: address ?? "user",
               value: [{ type: "string", content: "What is IP?" }],
             })
@@ -100,9 +89,15 @@ const InputGroup: React.FC<Props> = ({
         <div
           className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded border border-indigo-400 cursor-pointer"
           onClick={() =>
-            userChat({
+            setDataChat({
               from: address ?? "user",
-              value: [{ type: "string", content: "Full process" }],
+              value: [
+                {
+                  type: "string",
+                  content:
+                    "Can you show me full process to interact with Story Protocol by Depip server?",
+                },
+              ],
             })
           }
         >
@@ -111,14 +106,37 @@ const InputGroup: React.FC<Props> = ({
         <div
           className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded border border-pink-400 cursor-pointer"
           onClick={() =>
-            userChat({
+            setDataChat({
               from: address ?? "user",
-              value: [{ type: "string", content: "Register ip asset" }],
+              value: [
+                {
+                  type: "string",
+                  content: "Can you register IP asset for me by Depip server",
+                },
+              ],
             })
           }
         >
           Register ip asset
         </div>
+        {isSubmit && (
+          <div
+            className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-red-400 cursor-pointer"
+            onClick={() =>
+              setDataChat({
+                from: address ?? "user",
+                value: [
+                  {
+                    type: "string",
+                    content: "What should be my next step",
+                  },
+                ],
+              })
+            }
+          >
+            Next step
+          </div>
+        )}
       </div>
 
       <div className="bg-gray-50 border border-gray-300 rounded-lg w-full flex items-center overflow-hidden px-5 py-3">

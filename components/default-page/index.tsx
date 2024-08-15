@@ -1,4 +1,4 @@
-import { useChat } from "@/provider/chat.provider";
+import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import utils from "@/utils";
 import { useAccount } from "@particle-network/connectkit";
@@ -7,7 +7,7 @@ import { FC, useEffect, useState } from "react";
 const DefaultPage = () => {
   const [avatar, setAvatar] = useState<string>("");
   const { isSidebarOpen, setTypeForm } = useSidebar();
-  const { setDataChat, smartAddress } = useChat();
+  const { setDataChat, smartAddress } = useDepip();
   const { address, isConnected } = useAccount();
   useEffect(() => {
     if (address) {
@@ -57,7 +57,7 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "Get started",
+                    content: "Hello, who are you?",
                   },
                 ],
               })
@@ -135,7 +135,7 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "Full process",
+                    content: "Can you show me full process to interact with Story Protocol by Depip server?",
                   },
                 ],
               })
@@ -174,7 +174,7 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "Register ip asset",
+                    content: "Can you register IP asset for me by Depip server",
                   },
                 ],
               })

@@ -1,13 +1,13 @@
-import { useChat } from "@/provider/chat.provider";
+import { useDepip } from "@/provider/depip.provider";
 import { useAccount, useSmartAccount } from "@particle-network/connectkit";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Button from "./button";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
-  // const { smartAddress } = useChat();
+  // const { smartAddress } = useDepip();
   const { address, isConnected } = useAccount();
-  const { setDataChat, setSessionId, setSessionContent } = useChat();
+  const { setDataChat, setSessionId, setSessionContent } = useDepip();
 
   const smartAccount = useSmartAccount();
   useEffect(() => {
@@ -60,7 +60,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     <>
       <aside
         id="default-sidebar"
-        className={`border-r fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
+        className={`border-r fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-white ${
           isOpen ? "left-0" : "-left-[360px]"
         }`}
         aria-label="Sidebar"
@@ -123,7 +123,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       value: [
                         {
                           type: "string",
-                          content: "Get started",
+                          content: "Hello, who are you?",
                         },
                       ],
                     })
@@ -197,7 +197,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       value: [
                         {
                           type: "string",
-                          content: "Full process",
+                          content: "Can you show me full process to interact with Story Protocol by Depip server?",
                         },
                       ],
                     })
@@ -234,7 +234,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       value: [
                         {
                           type: "string",
-                          content: "Register ip asset",
+                          content: "Can you register IP asset for me by Depip server",
                         },
                       ],
                     })

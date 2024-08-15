@@ -1,8 +1,11 @@
-import { PIL_TYPE } from "@/models/interface.common";
+import { PIL_TYPE } from "@/types/types";
+
 
 const registerIpAsset = async (params: {
   nftAddress: string;
   tokenId: string;
+  userWallet: "string";
+  session: {};
 }) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}ipasset/register`, {
@@ -23,6 +26,8 @@ const licenceseTerms = async (params: {
   currency: string;
   type: PIL_TYPE;
   mintingFee: number;
+  userWallet: "string";
+  session: {};
 }) => {
   try {
     const res = await fetch(
@@ -46,6 +51,8 @@ const mintLicense = async (params: {
   licenseTermsId: string;
   receiver: string;
   amount: 0;
+  userWallet: "string";
+  session: {};
 }) => {
   try {
     const res = await fetch(
@@ -87,13 +94,17 @@ const mintAndRegistryIp = async (params: {
   description: string;
   recipient: string;
   file: File;
+  userWallet: "string";
+  session: {};
 }) => {
   try {
     const formData = new FormData();
-    formData.append('file', params.file);
-    formData.append('name', params.name);
-    formData.append('description', params.description);
-    formData.append('recipient', params.recipient);
+    formData.append("file", params.file);
+    formData.append("name", params.name);
+    formData.append("description", params.description);
+    formData.append("recipient", params.recipient);
+    formData.append("userWallet", params.userWallet);
+    formData.append("session", JSON.stringify(params.session));
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API}SPG/mintAndRegistryIp`,
       {
