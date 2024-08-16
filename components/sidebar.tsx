@@ -51,16 +51,19 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     loadListSession();
   };
   const getTime = (sessionId: string) => {
-    const timestring = sessionId.replace(address as string, "");
-    if (!timestring) return "";
-    const date = new Date(parseInt(timestring));
-    return format(date, "dd/MM/yyyy HH:mm");
+    if (isConnected) {
+      const timestring = sessionId.replace(address as string, "");
+      if (!timestring) return "";
+      const date = new Date(parseInt(timestring));
+      return format(date, "dd/MM/yyyy HH:mm");
+    }
+    return "";
   };
   return (
     <>
       <aside
         id="default-sidebar"
-        className={`border-r fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-white ${
+        className={`border-r border-[#EDF2F1] fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
           isOpen ? "left-0" : "-left-[360px]"
         }`}
         aria-label="Sidebar"
@@ -68,7 +71,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         <div className="flex-col h-full justify-start items-start gap-10 inline-flex">
           <div
             className="flex-col justify-start items-start gap-2 flex"
-            onClick={() => setIsOpen(false)}
+            // onClick={() => setIsOpen(false)}
           >
             <div className="relative">
               <svg
@@ -197,7 +200,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       value: [
                         {
                           type: "string",
-                          content: "Can you show me full process to interact with Story Protocol by Depip server?",
+                          content:
+                            "Can you show me full process to interact with Story Protocol by Depip server?",
                         },
                       ],
                     })
@@ -234,7 +238,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       value: [
                         {
                           type: "string",
-                          content: "Can you register IP asset for me by Depip server",
+                          content:
+                            "Can you register IP asset for me by Depip server",
                         },
                       ],
                     })

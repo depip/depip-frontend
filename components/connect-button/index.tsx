@@ -9,7 +9,7 @@ export default function ConnectButtonCustom() {
           <h2>Chain: {chain.name}</h2>
         </>
       ) : ( */}
-        <ConnectButton />
+        <ConnectButton/>
       {/* )} */}
     </>
   );
