@@ -91,7 +91,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
           <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
-            <div className="flex-col justify-start items-start gap-6 inline-flex">
+            {/* <div className="flex-col justify-start items-start gap-6 inline-flex">
               <div className="self-stretch h-32 flex-col justify-start items-start gap-4 flex">
                 <div className="self-stretch h-32 flex-col justify-start items-start gap-2 flex">
                   <div className="self-stretch h-32 flex-col justify-start items-start gap-1 flex">
@@ -177,7 +177,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </div>
               </div>
-              {/* <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
+              <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch px-3 justify-between items-baseline inline-flex">
                   <div className="grow shrink basis-0 text-[#1c1c1c]/40 text-sm font-medium font-geist leading-tight">
                     Your IP assets
@@ -400,8 +400,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </div>
                   </div>
                 </div>
-              </div> */}
-            </div>
+              </div>
+            </div> */}
             <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
               <div className="w-4 h-4 relative">
                 <svg
@@ -424,7 +424,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 New chat
               </div>
             </Button>
-            {/* <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
+            <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Get started
               </div>
@@ -580,7 +580,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
             <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Session

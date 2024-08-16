@@ -64,7 +64,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
       }`}
     >
       <div className="flex items-center gap-1 mb-1">
-        <div
+        {/* <div
           className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded border border-blue-400 cursor-pointer"
           onClick={() =>
             setDataChat({
@@ -118,7 +118,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
           }
         >
           Register ip asset
-        </div>
+        </div> */}
         {isSubmit && (
           <div
             className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-red-400 cursor-pointer"
@@ -128,7 +128,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
                 value: [
                   {
                     type: "string",
-                    content: "What should be my next step",
+                    content: "What do I do next?",
                   },
                 ],
               })
