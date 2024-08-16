@@ -2,25 +2,90 @@ import { useSidebar } from "@/provider/sidebar.provider";
 import Button from "../button";
 import Link from "next/link";
 import { useAccount } from "@particle-network/connectkit";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import utils from "@/utils";
-
-const ChatBox = ({ listMess, isLoading, messagesEndRef }) => {
+import { useDepip } from "@/provider/depip.provider";
+import { IChat } from "@/types/types";
+import BotReply from "@/serivces/bot-api";
+let intervalId;
+const ChatBox = ({ isLoading, setLoading }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
   const { address } = useAccount();
   const [avatar, setAvatar] = useState<string>("");
+  const messagesEndRef = useRef<HTMLInputElement>(null);
+  const { sessionContent, setSessionContent, sessionId, dataChat } = useDepip();
+
+  const userChat = (dataChat: IChat) => {
+    if (Object.keys(dataChat).length == 0) return;
+    setSessionContent((sessionContent) => [...sessionContent, dataChat]);
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    intervalId = setInterval(() => {
+      scrollToBottom();
+    }, 1000);
+  };
+
+  const onBotReply = async (message) => {
+    setLoading(true);
+
+    const res = await BotReply({ prompt: message, sessionId: sessionId });
+    if (res.completion) {
+      const chunks = utils.extractStringAndScripts(res.completion);
+
+      const reply: IChat = {
+        from: "bot",
+        value: chunks,
+      };
+
+      setSessionContent((sessionContent) => [...sessionContent, reply]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (sessionContent.length > 0) {
+      var lastMessage = sessionContent[sessionContent.length - 1];
+      if (
+        lastMessage &&
+        lastMessage?.value &&
+        lastMessage?.from != "bot" &&
+        lastMessage?.value[0]?.type == "string"
+      ) {
+        onBotReply(lastMessage?.value[0]?.content);
+      }
+    }
+
+    window.addEventListener("wheel", () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    });
+  }, [sessionContent]);
+
+  useEffect(() => {
+    if (dataChat) {
+      userChat(dataChat);
+    }
+  }, [dataChat]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     if (address) {
       setAvatar(utils.genAVT(address as string));
     }
   }, [address]);
+
   return (
     <div
       className={`grow overflow-auto transition-all pt-2 ${
         isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
       }`}
     >
-      {listMess.map((item, index) => (
+      {sessionContent.map((item, index) => (
         <>
           {item.from !== "bot" && (
             <>

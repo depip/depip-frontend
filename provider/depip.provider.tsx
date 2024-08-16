@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { useAccount, useSmartAccount } from "@particle-network/connectkit";
 import { IChat } from "@/types/types";
 const depipContext = createContext({
-  dataChat: {},
+  dataChat: null,
   setDataChat: (a) => {},
   sessionId: "",
   setSessionId: (a) => {},
@@ -11,18 +11,18 @@ const depipContext = createContext({
   setSessionContent: (a) => {},
   smartAddress: "",
   setSmartAddress: (a) => {},
-  sessionKey: {},
+  sessionKey: null,
   setSessionKey: (a) => {},
   isSubmit: false,
   setIsSubmit: (a) => {},
 });
 
 export const DepipProvider = ({ children }) => {
-  const [dataChat, setDataChat] = useState({});
+  const [dataChat, setDataChat] = useState<IChat>(null);
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState<IChat[]>([]);
   const [smartAddress, setSmartAddress] = useState("");
-  const [sessionKey, setSessionKey] = useState({});
+  const [sessionKey, setSessionKey] = useState(null);
   const [isSubmit, setIsSubmit] = useState(false);
   const { address } = useAccount();
   useEffect(() => {
