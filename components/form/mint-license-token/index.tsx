@@ -46,7 +46,7 @@ const FormMintLicenseToken = () => {
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
-          Register IP Asset
+          Mint license token
         </div>
         <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
@@ -78,7 +78,28 @@ const FormMintLicenseToken = () => {
         <div className="flex-col justify-start items-start gap-4 flex">
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
             <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-              License Terms Id
+              IP asset ID
+            </div>
+            <div className="w-full flex flex-col gap-1">
+              <input
+                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
+                  errors.licensorIpId ? "border-red-500" : "border-zinc-900/10"
+                } `}
+                placeholder="Enter IP asset ID"
+                type="text"
+                id="licensorIpId"
+                {...register("licensorIpId", { required: true })}
+              />
+              {errors.licensorIpId && (
+                <p className="text-sm text-red-600 dark:text-red-500">
+                  IP asset ID is required
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="self-stretch flex-col justify-start items-start gap-2 flex">
+            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
+              License Term ID
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
@@ -87,77 +108,56 @@ const FormMintLicenseToken = () => {
                     ? "border-red-500"
                     : "border-zinc-900/10"
                 } `}
-                placeholder="Enter License Terms Id"
+                placeholder="Enter License Term ID"
                 id="licenseTermsId"
                 type="text"
                 {...register("licenseTermsId", { required: true })}
               />
               {errors.licenseTermsId && (
                 <p className=" text-sm text-red-600 dark:text-red-500">
-                  License Terms Id Address is required
+                  License Term ID Address is required
                 </p>
               )}
             </div>
           </div>
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
             <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-              licensorIpId
-            </div>
-            <div className="w-full flex flex-col gap-1">
-              <input
-                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
-                  errors.licensorIpId ? "border-red-500" : "border-zinc-900/10"
-                } `}
-                placeholder="Enter licensorIpId"
-                type="text"
-                id="licensorIpId"
-                {...register("licensorIpId", { required: true })}
-              />
-              {errors.licensorIpId && (
-                <p className="text-sm text-red-600 dark:text-red-500">
-                  licensorIpId is required
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="self-stretch flex-col justify-start items-start gap-2 flex">
-            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-              receiver
+              Receiving address
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.receiver ? "border-red-500" : "border-zinc-900/10"
                 } `}
-                placeholder="Enter receiver"
+                placeholder="Enter Receiving address"
                 type="text"
                 id="receiver"
                 {...register("receiver", { required: true })}
               />
               {errors.receiver && (
                 <p className="text-sm text-red-600 dark:text-red-500">
-                  receiver is required
+                  Receiving address is required
                 </p>
               )}
             </div>
           </div>
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
             <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-              amount
+              Amount of licenses
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.amount ? "border-red-500" : "border-zinc-900/10"
                 } `}
-                placeholder="Enter amount"
+                placeholder="Enter Amount of licenses"
                 type="text"
                 id="amount"
                 {...register("amount", { required: true })}
               />
               {errors.amount && (
                 <p className="text-sm text-red-600 dark:text-red-500">
-                  amount is required
+                  Amount of licenses is required
                 </p>
               )}
             </div>

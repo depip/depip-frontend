@@ -47,7 +47,7 @@ const FormAttachPilTerm = () => {
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
-          Register IP Asset
+          Attach PIL Term to IP asset
         </div>
         <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
@@ -79,42 +79,42 @@ const FormAttachPilTerm = () => {
         <div className="flex-col justify-start items-start gap-4 flex">
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
             <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-              License Terms Id
+              License term ID
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.termId ? "border-red-500" : "border-zinc-900/10"
                 } `}
-                placeholder="Enter License Terms Id"
+                placeholder="Enter License term ID"
                 id="termId"
                 type="text"
                 {...register("termId", { required: true })}
               />
               {errors.termId && (
                 <p className=" text-sm text-red-600 dark:text-red-500">
-                  License Terms Id Address is required
+                  License term ID Address is required
                 </p>
               )}
             </div>
           </div>
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
             <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-              ipId
+              IP Asset ID
             </div>
             <div className="w-full flex flex-col gap-1">
               <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.ipId ? "border-red-500" : "border-zinc-900/10"
                 } `}
-                placeholder="Enter ipId"
+                placeholder="Enter IP Asset ID"
                 type="text"
                 id="ipId"
                 {...register("ipId", { required: true })}
               />
               {errors.tokenId && (
                 <p className="text-sm text-red-600 dark:text-red-500">
-                  ipId is required
+                  IP Asset ID is required
                 </p>
               )}
             </div>

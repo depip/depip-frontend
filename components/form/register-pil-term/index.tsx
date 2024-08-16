@@ -61,7 +61,7 @@ const FormRegisterPilTerm = () => {
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
-          Register License
+          Register PIL Term
         </div>
         <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
@@ -136,28 +136,28 @@ const FormRegisterPilTerm = () => {
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-                  Currency
+                  Token contract
                 </div>
                 <div className="w-full flex flex-col gap-1">
                   <input
                     className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                       errors.currency ? "border-red-500" : "border-zinc-900/10"
                     } `}
-                    placeholder="Enter Currency"
+                    placeholder="Enter Token contract"
                     type="text"
                     id="currency"
                     {...register("currency", { required: true })}
                   />
                   {errors.currency && (
                     <p className="text-sm text-red-600 dark:text-red-500">
-                      Currency is required
+                      Token contract is required
                     </p>
                   )}
                 </div>
               </div>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-                  Minting Fee:
+                  Minting Fee
                 </div>
                 <div className="w-full flex flex-col gap-1">
                   <input

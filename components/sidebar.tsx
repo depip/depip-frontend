@@ -63,7 +63,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     <>
       <aside
         id="default-sidebar"
-        className={`border-r border-[#EDF2F1] fixed top-0 z-40 w-[360px] h-screen p-6 transition-all bg-[#FAF9EF] ${
+        className={`border-r border-[#EDF2F1] fixed top-0 z-40 w-[360px] h-screen p-6 overflow-y-auto overflow-x-hidden transition-all bg-[#FAF9EF] ${
           isOpen ? "left-0" : "-left-[360px]"
         }`}
         aria-label="Sidebar"
@@ -91,6 +91,317 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
           <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
+            <div className="flex-col justify-start items-start gap-6 inline-flex">
+              <div className="self-stretch h-32 flex-col justify-start items-start gap-4 flex">
+                <div className="self-stretch h-32 flex-col justify-start items-start gap-2 flex">
+                  <div className="self-stretch h-32 flex-col justify-start items-start gap-1 flex">
+                    <div className="self-stretch px-3 py-2 bg-[#1c1c1c]/5 rounded-lg justify-start items-center gap-3 inline-flex">
+                      <div className="w-5 h-5 relative">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M11.667 1.66675H8.33366V3.33341H6.66699V5.00008H5.00033V6.66675H3.33366V8.33341H1.66699V10.0001H3.33366V18.3334H9.16699V13.3334H10.8337V18.3334H16.667V10.0001L18.3337 10.0001V8.33341H16.667V6.66675H15.0003V5.00008H13.3337V3.33341H11.667V1.66675ZM11.667 3.33341V5.00008H13.3337V6.66675H15.0003V8.33341H16.667L16.667 10.0001H15.0003V16.6667H12.5003V11.6667H7.50033V16.6667H5.00033V10.0001L3.33366 10.0001V8.33341H5.00033V6.66675H6.66699V5.00008H8.33366V3.33341H11.667Z"
+                            fill="#1C1C1C"
+                            fill-opacity="0.4"
+                          />
+                        </svg>
+                      </div>
+                      <div className="w-[260px] flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div className="self-stretch text-[#1c1c1c] text-base font-medium font-geist leading-normal">
+                          Home
+                        </div>
+                      </div>
+                    </div>
+                    <div className="self-stretch px-3 py-2 rounded-lg justify-start items-center gap-3 inline-flex">
+                      <div className="w-5 h-5 relative">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M1.66699 2.5H3.33366H16.667H18.3337V17.5H16.667H3.33366H1.66699V2.5ZM16.667 15.8333V5.83333H3.33366V15.8333H16.667ZM13.3337 8.33333H11.667V10H10.0003L10.0003 11.6667H8.33366V10H6.66699V11.6667H8.33366V13.3333H10.0003V11.6667H11.667V10H13.3337V8.33333Z"
+                            fill="#1C1C1C"
+                            fill-opacity="0.4"
+                          />
+                        </svg>
+                      </div>
+                      <div className="w-[260px] flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div className="self-stretch text-[#1c1c1c] text-base font-medium font-geist leading-normal">
+                          IP assets
+                        </div>
+                      </div>
+                    </div>
+                    <div className="self-stretch h-10 px-3 py-2 rounded-lg flex-col justify-start items-start gap-3 flex">
+                      <div className="self-stretch justify-start items-center gap-3 inline-flex">
+                        <div className="w-5 h-5 relative bg-[#111111] rounded-[66px]">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                          >
+                            <rect
+                              width="20"
+                              height="20"
+                              rx="10"
+                              fill="#111111"
+                            />
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M4.99984 5H6.42841V6.42857H4.99984V5ZM3.57129 6.42857H4.99986V7.85714V7.85714V9.28571H3.57129V7.85714V7.85714V6.42857ZM4.99986 9.28572V10.7143V12.1429H3.57129V10.7143V9.28572H4.99986ZM4.99986 12.1429V13.5714L6.42841 13.5714V15H4.99984V13.5714L3.57129 13.5714V12.1429H4.99986ZM13.5713 5H14.9999V6.42857H13.5713V5ZM14.9998 13.5714L13.5713 13.5714V15H14.9999V13.5714L16.4284 13.5714V12.1429H14.9998V13.5714ZM14.9998 6.42857H16.4284V7.85714V9.28571H14.9998V7.85714V6.42857ZM16.4284 9.28572V10.7143V12.1429H14.9998V10.7143V9.28572H16.4284ZM7.85693 6.42857V7.85714V9.28571H9.28551V7.85714V6.42857L7.85693 6.42857ZM12.1427 12.1429V10.7143H13.5713V12.1429H12.1428V13.5714H10.7142V12.1429H12.1427ZM7.85693 12.1429V13.5714H9.28548H9.28551H10.7141V12.1429H9.28551H9.28548H7.85693ZM10.7142 9.28572V7.85714H12.1428V9.28572H10.7142ZM10.7142 7.85714V6.42857L12.1428 6.42857V7.85714H10.7142ZM7.85696 10.7143H6.42839V12.1429H7.85696V10.7143Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </div>
+                        <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                          <div className="self-stretch text-[#1c1c1c] text-base font-medium font-geist leading-normal">
+                            DePIP AI{" "}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
+                <div className="self-stretch px-3 justify-between items-baseline inline-flex">
+                  <div className="grow shrink basis-0 text-[#1c1c1c]/40 text-sm font-medium font-geist leading-tight">
+                    Your IP assets
+                  </div>
+                  <div className="rounded-[80px] justify-center items-center gap-1 flex">
+                    <div className="rounded-lg flex-col justify-center items-start inline-flex">
+                      <div className="text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        View all
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="self-stretch grow shrink basis-0 py-1.5 rounded-2xl border border-[#fcfbf5] flex-col justify-start items-start flex">
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10 rounded-md"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        PACIFICTION: The Mountain Queen #23
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        Objetos Perdidos
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        le cat noir
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        Objetos Perdidos
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10 rounded-md"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        PACIFICTION: The Mountain Queen #23
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        PACIFICTION: The Mountain Queen #23
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        Take Me Home
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch px-3 py-1.5 justify-start items-center gap-3 inline-flex">
+                    <div className="h-10 rounded-md justify-start items-start gap-2 flex">
+                      <div className="grow shrink basis-0 opacity-0 flex-col justify-start items-start inline-flex">
+                        <div className="self-stretch h-10 origin-top-left -rotate-45 justify-start items-start inline-flex">
+                          <div className="self-stretch origin-top-left rotate-[24.47deg] border justify-start items-center flex">
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                            <div className="w-[0px] h-[0px] rounded-full border-8" />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        className="w-10 h-10"
+                        src="https://via.placeholder.com/40x40"
+                      />
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                        Nukumorí
+                      </div>
+                      <div className="justify-center items-center gap-1.5 inline-flex">
+                        <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                          Registered
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+            </div>
             <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
               <div className="w-4 h-4 relative">
                 <svg
@@ -113,7 +424,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 New chat
               </div>
             </Button>
-            <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
+            {/* <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Get started
               </div>
@@ -269,7 +580,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Session
