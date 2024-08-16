@@ -12,19 +12,14 @@ import { IChat } from "@/types/types";
 import { useDepip } from "@/provider/depip.provider";
 let intervalId;
 const Index = () => {
-  const { address, isConnected } = useAccount();
   const [listMess, setListMess] = useState<IChat[]>([]);
-  const [value, setValue] = useState<string>("");
-  const [image, setImage] = useState<string>("");
-  const [avatar, setAvatar] = useState<string>("");
+
   const messagesEndRef = useRef<HTMLInputElement>(null);
   const { dataChat, sessionId, setSessionContent, sessionContent } = useDepip();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const userChat = (dataChat) => {
     setListMess((listMess) => [...listMess, dataChat]);
-    setValue("");
-    setImage("");
     if (intervalId) {
       clearInterval(intervalId);
     }
@@ -81,13 +76,6 @@ const Index = () => {
     }
   }, [sessionContent]);
 
-  useEffect(() => {
-    if (address) {
-      setAvatar(utils.genAVT(address as string));
-      const date = new Date();
-    }
-  }, [address]);
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -99,8 +87,6 @@ const Index = () => {
         {listMess.length == 0 && <DefaultPage />}
         <ChatBox
           listMess={listMess}
-          address={address}
-          avatar={avatar}
           isLoading={isLoading}
           messagesEndRef={messagesEndRef}
         ></ChatBox>

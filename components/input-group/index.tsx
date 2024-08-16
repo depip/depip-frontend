@@ -11,7 +11,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   const { isSidebarOpen } = useSidebar();
   const { address } = useAccount();
   const { isSubmit, setDataChat } = useDepip();
-  const [value, setValue] = useState<string>("234");
+  const [value, setValue] = useState<string>("");
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (isLoading) return;

@@ -1,9 +1,19 @@
 import { useSidebar } from "@/provider/sidebar.provider";
 import Button from "../button";
 import Link from "next/link";
+import { useAccount } from "@particle-network/connectkit";
+import { useEffect, useState } from "react";
+import utils from "@/utils";
 
-const ChatBox = ({ listMess, address, avatar, isLoading, messagesEndRef }) => {
+const ChatBox = ({ listMess, isLoading, messagesEndRef }) => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
+  const { address } = useAccount();
+  const [avatar, setAvatar] = useState<string>("");
+  useEffect(() => {
+    if (address) {
+      setAvatar(utils.genAVT(address as string));
+    }
+  }, [address]);
   return (
     <div
       className={`grow overflow-auto transition-all pt-2 ${
@@ -190,15 +200,15 @@ const ChatBox = ({ listMess, address, avatar, isLoading, messagesEndRef }) => {
       ))}
 
       {isLoading && (
-        <>
-          <div className="flex items-center gap-2.5 mb-10">
+        <div className="flex flex-col items-start gap-2 mb-4">
+          <div className="flex gap-2 items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              className="min-w-6 min-h-6 w-6 h-6 rounded-full border border-gray-200"
+              className="min-w-6 min-h-6 rounded-full border-2 border-gray-200 animate-spin"
             >
               <rect width="24" height="24" rx="12" fill="#111111" />
               <path
@@ -208,11 +218,30 @@ const ChatBox = ({ listMess, address, avatar, isLoading, messagesEndRef }) => {
                 fill="white"
               />
             </svg>
-            <div className="text-xs font-medium leading-none text-center text-blue-800 animate-pulse dark:text-blue-200">
-              loading...
+            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+              <span className="opacity-80 text-right text-zinc-900/opacity-80 text-xs font-normal font-pixel uppercase leading-[18px]">
+                DePIP
+              </span>
             </div>
           </div>
-        </>
+          <div className="flex flex-col animate-pulse space-y-2.5 w-full">
+            <div className="flex items-center w-1/2">
+              <div className="h-2.5 bg-gray-500 rounded-full dark:bg-gray-700 w-32"></div>
+              <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+              <div className="h-2.5 ms-2 bg-gray-400 rounded-full dark:bg-gray-600 w-full"></div>
+            </div>
+            <div className="flex items-center w-full max-w-[480px]">
+              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+              <div className="h-2.5 ms-2 bg-gray-400 rounded-full dark:bg-gray-600 w-full"></div>
+              <div className="h-2.5 ms-2 bg-gray-500 rounded-full dark:bg-gray-600 w-24"></div>
+            </div>
+            <div className="flex items-center w-full max-w-[400px]">
+              <div className="h-2.5 bg-gray-400 rounded-full dark:bg-gray-600 w-full"></div>
+              <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-700 w-80"></div>
+              <div className="h-2.5 ms-2 bg-gray-500 rounded-full dark:bg-gray-600 w-full"></div>
+            </div>
+          </div>
+        </div>
       )}
       <div className="p-2" ref={messagesEndRef} />
     </div>
@@ -220,3 +249,6 @@ const ChatBox = ({ listMess, address, avatar, isLoading, messagesEndRef }) => {
 };
 
 export default ChatBox;
+function setAvatar(arg0: any) {
+  throw new Error("Function not implemented.");
+}
