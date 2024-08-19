@@ -57,16 +57,29 @@ const MintAndRegistryIp = () => {
     if (res) {
       let dataChat;
       if (res.ipasset.status == "success") {
+        const previews = URL.createObjectURL(data?.file);
         dataChat = {
           from: address ?? "user",
           value: [
             {
-              type: "link",
-              content: "Click link to view this asset",
-              link: `https://ip.dev.aurascan.io/ip/detail/${res.ipasset.ipId}`,
+              type: "image",
+              content: `Mint Successfully!, tokenId: ${res?.ipasset?.tokenId}, tx: ${res?.ipasset?.tx}`,
+              file: previews,
             },
           ],
         };
+        // setDataChat(dataImage);
+
+        // dataChat = {
+        //   from: address ?? "user",
+        //   value: [
+        //     {
+        //       type: "link",
+        //       content: "Click link to view this asset",
+        //       link: `https://ip.dev.aurascan.io/ip/detail/${res.ipasset.ipId}`,
+        //     },
+        //   ],
+        // };
         setIsSubmit(true);
       } else {
         dataChat = {

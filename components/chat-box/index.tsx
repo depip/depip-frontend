@@ -111,7 +111,17 @@ const ChatBox = ({ isLoading, setLoading }) => {
                       </div>
                     </div>
                     <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
-                      <img src={item.value[0]?.file}></img>
+                      <p className="text-sm font-normal mb-2">
+                        {item?.value[0]?.content}
+                      </p>
+                      {/* <Link
+                        href={item?.value[0]?.link}
+                        target="_blank"
+                        className="text-blue-600 underline dark:text-blue-500"
+                      >
+                        {item?.value[0]?.link}
+                      </Link> */}
+                      <img src={item?.value[0]?.file}></img>
                     </div>
                   </div>
                 </div>
