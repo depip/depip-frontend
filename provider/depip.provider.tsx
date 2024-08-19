@@ -34,7 +34,7 @@ export const DepipProvider = ({ children }) => {
         if (jsonChat) {
           jsonChat = jsonChat.filter((item) => item.sessionId !== sessionId);
         }
-        jsonChat.push({ sessionId: sessionId, content: sessionContent });
+        jsonChat.unshift({ sessionId: sessionId, content: sessionContent });
         jsonChat = JSON.stringify(jsonChat);
         window.localStorage.setItem(address, jsonChat);
       }

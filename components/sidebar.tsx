@@ -7,7 +7,13 @@ import Button from "./button";
 const SideBar = ({ isOpen, setIsOpen }) => {
   // const { smartAddress } = useDepip();
   const { address, isConnected } = useAccount();
-  const { setDataChat, setSessionId, setSessionContent } = useDepip();
+  const {
+    setDataChat,
+    setSessionId,
+    setSessionContent,
+    sessionContent,
+    sessionId,
+  } = useDepip();
 
   const smartAccount = useSmartAccount();
   useEffect(() => {
@@ -35,7 +41,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    loadListSession();
+  }, [sessionContent]);
   const handleClickSession = (item) => {
     setSessionId(item.sessionId);
     setSessionContent(item.content);
@@ -424,13 +432,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 New chat
               </div>
             </Button>
-            <div className="self-stretch h-[220px] flex-col justify-start items-start gap-2 flex">
+            <div className="self-stretch flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Get started
               </div>
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div
-                  className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
                       from: address ?? "user",
@@ -467,7 +475,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </div>
                 <div
-                  className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
                       from: address ?? "user",
@@ -504,7 +512,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </div>
                 <div
-                  className="self-stretch px-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
                       from: address ?? "user",
@@ -542,7 +550,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </div>
                 <div
-                  className="self-stretch px-4 py-3 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  className="self-stretch px-4 py-2 justify-start items-center gap-4 inline-flex cursor-pointer"
                   onClick={() =>
                     setDataChat({
                       from: address ?? "user",
@@ -585,14 +593,18 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                 Session
               </div>
-              <div className="flex flex-col gap-2 overflow-auto max-h-52">
+              <div className="flex flex-col gap-1 overflow-auto max-h-52">
                 {logChat.map((item: any) => (
                   <>
                     {item?.sessionId && (
-                      <div className="cursor-pointer self-stretch grow shrink overflow-hidden rounded-2xl border border-stone-50/opacity-20 flex justify-start items-center min-h-14">
+                      <div
+                        className={`cursor-pointer self-stretch grow shrink overflow-hidden rounded-md border border-stone-50/opacity-20 flex justify-start items-center min-h-12 ${
+                          sessionId === item?.sessionId ? "bg-gray-200" : ""
+                        }`}
+                      >
                         <div
                           onClick={() => handleClickSession(item)}
-                          className="self-stretch pl-4 py-3 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex"
+                          className="self-stretch pl-4 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex"
                         >
                           <div className="w-4 h-4 relative">
                             <svg
@@ -611,7 +623,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                             </svg>
                           </div>
                           <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                            <div className="self-stretch text-zinc-900/opacity-80 text-base font-medium font-geist leading-normal truncate w-[200px]">
+                            <div className="self-stretch text-zinc-900/opacity-80 text-sm font-medium font-geist leading-normal truncate w-[190px]">
                               {item?.content[0]?.value[0]?.content || ""}
                             </div>
                             <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
@@ -628,8 +640,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
+                            width="20"
+                            height="20"
                             viewBox="0 0 24 24"
                             fill="none"
                           >
