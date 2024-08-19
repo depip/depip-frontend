@@ -110,8 +110,16 @@ const ChatBox = ({ isLoading, setLoading }) => {
                         </span>
                       </div>
                     </div>
-                    <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
-                      <p className="text-sm font-normal mb-2">
+                    <div className="flex flex-col leading-1.5 border-2 p-1 border-gray-200  rounded-xl items-end">
+                      <img
+                        src={item?.value[0]?.file}
+                        width={400}
+                        height={400}
+                        className="rounded-md"
+                      ></img>
+                    </div>
+                    <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl items-end">
+                      <p className="text-sm font-normal mb-2" style={{ whiteSpace: "pre-line" }}>
                         {item?.value[0]?.content}
                       </p>
                       {/* <Link
@@ -121,7 +129,6 @@ const ChatBox = ({ isLoading, setLoading }) => {
                       >
                         {item?.value[0]?.link}
                       </Link> */}
-                      <img src={item?.value[0]?.file}></img>
                     </div>
                   </div>
                 </div>

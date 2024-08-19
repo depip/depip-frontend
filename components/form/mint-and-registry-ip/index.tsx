@@ -63,7 +63,7 @@ const MintAndRegistryIp = () => {
           value: [
             {
               type: "image",
-              content: `Mint Successfully!, tokenId: ${res?.ipasset?.tokenId}, tx: ${res?.ipasset?.tx}`,
+              content: `Mint Successfully!,\n ipasset\n{\n ipId: ${res?.ipasset?.ipId},\n tx: ${res?.ipasset?.tx} \n}\n,nft\n{\ntokenId:${res?.nft?.tokenId},\ntx:${res?.nft?.tx}\n}`,
               file: previews,
             },
           ],
