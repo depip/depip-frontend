@@ -5,6 +5,10 @@ import { DepipProvider } from "@/provider/depip.provider";
 import localFont from "next/font/local";
 import "../styles/globals.scss";
 import { ParticleConnectkit } from "./ParticleConnectkit";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { WagmiProvider } from "wagmi";
+// import { sepolia } from "viem/chains";
+// import { http, createConfig } from "wagmi";
 
 const GeistSans = localFont({
   src: "../assets/fonts/geist-sans/Geist-Variable.woff2",
@@ -30,23 +34,35 @@ const PixelOperator = localFont({
   weight: "100 900",
 });
 
+// const config = createConfig({
+//   chains: [sepolia],
+//   transports: {
+//     [sepolia.id]: http(),
+//   },
+// });
+
+// const queryClient = new QueryClient();
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html>
       <body>
-        <ParticleConnectkit>
-          <SidebarProvider>
-            <DepipProvider>
-              <main>
-                <div
-                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-white`}
-                >
-                  {children}
-                </div>
-              </main>
-            </DepipProvider>
-          </SidebarProvider>
-        </ParticleConnectkit>
+        {/* <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}> */}
+            <ParticleConnectkit>
+              <SidebarProvider>
+                <DepipProvider>
+                  <main>
+                    <div
+                      className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-white`}
+                    >
+                      {children}
+                    </div>
+                  </main>
+                </DepipProvider>
+              </SidebarProvider>
+            </ParticleConnectkit>
+          {/* </QueryClientProvider>
+        </WagmiProvider> */}
       </body>
     </html>
   );

@@ -4,18 +4,20 @@ import { ConnectKitProvider, createConfig } from "@particle-network/connectkit";
 import { authWalletConnectors } from "@particle-network/connectkit/auth";
 import { sepolia } from "@particle-network/connectkit/chains";
 import { evmWalletConnectors } from "@particle-network/connectkit/evm";
-import {
-  injected as solaInjected,
-  solanaWalletConnectors,
-} from "@particle-network/connectkit/solana";
 import { wallet, EntryPosition } from "@particle-network/connectkit/wallet";
 import React from "react";
 import { aa } from "@particle-network/connectkit/aa";
 
 const config = createConfig({
-  projectId: "5d018b10-2afc-429e-acc0-0b0c23fe9644", // --
-  clientKey: "cyIWpawiBIYOv9eK9uS62pEU1qa2STxzHZkpAFKT", // Retrived from https://dashboard.particle.network
-  appId: "smKDgFFoeKHX3qkw55rI9pX3nqMKwNVgmM6AIgYx", // --
+  projectId:
+    process.env.NEXT_PUBLIC_PROJECT_ID ||
+    "5d018b10-2afc-429e-acc0-0b0c23fe9644", // --
+  clientKey:
+    process.env.NEXT_PUBLIC_CLIENT_KEY ||
+    "cyIWpawiBIYOv9eK9uS62pEU1qa2STxzHZkpAFKT", // Retrived from https://dashboard.particle.network
+  appId:
+    process.env.NEXT_PUBLIC_APP_ID ||
+    "smKDgFFoeKHX3qkw55rI9pX3nqMKwNVgmM6AIgYx", // --
   appearance: {
     // Optional, collection of properties to alter the appearance of the connection modal
     // Optional, label and sort wallets (to be shown in the connection modal)
@@ -42,7 +44,9 @@ const config = createConfig({
   walletConnectors: [
     evmWalletConnectors({
       metadata: { name: "My App", icon: "", description: "", url: "" }, // Optional, this is Metadata used by WalletConnect and Coinbase
-      walletConnectProjectId: "86b13026f2930979d852f7dac07666b1", // optional, retrieved from https://cloud.walletconnect.com
+      walletConnectProjectId:
+        process.env.NEXT_PUBLIC_WALLETCONNECT_ID ||
+        "86b13026f2930979d852f7dac07666b1", // optional, retrieved from https://cloud.walletconnect.com
     }),
     authWalletConnectors({
       // Optional, configure this if you're using social logins

@@ -25,7 +25,8 @@ const SideBarRight = () => {
           <FormRegisterPilTerm></FormRegisterPilTerm>
         )}
         {(type.toLowerCase() == "attach_pil_term" ||
-          type == "attachPilTermToIpAsset") && (
+          type.toUpperCase() == "ATTACH_TERM_TO_IP_ASSET" ||
+          type.toUpperCase() == "ATTACH_PIL_TERM_TO_IP_ASSET") && (
           <FormAttachPilTerm></FormAttachPilTerm>
         )}
         {(type.toLowerCase() == "mint_license_token" ||

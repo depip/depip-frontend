@@ -2,13 +2,28 @@ import Button from "@/components/button";
 import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
-import { useAccount } from "@particle-network/connectkit";
+import {
+  useAccount,
+  useSmartAccount,
+  useWallets,
+} from "@particle-network/connectkit";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import {
+  ethers,
+  BrowserProvider,
+  Wallet,
+  JsonRpcProvider,
+  Contract,
+  Interface,
+} from "ethers";
+import { sepolia } from "viem/chains";
+import { createPublicClient, http } from "viem";
 
 const FormAttachPilTerm = () => {
   const { toggleSidebar } = useSidebar();
-  const { setDataChat, setIsSubmit } = useDepip();
+  const { setDataChat, setIsSubmit, smartAddress } = useDepip();
+  const [primaryWallet] = useWallets();
   const [isLoading, setLoading] = useState<boolean>(false);
   const {
     register,
@@ -17,32 +32,121 @@ const FormAttachPilTerm = () => {
   } = useForm();
   const { address } = useAccount();
   const { sessionKey } = useDepip();
+  const smartAccount = useSmartAccount();
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await api.attackPILTerms({
-      ...data,
-      session: sessionKey,
-      userWallet: address,
-    });
-    if (res) {
-      toggleSidebar();
-      const dataChat = {
-        from: address ?? "user",
-        value: [
+    const per = await getPermission(data);
+    if (per) {
+      const res = await api.attackPILTerms({
+        ...data,
+        session: sessionKey,
+        userWallet: address,
+      });
+      if (res) {
+        toggleSidebar();
+        const dataChat = {
+          from: address ?? "user",
+          value: [
+            {
+              type: "string",
+              content: JSON.stringify(res),
+            },
+          ],
+        };
+        setDataChat(dataChat);
+        if (res.status == "success") {
+          setIsSubmit(true);
+        }
+      }
+
+      setLoading(false);
+    }
+  };
+  const getPermission = async (data) => {
+    try {
+      const EOAprovider = await primaryWallet.connector.getProvider();
+
+      const customProvider = new ethers.BrowserProvider(
+        EOAprovider as ethers.Eip1193Provider,
+        "any"
+      );
+      const balance = await customProvider.getBalance(address);
+
+      const contract = new Contract(
+        "0xF9936a224b3Deb6f9A4645ccAfa66f7ECe83CF0A",
+        [
           {
-            type: "string",
-            content: JSON.stringify(res),
+            inputs: [
+              {
+                internalType: "address",
+                name: "ipAccount",
+                type: "address",
+              },
+              {
+                internalType: "address",
+                name: "signer",
+                type: "address",
+              },
+              {
+                internalType: "address",
+                name: "to",
+                type: "address",
+              },
+              {
+                internalType: "bytes4",
+                name: "func",
+                type: "bytes4",
+              },
+            ],
+            name: "getPermission",
+            outputs: [
+              {
+                internalType: "uint8",
+                name: "",
+                type: "uint8",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
           },
         ],
-      };
-      setDataChat(dataChat);
-      if (res.status == "success") {
-        setIsSubmit(true);
-      }
-    }
+        customProvider
+      );
 
-    setLoading(false);
+      const rs = await contract.getPermission(
+        data?.ipId,
+        smartAddress,
+        "0xe89b0EaA8a0949738efA80bB531a165FB3456CBe",
+        "0x2a4130c0"
+      );
+
+      if (Number(rs) != 1) {
+        const mintInterface = new Interface([
+          "function setPermission(address, address, address, bytes4, uint8) public",
+        ]);
+        const encodedData = mintInterface.encodeFunctionData("setPermission", [
+          data?.ipId,
+          smartAddress,
+          "0xe89b0EaA8a0949738efA80bB531a165FB3456CBe",
+          "0x2a4130c0",
+          1,
+        ]);
+        const tx = {
+          to: "0xF9936a224b3Deb6f9A4645ccAfa66f7ECe83CF0A",
+          value: "0x0",
+          data: encodedData,
+        };
+        const signer2 = await customProvider.getSigner();
+        const txResponse = await signer2.sendTransaction(tx);
+        return true;
+      }
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
+
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
