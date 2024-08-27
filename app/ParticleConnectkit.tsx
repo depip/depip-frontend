@@ -9,60 +9,41 @@ import React from "react";
 import { aa } from "@particle-network/connectkit/aa";
 
 const config = createConfig({
-  projectId:
-    process.env.NEXT_PUBLIC_PROJECT_ID ||
-    "5d018b10-2afc-429e-acc0-0b0c23fe9644", // --
-  clientKey:
-    process.env.NEXT_PUBLIC_CLIENT_KEY ||
-    "cyIWpawiBIYOv9eK9uS62pEU1qa2STxzHZkpAFKT", // Retrived from https://dashboard.particle.network
-  appId:
-    process.env.NEXT_PUBLIC_APP_ID ||
-    "smKDgFFoeKHX3qkw55rI9pX3nqMKwNVgmM6AIgYx", // --
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
+  clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY || "",
+  appId: process.env.NEXT_PUBLIC_APP_ID || "",
   appearance: {
-    // Optional, collection of properties to alter the appearance of the connection modal
-    // Optional, label and sort wallets (to be shown in the connection modal)
     recommendedWallets: [
       { walletId: "metaMask", label: "Recommended" },
       //   { walletId: "coinbaseWallet", label: "popular" },
     ],
-    splitEmailAndPhone: false, // Optional, displays Email and phone number entry separately
-    collapseWalletList: false, // Optional, hide wallet list behind a button
-    hideContinueButton: false, // Optional, remove "Continue" button underneath Email or phone number entry
-    connectorsOrder: ["wallet", "email", "phone", "social"], //  Optional, sort connection methods (index 0 will be placed at the top)
-    language: "en-US", // Optional, also supported ja-JP, zh-CN, zh-TW, and ko-KR
-    mode: "light", // Optional, changes theme between light, dark, or auto (which will change it based on system settings)
+    splitEmailAndPhone: false,
+    collapseWalletList: false,
+    hideContinueButton: false,
+    connectorsOrder: ["wallet", "email", "phone", "social"],
+    language: "en-US",
+    mode: "light",
     theme: {
       "--pcm-accent-color": "#ff4d4f",
-      // ... other options
     },
     logo: false,
     filterCountryCallingCode: (countries) => {
-      // Optional, whitelist or blacklist phone numbers from specific countries
       return countries.filter((item) => item === "US");
     },
   },
   walletConnectors: [
     evmWalletConnectors({
-      metadata: { name: "My App", icon: "", description: "", url: "" }, // Optional, this is Metadata used by WalletConnect and Coinbase
-      walletConnectProjectId:
-        process.env.NEXT_PUBLIC_WALLETCONNECT_ID ||
-        "86b13026f2930979d852f7dac07666b1", // optional, retrieved from https://cloud.walletconnect.com
+      metadata: { name: "Depip", icon: "", description: "", url: "" },
+      walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID || "",
     }),
     authWalletConnectors({
-      // Optional, configure this if you're using social logins
-      authTypes: ["google"], // Optional, restricts the types of social logins supported
-      fiatCoin: "USD", // Optional, also supports CNY, JPY, HKD, INR, and KRW
+      authTypes: ["google"],
+      fiatCoin: "USD",
       promptSettingConfig: {
-        // Optional, changes the frequency in which the user is asked to set a master or payment password
-        // 0 = Never ask
-        // 1 = Ask once
-        // 2 = Ask always, upon every entry
-        // 3 = Force the user to set this password
         promptMasterPasswordSettingWhenLogin: 1,
         promptPaymentPasswordSettingWhenSign: 1,
       },
     }),
-    // solanaWalletConnectors(), // Optional, you need to configure it when using Solana
   ],
   plugins: [
     aa({
@@ -70,15 +51,13 @@ const config = createConfig({
       version: "2.0.0",
     }),
     wallet({
-      // Optional configurations for the attached embedded wallet modal
-      entryPosition: EntryPosition.BR, // Alters the position in which the modal button appears upon login
-      visible: false, // Dictates whether or not the wallet modal is included/visible or not
+      entryPosition: EntryPosition.BR,
+      visible: false,
     }),
   ],
   chains: [sepolia],
 });
 
-// Export ConnectKitProvider to be used within your index or layout file (or use createConfig directly within those files).
 export const ParticleConnectkit = ({ children }: React.PropsWithChildren) => {
   return <ConnectKitProvider config={config}>{children}</ConnectKitProvider>;
 };

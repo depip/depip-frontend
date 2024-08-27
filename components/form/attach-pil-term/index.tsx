@@ -9,16 +9,7 @@ import {
 } from "@particle-network/connectkit";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  ethers,
-  BrowserProvider,
-  Wallet,
-  JsonRpcProvider,
-  Contract,
-  Interface,
-} from "ethers";
-import { sepolia } from "viem/chains";
-import { createPublicClient, http } from "viem";
+import { ethers, Contract, Interface } from "ethers";
 
 const FormAttachPilTerm = () => {
   const { toggleSidebar } = useSidebar();
@@ -32,7 +23,6 @@ const FormAttachPilTerm = () => {
   } = useForm();
   const { address } = useAccount();
   const { sessionKey } = useDepip();
-  const smartAccount = useSmartAccount();
   const onSubmit = async (data) => {
     setLoading(true);
     const per = await getPermission(data);
@@ -73,7 +63,7 @@ const FormAttachPilTerm = () => {
       const balance = await customProvider.getBalance(address);
 
       const contract = new Contract(
-        "0xF9936a224b3Deb6f9A4645ccAfa66f7ECe83CF0A",
+        process.env.NEXT_PUBLIC_CONTRACT_PERMISSION || "",
         [
           {
             inputs: [
@@ -116,8 +106,8 @@ const FormAttachPilTerm = () => {
       const rs = await contract.getPermission(
         data?.ipId,
         smartAddress,
-        "0xe89b0EaA8a0949738efA80bB531a165FB3456CBe",
-        "0x2a4130c0"
+        process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
+        process.env.NEXT_PUBLIC_FUNC_PERMISSION || ""
       );
 
       if (Number(rs) != 1) {
@@ -127,12 +117,12 @@ const FormAttachPilTerm = () => {
         const encodedData = mintInterface.encodeFunctionData("setPermission", [
           data?.ipId,
           smartAddress,
-          "0xe89b0EaA8a0949738efA80bB531a165FB3456CBe",
-          "0x2a4130c0",
+          process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
+          process.env.NEXT_PUBLIC_FUNC_PERMISSION || "",
           1,
         ]);
         const tx = {
-          to: "0xF9936a224b3Deb6f9A4645ccAfa66f7ECe83CF0A",
+          to: process.env.NEXT_PUBLIC_CONTRACT_PERMISSION || "",
           value: "0x0",
           data: encodedData,
         };

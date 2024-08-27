@@ -48,10 +48,11 @@ export const DepipProvider = ({ children }) => {
       {
         validUntil: 0,
         validAfter: 0,
-        sessionValidationModule: "0xB4AFbE412FD10cF1BFd57c5dcccdbE391352CF1b",
+        sessionValidationModule:
+          process.env.NEXT_PUBLIC_SESSION_VALIDATE_MODULE || "",
         sessionKeyDataInAbi: [
           ["address", "address", "uint256"],
-          [address, "0xda9872016526f2dfa1F4de4C441fb57f4851630F", 100],
+          [address, process.env.NEXT_PUBLIC_SESSION_ADDRESS || "", 100],
         ],
       },
     ]);

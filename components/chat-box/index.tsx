@@ -49,8 +49,7 @@ const ChatBox = ({ isLoading, setLoading }) => {
       if (
         lastMessage &&
         lastMessage?.value &&
-        lastMessage?.from != "bot" &&
-        lastMessage?.value[0]?.type == "string"
+        lastMessage?.from != "bot"
       ) {
         onBotReply(lastMessage?.value[0]?.content);
       }

@@ -148,7 +148,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
           onKeyDown={handleKeyDown}
           value={value}
         />
-        <div className="cursor-pointer" onClick={handleIconClick}>
+        {/* <div className="cursor-pointer" onClick={handleIconClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -171,7 +171,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
             ref={fileInputRef}
             className="hidden"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
