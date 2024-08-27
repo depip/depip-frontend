@@ -123,9 +123,12 @@ const FormMintLicenseToken = () => {
         };
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
+        setTimeout(() => {
+          return true;
+        }, 5000);
+      } else {
         return true;
       }
-      return true;
     } catch (error) {
       console.error(error);
       return false;
