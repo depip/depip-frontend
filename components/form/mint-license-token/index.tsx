@@ -99,7 +99,7 @@ const FormMintLicenseToken = () => {
       );
 
       const rs = await contract.getPermission(
-        data?.ipId,
+        data?.licensorIpId,
         smartAddress,
         process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
         process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || ""
@@ -110,7 +110,7 @@ const FormMintLicenseToken = () => {
           "function setPermission(address, address, address, bytes4, uint8) public",
         ]);
         const encodedData = mintInterface.encodeFunctionData("setPermission", [
-          data?.ipId,
+          data?.licensorIpId,
           smartAddress,
           process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
           process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || "",
@@ -123,9 +123,7 @@ const FormMintLicenseToken = () => {
         };
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
-        setTimeout(() => {
-          return true;
-        }, 5000);
+        return true;
       }
       return true;
     } catch (error) {
