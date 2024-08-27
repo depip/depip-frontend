@@ -123,7 +123,7 @@ import { defineChain, zeroAddress } from 'viem'
 export const storytestnet = /*#__PURE__*/ defineChain({
   id: 1513,
   name: 'story',
-  nativeCurrency: { name: 'story testnet', symbol: 'ETH', decimals: 18 },
+  nativeCurrency: { name: 'story testnet', symbol: 'IP', decimals: 18 },
   rpcUrls: {
     default: {
       http: ['https://testnet.storyrpc.io'],
