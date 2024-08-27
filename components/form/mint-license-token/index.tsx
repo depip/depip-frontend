@@ -1,7 +1,8 @@
 import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
-import { useAccount } from "@particle-network/connectkit";
+import { useAccount, useWallets } from "@particle-network/connectkit";
+import { Contract, ethers, Interface } from "ethers";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -16,31 +17,121 @@ const FormMintLicenseToken = () => {
   } = useForm();
   // const { smartAddress } = useDepip();
   const { address } = useAccount();
-  const { sessionKey } = useDepip();
+  const { sessionKey, smartAddress } = useDepip();
+  const [primaryWallet] = useWallets();
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await api.mintLicense({
-      ...data,
-      session: sessionKey,
-      userWallet: address,
-    });
-    if (res) {
-      toggleSidebar();
-      const dataChat = {
-        from: address ?? "user",
-        value: [
-          {
-            type: "string",
-            content: JSON.stringify(res),
-          },
-        ],
-      };
-      setDataChat(dataChat);
-      if (res.status == "success") {
-        setIsSubmit(true);
+    const per = await checkAndSetPermission(data);
+    if (per) {
+      const res = await api.mintLicense({
+        ...data,
+        session: sessionKey,
+        userWallet: address,
+      });
+      if (res) {
+        toggleSidebar();
+        const dataChat = {
+          from: address ?? "user",
+          value: [
+            {
+              type: "string",
+              content: JSON.stringify(res),
+            },
+          ],
+        };
+        setDataChat(dataChat);
+        if (res.status == "success") {
+          setIsSubmit(true);
+        }
       }
     }
     setLoading(false);
+  };
+  const checkAndSetPermission = async (data) => {
+    try {
+      const EOAprovider = await primaryWallet.connector.getProvider();
+
+      const customProvider = new ethers.BrowserProvider(
+        EOAprovider as ethers.Eip1193Provider,
+        "any"
+      );
+      const balance = await customProvider.getBalance(address);
+
+      const contract = new Contract(
+        process.env.NEXT_PUBLIC_CONTRACT_PERMISSION || "",
+        [
+          {
+            inputs: [
+              {
+                internalType: "address",
+                name: "ipAccount",
+                type: "address",
+              },
+              {
+                internalType: "address",
+                name: "signer",
+                type: "address",
+              },
+              {
+                internalType: "address",
+                name: "to",
+                type: "address",
+              },
+              {
+                internalType: "bytes4",
+                name: "func",
+                type: "bytes4",
+              },
+            ],
+            name: "getPermission",
+            outputs: [
+              {
+                internalType: "uint8",
+                name: "",
+                type: "uint8",
+              },
+            ],
+            stateMutability: "view",
+            type: "function",
+          },
+        ],
+        customProvider
+      );
+
+      const rs = await contract.getPermission(
+        data?.ipId,
+        smartAddress,
+        process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
+        process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || ""
+      );
+
+      if (Number(rs) != 1) {
+        const mintInterface = new Interface([
+          "function setPermission(address, address, address, bytes4, uint8) public",
+        ]);
+        const encodedData = mintInterface.encodeFunctionData("setPermission", [
+          data?.ipId,
+          smartAddress,
+          process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
+          process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || "",
+          1,
+        ]);
+        const tx = {
+          to: process.env.NEXT_PUBLIC_CONTRACT_PERMISSION || "",
+          value: "0x0",
+          data: encodedData,
+        };
+        const signer2 = await customProvider.getSigner();
+        const txResponse = await signer2.sendTransaction(tx);
+        setTimeout(() => {
+          return true;
+        }, 5000);
+      }
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">

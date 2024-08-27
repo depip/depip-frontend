@@ -2,11 +2,12 @@
 
 import { ConnectKitProvider, createConfig } from "@particle-network/connectkit";
 import { authWalletConnectors } from "@particle-network/connectkit/auth";
-import { sepolia } from "@particle-network/connectkit/chains";
+// import { sepolia } from "@particle-network/connectkit/chains";
 import { evmWalletConnectors } from "@particle-network/connectkit/evm";
 import { wallet, EntryPosition } from "@particle-network/connectkit/wallet";
 import React from "react";
 import { aa } from "@particle-network/connectkit/aa";
+import { storytestnet } from "@/config/chain";
 
 const config = createConfig({
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
@@ -55,7 +56,7 @@ const config = createConfig({
       visible: false,
     }),
   ],
-  chains: [sepolia],
+  chains: [storytestnet],
 });
 
 export const ParticleConnectkit = ({ children }: React.PropsWithChildren) => {

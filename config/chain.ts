@@ -90,32 +90,50 @@ import { defineChain, zeroAddress } from 'viem'
 //   ],
 // })
 
-export const aura = /*#__PURE__*/ defineChain({
-  id: 6322,
-  name: 'Aura EVM',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'aura',
-    symbol: 'aura',
-  },
+// export const aura = /*#__PURE__*/ defineChain({
+//   id: 6322,
+//   name: 'Aura EVM',
+//   nativeCurrency: {
+//     decimals: 18,
+//     name: 'aura',
+//     symbol: 'aura',
+//   },
+//   rpcUrls: {
+//     default: {
+//       http: ['https://jsonrpc.aura.network/'],
+//     },
+//   },
+//   blockExplorers: {
+//     default: {
+//       name: 'Aura EVM Block Explorer',
+//       url: 'https://aurascan.io',
+//     },
+//   },
+//   paymentTokens: [
+//     {
+//       chainId: 6322,
+//       address: zeroAddress,
+//       symbol: 'aura',
+//       name: 'aura',
+//       decimals: 18,
+//     },
+//   ],
+// })
+
+export const storytestnet = /*#__PURE__*/ defineChain({
+  id: 1513,
+  name: 'story',
+  nativeCurrency: { name: 'story testnet', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://jsonrpc.aura.network/'],
+      http: ['https://testnet.storyrpc.io'],
     },
   },
   blockExplorers: {
     default: {
-      name: 'Aura EVM Block Explorer',
-      url: 'https://aurascan.io',
+      name: 'storyscan',
+      url: 'https://testnet.storyscan.xyz/',
     },
   },
-  paymentTokens: [
-    {
-      chainId: 6322,
-      address: zeroAddress,
-      symbol: 'aura',
-      name: 'aura',
-      decimals: 18,
-    },
-  ],
+  testnet: true,
 })

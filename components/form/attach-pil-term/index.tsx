@@ -25,7 +25,7 @@ const FormAttachPilTerm = () => {
   const { sessionKey } = useDepip();
   const onSubmit = async (data) => {
     setLoading(true);
-    const per = await getPermission(data);
+    const per = await checkAndSetPermission(data);
     if (per) {
       const res = await api.attackPILTerms({
         ...data,
@@ -48,11 +48,10 @@ const FormAttachPilTerm = () => {
           setIsSubmit(true);
         }
       }
-
-      setLoading(false);
     }
+    setLoading(false);
   };
-  const getPermission = async (data) => {
+  const checkAndSetPermission = async (data) => {
     try {
       const EOAprovider = await primaryWallet.connector.getProvider();
 
@@ -107,7 +106,7 @@ const FormAttachPilTerm = () => {
         data?.ipId,
         smartAddress,
         process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
-        process.env.NEXT_PUBLIC_FUNC_PERMISSION || ""
+        process.env.NEXT_PUBLIC_FUNC_ATTACH_PIL_TERM || ""
       );
 
       if (Number(rs) != 1) {
@@ -118,7 +117,7 @@ const FormAttachPilTerm = () => {
           data?.ipId,
           smartAddress,
           process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
-          process.env.NEXT_PUBLIC_FUNC_PERMISSION || "",
+          process.env.NEXT_PUBLIC_FUNC_ATTACH_PIL_TERM || "",
           1,
         ]);
         const tx = {
@@ -128,7 +127,9 @@ const FormAttachPilTerm = () => {
         };
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
-        return true;
+        setTimeout(() => {
+          return true;
+        }, 5000);
       }
       return true;
     } catch (error) {
