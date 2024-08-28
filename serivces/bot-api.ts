@@ -1,3 +1,5 @@
+import { notification } from "antd";
+
 const BotReply = async (params: {
   prompt: string;
   sessionId: string;
@@ -14,8 +16,9 @@ const BotReply = async (params: {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error retrieving data:", error);
-    return ("something when wrong please try again");
+    notification.error({
+      message: "Could not get data",
+    });
   }
 };
 

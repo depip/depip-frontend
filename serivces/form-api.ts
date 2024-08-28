@@ -1,4 +1,5 @@
 import { PIL_TYPE } from "@/constant/constant";
+import { notification } from "antd";
 
 const registerIpAsset = async (params: {
   nftAddress: string;
@@ -15,8 +16,9 @@ const registerIpAsset = async (params: {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error retrieving data:", error);
-    throw new Error("Could not get data");
+    notification.error({
+      message: "Could not get data",
+    });
   }
 };
 
@@ -40,8 +42,9 @@ const licenceseTerms = async (params: {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error retrieving data:", error);
-    throw new Error("Could not get data");
+    notification.error({
+      message: "Could not get data",
+    });
   }
 };
 
@@ -65,8 +68,9 @@ const mintLicense = async (params: {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error retrieving data:", error);
-    throw new Error("Could not get data");
+    notification.error({
+      message: "Could not get data",
+    });
   }
 };
 
@@ -83,8 +87,9 @@ const attackPILTerms = async (params: { ipId: string; termId: string }) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error retrieving data:", error);
-    throw new Error("Could not get data");
+    notification.error({
+      message: "Could not get data",
+    });
   }
 };
 
@@ -114,8 +119,9 @@ const mintAndRegistryIp = async (params: {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error retrieving data:", error);
-    throw new Error("Could not get data");
+    notification.error({
+      message: "Could not get data",
+    });
   }
 };
 

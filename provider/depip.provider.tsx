@@ -6,7 +6,7 @@ import {
   useSmartAccount,
 } from "@particle-network/connectkit";
 import { IChat } from "@/types/types";
-import { notification } from 'antd';
+import { notification } from "antd";
 
 const depipContext = createContext({
   dataChat: null,
@@ -99,6 +99,9 @@ export const DepipProvider = ({ children }) => {
       // }
     }
   }, [smartAccount]);
+  useEffect(() => {
+    localStorage.clear();
+  }, [isDisconnected]);
   return (
     <depipContext.Provider
       value={{

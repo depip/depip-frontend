@@ -2,6 +2,7 @@ import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
 import { useAccount, useWallets } from "@particle-network/connectkit";
+import { notification } from "antd";
 import { Contract, ethers, Interface } from "ethers";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -49,6 +50,9 @@ const FormMintLicenseToken = () => {
   };
   const checkAndSetPermission = async (data) => {
     try {
+      notification.info({
+        message: "Checking permissions",
+      });
       const EOAprovider = await primaryWallet.connector.getProvider();
 
       const customProvider = new ethers.BrowserProvider(
@@ -106,6 +110,9 @@ const FormMintLicenseToken = () => {
       );
 
       if (Number(rs) != 1) {
+        notification.info({
+          message: "Permissions not yet granted. Set permissions",
+        });
         const mintInterface = new Interface([
           "function setPermission(address, address, address, bytes4, uint8) public",
         ]);
@@ -124,12 +131,20 @@ const FormMintLicenseToken = () => {
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
         await delay(5000);
+        notification.success({
+          message: "Permissions currently being set",
+        });
         return true;
       } else {
+        notification.success({
+          message: "Permissions are set up correctly.",
+        });
         return true;
       }
     } catch (error) {
-      console.error(error);
+      notification.error({
+        message: error?.message,
+      });
       return false;
     }
   };

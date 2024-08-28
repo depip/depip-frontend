@@ -71,7 +71,6 @@ function extractJSONFromHTML(html: string) {
         const jsonData = JSON.parse(jsonString);
         return jsonData;
       } catch (error) {
-        console.error("Error parsing JSON:", error);
         continue;
       }
     }

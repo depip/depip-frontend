@@ -3,6 +3,7 @@ import { useAccount, useSmartAccount } from "@particle-network/connectkit";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Button from "./button";
+import { notification } from "antd";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   // const { smartAddress } = useDepip();
@@ -38,7 +39,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       const _logChat = listChat ? JSON.parse(listChat) : [];
       setLogChat(_logChat);
     } catch (error) {
-      console.error(error);
+      notification.error({
+        message: error?.message,
+      });
     }
   };
   useEffect(() => {

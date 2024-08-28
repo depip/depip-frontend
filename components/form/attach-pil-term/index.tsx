@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ethers, Contract, Interface } from "ethers";
+import { notification } from "antd";
 
 const FormAttachPilTerm = () => {
   const { toggleSidebar } = useSidebar();
@@ -53,6 +54,9 @@ const FormAttachPilTerm = () => {
   };
   const checkAndSetPermission = async (data) => {
     try {
+      notification.info({
+        message: "Checking permissions",
+      });
       const EOAprovider = await primaryWallet.connector.getProvider();
 
       const customProvider = new ethers.BrowserProvider(
@@ -110,6 +114,9 @@ const FormAttachPilTerm = () => {
       );
 
       if (Number(rs) != 1) {
+        notification.info({
+          message: "Permissions not yet granted. Set permissions",
+        });
         const mintInterface = new Interface([
           "function setPermission(address, address, address, bytes4, uint8) public",
         ]);
@@ -128,12 +135,20 @@ const FormAttachPilTerm = () => {
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
         await delay(5000);
+        notification.success({
+          message: "Permissions currently being set",
+        });
         return true;
       } else {
+        notification.success({
+          message: "Permissions are set up correctly.",
+        });
         return true;
       }
     } catch (error) {
-      console.error(error);
+      notification.error({
+        message: error?.message,
+      });
       return false;
     }
   };
