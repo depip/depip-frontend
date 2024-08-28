@@ -24,36 +24,38 @@ const FormAttachPilTerm = () => {
   } = useForm();
   const { address } = useAccount();
   const { sessionKey } = useDepip();
-  const onSubmit = async (data) => {
-    setLoading(true);
-    const per = await checkAndSetPermission(data);
-    if (per) {
-      const res = await api.attackPILTerms({
-        ...data,
-        session: sessionKey,
-        userWallet: address,
-      });
-      if (res) {
-        toggleSidebar();
-        const dataChat = {
-          from: address ?? "user",
-          value: [
-            {
-              type: "string",
-              content: JSON.stringify(res),
-            },
-          ],
-        };
-        setDataChat(dataChat);
-        if (res.status == "success") {
-          setIsSubmit(true);
-        }
-      }
-      setLoading(false);
-    }
+  const onSubmit = (data) => {
+    checkAndSetPermission(data);
   };
+
+  const attachFunc = async (data) => {
+    const res = await api.attackPILTerms({
+      ...data,
+      session: sessionKey,
+      userWallet: address,
+    });
+    if (res) {
+      toggleSidebar();
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: JSON.stringify(res),
+          },
+        ],
+      };
+      setDataChat(dataChat);
+      if (res.status == "success") {
+        setIsSubmit(true);
+      }
+    }
+    setLoading(false);
+  };
+
   const checkAndSetPermission = async (data) => {
     try {
+      setLoading(true);
       notification.info({
         message: "Checking permissions",
       });
@@ -63,7 +65,7 @@ const FormAttachPilTerm = () => {
         EOAprovider as ethers.Eip1193Provider,
         "any"
       );
-      const balance = await customProvider.getBalance(address);
+      // const balance = await customProvider.getBalance(address);
 
       const contract = new Contract(
         process.env.NEXT_PUBLIC_CONTRACT_PERMISSION || "",
@@ -135,60 +137,57 @@ const FormAttachPilTerm = () => {
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
 
-        const receipt = await customProvider.getTransactionReceipt(
-          txResponse?.hash
-        );
-        if (receipt === null) {
-          notification.success({
-            message: "Transaction not yet mined or does not exis",
-          });
-          return false;
-        }
+        let attempts = 0;
+        const checkReceipt = () => {
+          customProvider
+            .getTransactionReceipt(txResponse?.hash)
+            .then((receipt) => {
+              if (receipt !== null) {
+                clearInterval(intervalId);
+                if (receipt.status === 1) {
+                  notification.success({
+                    message: "Permissions currently being set",
+                  });
+                  attachFunc(data);
+                } else {
+                  notification.success({
+                    message: "Permissions set failed",
+                  });
+                  setLoading(false);
+                }
+              } else if (attempts >= 50) {
+                clearInterval(intervalId);
+                notification.success({
+                  message: "Permissions set failed",
+                });
+                setLoading(false);
+              } else {
+                attempts++;
+              }
+            })
+            .catch((error) => {
+              clearInterval(intervalId);
+              notification.success({
+                message: "Permissions set failed",
+              });
+              setLoading(false);
+            });
+        };
 
-        if (receipt.status === 1) {
-          notification.success({
-            message: "Permissions currently being set",
-          });
-          return true;
-        } else {
-          notification.success({
-            message: "Permissions set failed",
-          });
-          return false;
-        }
+        const intervalId = setInterval(checkReceipt, 3000);
       } else {
         notification.success({
           message: "Permissions are set up correctly.",
         });
-        return true;
+        attachFunc(data);
       }
     } catch (error) {
       notification.error({
         message: error?.message,
       });
-      return false;
+      setLoading(false);
     }
   };
-
-  async function checkTransactionConfirmation(provider, txHash) {
-    try {
-      const receipt = await provider.getTransactionReceipt(txHash);
-      if (receipt === null) {
-        console.log("Transaction not yet mined or does not exist");
-        return;
-      }
-
-      if (receipt.status === 1) {
-        console.log("Transaction confirmed successfully");
-      } else {
-        console.log("Transaction failed");
-      }
-    } catch (error) {
-      console.error("Error checking transaction confirmation:", error);
-    }
-  }
-
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
