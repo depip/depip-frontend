@@ -48,8 +48,8 @@ const FormAttachPilTerm = () => {
           setIsSubmit(true);
         }
       }
+      setLoading(false);
     }
-    setLoading(false);
   };
   const checkAndSetPermission = async (data) => {
     try {
@@ -104,7 +104,7 @@ const FormAttachPilTerm = () => {
 
       const rs = await contract.getPermission(
         data?.ipId,
-        smartAddress,
+        process.env.NEXT_PUBLIC_SESSION_ADDRESS,
         process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
         process.env.NEXT_PUBLIC_FUNC_ATTACH_PIL_TERM || ""
       );
@@ -115,7 +115,7 @@ const FormAttachPilTerm = () => {
         ]);
         const encodedData = mintInterface.encodeFunctionData("setPermission", [
           data?.ipId,
-          smartAddress,
+          process.env.NEXT_PUBLIC_SESSION_ADDRESS,
           process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
           process.env.NEXT_PUBLIC_FUNC_ATTACH_PIL_TERM || "",
           1,
@@ -127,9 +127,8 @@ const FormAttachPilTerm = () => {
         };
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
-        setTimeout(() => {
-          return true;
-        }, 5000);
+        await delay(5000);
+        return true;
       } else {
         return true;
       }
@@ -138,6 +137,8 @@ const FormAttachPilTerm = () => {
       return false;
     }
   };
+
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">

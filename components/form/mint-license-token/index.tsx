@@ -44,8 +44,8 @@ const FormMintLicenseToken = () => {
           setIsSubmit(true);
         }
       }
+      setLoading(false);
     }
-    setLoading(false);
   };
   const checkAndSetPermission = async (data) => {
     try {
@@ -100,7 +100,7 @@ const FormMintLicenseToken = () => {
 
       const rs = await contract.getPermission(
         data?.licensorIpId,
-        smartAddress,
+        process.env.NEXT_PUBLIC_SESSION_ADDRESS,
         process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
         process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || ""
       );
@@ -111,7 +111,7 @@ const FormMintLicenseToken = () => {
         ]);
         const encodedData = mintInterface.encodeFunctionData("setPermission", [
           data?.licensorIpId,
-          smartAddress,
+          process.env.NEXT_PUBLIC_SESSION_ADDRESS,
           process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
           process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || "",
           1,
@@ -123,9 +123,8 @@ const FormMintLicenseToken = () => {
         };
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
-        setTimeout(() => {
-          return true;
-        }, 5000);
+        await delay(5000);
+        return true;
       } else {
         return true;
       }
@@ -134,6 +133,7 @@ const FormMintLicenseToken = () => {
       return false;
     }
   };
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">

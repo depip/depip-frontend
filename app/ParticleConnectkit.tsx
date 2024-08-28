@@ -48,7 +48,7 @@ const config = createConfig({
   ],
   plugins: [
     aa({
-      name: "BICONOMY",
+      name: "SIMPLE",
       version: "2.0.0",
     }),
     wallet({

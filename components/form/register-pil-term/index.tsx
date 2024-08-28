@@ -136,21 +136,21 @@ const FormRegisterPilTerm = () => {
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-                  Token contract
+                Currency token contract
                 </div>
                 <div className="w-full flex flex-col gap-1">
                   <input
                     className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                       errors.currency ? "border-red-500" : "border-zinc-900/10"
                     } `}
-                    placeholder="Enter Token contract"
+                    placeholder="Enter Currency token contract"
                     type="text"
                     id="currency"
                     {...register("currency", { required: true })}
                   />
                   {errors.currency && (
                     <p className="text-sm text-red-600 dark:text-red-500">
-                      Token contract is required
+                      Currency token contract is required
                     </p>
                   )}
                 </div>
@@ -184,7 +184,7 @@ const FormRegisterPilTerm = () => {
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-                  Commercial Rev Share
+                  Commercial Revenue Share (%)
                 </div>
                 <div className="w-full flex flex-col gap-1">
                   <input
@@ -200,7 +200,7 @@ const FormRegisterPilTerm = () => {
                   />
                   {errors.commercialRevShare && (
                     <p className="text-sm text-red-600 dark:text-red-500">
-                      Commercial Rev Share is required
+                      Commercial Revenue Share is required
                     </p>
                   )}
                 </div>

@@ -1,7 +1,13 @@
 "use client";
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { useAccount, useSmartAccount } from "@particle-network/connectkit";
+import {
+  useAccount,
+  useDisconnect,
+  useSmartAccount,
+} from "@particle-network/connectkit";
 import { IChat } from "@/types/types";
+import { notification } from 'antd';
+
 const depipContext = createContext({
   dataChat: null,
   setDataChat: (a) => {},
@@ -24,7 +30,8 @@ export const DepipProvider = ({ children }) => {
   const [smartAddress, setSmartAddress] = useState("");
   const [sessionKey, setSessionKey] = useState(null);
   const [isSubmit, setIsSubmit] = useState(false);
-  const { address } = useAccount();
+  const { address, isDisconnected } = useAccount();
+  const disconnect = useDisconnect();
   useEffect(() => {
     try {
       if (!address) return;
@@ -43,27 +50,36 @@ export const DepipProvider = ({ children }) => {
     }
   }, [sessionContent]);
   const smartAccount = useSmartAccount();
-  const createSession = async () => {
-    const _sessionKey = await smartAccount?.createSessions([
-      {
-        validUntil: 0,
-        validAfter: 0,
-        sessionValidationModule:
-          process.env.NEXT_PUBLIC_SESSION_VALIDATE_MODULE || "",
-        sessionKeyDataInAbi: [
-          ["address", "address", "uint256"],
-          [address, process.env.NEXT_PUBLIC_SESSION_ADDRESS || "", 100],
-        ],
-      },
-    ]);
+  // const createSession = async () => {
+  //   try {
+  //     const _sessionKey = await smartAccount?.createSessions([
+  //       {
+  //         validUntil: 0,
+  //         validAfter: 0,
+  //         sessionValidationModule:
+  //           process.env.NEXT_PUBLIC_SESSION_VALIDATE_MODULE || "",
+  //         sessionKeyDataInAbi: [
+  //           ["address", "address", "uint256"],
+  //           [address, process.env.NEXT_PUBLIC_SESSION_ADDRESS || "", 100],
+  //         ],
+  //       },
+  //     ]);
 
-    await smartAccount?.sendTransaction(_sessionKey?.verifyingPaymasterGasless);
-    setSessionKey(_sessionKey.sessions);
-    window.localStorage.setItem(
-      "sessionKey",
-      JSON.stringify(_sessionKey.sessions)
-    );
-  };
+  //     await smartAccount?.sendTransaction(
+  //       _sessionKey?.verifyingPaymasterGasless
+  //     );
+  //     setSessionKey(_sessionKey.sessions);
+  //     window.localStorage.setItem(
+  //       "sessionKey",
+  //       JSON.stringify(_sessionKey.sessions)
+  //     );
+  //   } catch (error) {
+  //     // disconnect.disconnect();
+  //     notification.error({
+  //       message: error.message
+  //     });
+  //   }
+  // };
 
   const getSMAddress = async () => {
     const sMAddress = await smartAccount.getAddress();
@@ -74,13 +90,13 @@ export const DepipProvider = ({ children }) => {
   useEffect(() => {
     if (smartAccount) {
       getSMAddress();
-      const sessionKey = window.localStorage.getItem("sessionKey");
-      if (!sessionKey) {
-        createSession();
-      } else {
-        const _sessionKey = JSON.parse(sessionKey);
-        setSessionKey(_sessionKey);
-      }
+      // const sessionKey = window.localStorage.getItem("sessionKey");
+      // if (!sessionKey) {
+      //   createSession();
+      // } else {
+      //   const _sessionKey = JSON.parse(sessionKey);
+      //   setSessionKey(_sessionKey);
+      // }
     }
   }, [smartAccount]);
   return (

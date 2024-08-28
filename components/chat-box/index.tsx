@@ -118,7 +118,7 @@ const ChatBox = ({ isLoading, setLoading }) => {
                       ></img>
                     </div>
                     <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl items-end">
-                      <p className="text-sm font-normal mb-2" style={{ whiteSpace: "pre-line" }}>
+                      <p className="text-sm font-normal break-all mb-2" style={{ whiteSpace: "pre-line" }}>
                         {item?.value[0]?.content}
                       </p>
                       {/* <Link
@@ -154,7 +154,7 @@ const ChatBox = ({ isLoading, setLoading }) => {
                       </div>
                     </div>
                     <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
-                      <p className="text-sm font-normal">
+                      <p className="text-sm font-normal break-all">
                         {item.value[0].content}
                       </p>
                       <Link
@@ -190,7 +190,7 @@ const ChatBox = ({ isLoading, setLoading }) => {
                       </div>
                     </div>
                     <div className="flex flex-col leading-1.5 p-4 border border-gray-200  rounded-xl">
-                      <p className="text-sm font-normal">
+                      <p className="text-sm font-normal break-all">
                         {item.value[0].content}
                       </p>
                     </div>
@@ -226,7 +226,7 @@ const ChatBox = ({ isLoading, setLoading }) => {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-sm font-normal text-black">
+                  <div className="text-sm font-normal break-all text-black">
                     {/* {index != listMess.length - 1 && (
                       <span style={{ whiteSpace: "pre-line" }}>
                         {item.value}
