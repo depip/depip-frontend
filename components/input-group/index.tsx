@@ -8,7 +8,7 @@ type Props = {
 };
 
 const InputGroup: React.FC<Props> = ({ isLoading }) => {
-  const { isSidebarOpen } = useSidebar();
+  const { isSidebarOpen, type } = useSidebar();
   const { address } = useAccount();
   const { isSubmit, setDataChat } = useDepip();
   const [value, setValue] = useState<string>("");
@@ -65,7 +65,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
     >
       <div className="flex items-center gap-1 mb-1">
         {/* <div
-          className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded border border-blue-400 cursor-pointer"
+          className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
           onClick={() =>
             setDataChat({
               from: address ?? "user",
@@ -76,7 +76,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
           Get started
         </div>
         <div
-          className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400 cursor-pointer"
+          className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
           onClick={() =>
             setDataChat({
               from: address ?? "user",
@@ -119,22 +119,220 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
         >
           Register ip asset
         </div> */}
+        {(type.toLowerCase() == "create_ip_asset" ||
+          type == "createIpAsset") && (
+          <div className="flex items-center gap-1">
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "What is an IP asset?",
+                    },
+                  ],
+                })
+              }
+            >
+              What is an IP asset?
+            </div>
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "Where do I get my NFT address?",
+                    },
+                  ],
+                })
+              }
+            >
+              NFT Address
+            </div>
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "Where do I get my token ID?",
+                    },
+                  ],
+                })
+              }
+            >
+              Token ID
+            </div>
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "I don't own an NFT.",
+                    },
+                  ],
+                })
+              }
+            >
+              I don't own an NFT
+            </div>
+          </div>
+        )}
+        {(type.toLowerCase() == "register_pil_term" ||
+          type == "registerPilTerm") && (
+          <div className="flex items-center gap-1">
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "What is an IP asset?",
+                    },
+                  ],
+                })
+              }
+            >
+              Token contract
+            </div>
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "What is minting fee?",
+                    },
+                  ],
+                })
+              }
+            >
+              Minting fee
+            </div>
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "What is commercial revenue share",
+                    },
+                  ],
+                })
+              }
+            >
+              Commercial revenue share
+            </div>
+          </div>
+        )}
+        {(type.toLowerCase() == "attach_pil_term" ||
+          type.toUpperCase() == "ATTACH_TERM_TO_IP_ASSET" ||
+          type.toUpperCase() == "ATTACH_PIL_TERM_TO_IP_ASSET") && (
+          <div className="flex items-center gap-1">
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content:
+                        "Why do I need to attach a PIL term to an IP asset?",
+                    },
+                  ],
+                })
+              }
+            >
+              Why am I doing this?
+            </div>
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "Where do I get PIL term ID?",
+                    },
+                  ],
+                })
+              }
+            >
+              Where to get PIL term ID?
+            </div>
+          </div>
+        )}
+        {(type.toLowerCase() == "mint_and_create_ip_asset" ||
+          type == "mintAndCreateIpAsset") && (
+          <div className="flex items-center gap-1">
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "I already have an NFT",
+                    },
+                  ],
+                })
+              }
+            >
+              I already have an NFT
+            </div>
+            <div
+              className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
+              onClick={() =>
+                setDataChat({
+                  from: address ?? "user",
+                  value: [
+                    {
+                      type: "string",
+                      content: "I already have an NFT",
+                    },
+                  ],
+                })
+              }
+            >
+              I already have an NFT
+            </div>
+          </div>
+        )}
         {isSubmit && (
           <div
-            className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-red-400 cursor-pointer"
+            className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-400 cursor-pointer"
             onClick={() =>
               setDataChat({
                 from: address ?? "user",
                 value: [
                   {
                     type: "string",
-                    content: "What do I do next?",
+                    content: "What is an IP asset?",
                   },
                 ],
               })
             }
           >
-            Next step
+            What is an IP asset?
           </div>
         )}
       </div>

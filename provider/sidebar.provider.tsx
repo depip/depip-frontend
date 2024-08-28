@@ -10,7 +10,7 @@ const SidebarContext = createContext({
 
 export const SidebarProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [type, setType] = useState("CREATE_IP_ASSET");
+  const [type, setType] = useState("");
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
