@@ -134,11 +134,28 @@ const FormAttachPilTerm = () => {
         };
         const signer2 = await customProvider.getSigner();
         const txResponse = await signer2.sendTransaction(tx);
-        await delay(5000);
-        notification.success({
-          message: "Permissions currently being set",
-        });
-        return true;
+
+        const receipt = await customProvider.getTransactionReceipt(
+          txResponse?.hash
+        );
+        if (receipt === null) {
+          notification.success({
+            message: "Transaction not yet mined or does not exis",
+          });
+          return false;
+        }
+
+        if (receipt.status === 1) {
+          notification.success({
+            message: "Permissions currently being set",
+          });
+          return true;
+        } else {
+          notification.success({
+            message: "Permissions set failed",
+          });
+          return false;
+        }
       } else {
         notification.success({
           message: "Permissions are set up correctly.",
@@ -152,6 +169,24 @@ const FormAttachPilTerm = () => {
       return false;
     }
   };
+
+  async function checkTransactionConfirmation(provider, txHash) {
+    try {
+      const receipt = await provider.getTransactionReceipt(txHash);
+      if (receipt === null) {
+        console.log("Transaction not yet mined or does not exist");
+        return;
+      }
+
+      if (receipt.status === 1) {
+        console.log("Transaction confirmed successfully");
+      } else {
+        console.log("Transaction failed");
+      }
+    } catch (error) {
+      console.error("Error checking transaction confirmation:", error);
+    }
+  }
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
