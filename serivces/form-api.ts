@@ -19,6 +19,7 @@ const registerIpAsset = async (params: {
     notification.error({
       message: "Could not get data",
     });
+    return false;
   }
 };
 
@@ -45,6 +46,7 @@ const licenceseTerms = async (params: {
     notification.error({
       message: "Could not get data",
     });
+    return false;
   }
 };
 
@@ -71,6 +73,7 @@ const mintLicense = async (params: {
     notification.error({
       message: "Could not get data",
     });
+    return false;
   }
 };
 
@@ -90,6 +93,7 @@ const attackPILTerms = async (params: { ipId: string; termId: string }) => {
     notification.error({
       message: "Could not get data",
     });
+    return false;
   }
 };
 
@@ -122,6 +126,7 @@ const mintAndRegistryIp = async (params: {
     notification.error({
       message: "Could not get data",
     });
+    return false;
   }
 };
 

@@ -30,7 +30,7 @@ export const DepipProvider = ({ children }) => {
   const [smartAddress, setSmartAddress] = useState("");
   const [sessionKey, setSessionKey] = useState(null);
   const [isSubmit, setIsSubmit] = useState(false);
-  const { address, isDisconnected } = useAccount();
+  const { address, isDisconnected, isConnected } = useAccount();
   const disconnect = useDisconnect();
   useEffect(() => {
     try {
@@ -99,9 +99,11 @@ export const DepipProvider = ({ children }) => {
       // }
     }
   }, [smartAccount]);
-  useEffect(() => {
-    localStorage.clear();
-  }, [isDisconnected]);
+  // useEffect(() => {
+  //   if (address) {
+  //     localStorage.clear();
+  //   }
+  // }, [isConnected]);
   return (
     <depipContext.Provider
       value={{

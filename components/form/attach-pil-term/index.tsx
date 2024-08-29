@@ -14,7 +14,7 @@ import { notification } from "antd";
 
 const FormAttachPilTerm = () => {
   const { toggleSidebar } = useSidebar();
-  const { setDataChat, setIsSubmit, smartAddress } = useDepip();
+  const { setDataChat, setIsSubmit } = useDepip();
   const [primaryWallet] = useWallets();
   const [isLoading, setLoading] = useState<boolean>(false);
   const {

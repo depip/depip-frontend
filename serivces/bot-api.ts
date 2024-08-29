@@ -19,6 +19,7 @@ const BotReply = async (params: {
     notification.error({
       message: "Could not get data",
     });
+    return false;
   }
 };
 

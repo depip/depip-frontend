@@ -13,6 +13,9 @@ export const SidebarProvider = ({ children }) => {
   const [type, setType] = useState("");
 
   const toggleSidebar = () => {
+    if (isSidebarOpen) {
+      setType("");
+    }
     setIsSidebarOpen(!isSidebarOpen);
   };
   const setTypeForm = (newtype) => {

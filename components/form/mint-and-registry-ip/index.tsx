@@ -56,7 +56,7 @@ const MintAndRegistryIp = () => {
     });
     if (res) {
       let dataChat;
-      if (res.ipasset.status == "success") {
+      if (res?.ipasset?.status == "success") {
         const previews = URL.createObjectURL(data?.file);
         dataChat = {
           from: address ?? "user",
