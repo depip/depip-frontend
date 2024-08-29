@@ -43,25 +43,28 @@ const PixelOperator = localFont({
 
 // const queryClient = new QueryClient();
 export default function RootLayout({ children }: { children: ReactNode }) {
+  useEffect(() => {
+    document.title = "Depip";
+  }, []);
   return (
     <html>
       <body>
         {/* <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}> */}
-            <ParticleConnectkit>
-              <SidebarProvider>
-                <DepipProvider>
-                  <main>
-                    <div
-                      className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-white`}
-                    >
-                      {children}
-                    </div>
-                  </main>
-                </DepipProvider>
-              </SidebarProvider>
-            </ParticleConnectkit>
-          {/* </QueryClientProvider>
+        <ParticleConnectkit>
+          <SidebarProvider>
+            <DepipProvider>
+              <main>
+                <div
+                  className={`${GeistSans.variable} ${CabinetGrotesk.variable} ${RetroComputer.variable} ${PixelOperator.variable} bg-white`}
+                >
+                  {children}
+                </div>
+              </main>
+            </DepipProvider>
+          </SidebarProvider>
+        </ParticleConnectkit>
+        {/* </QueryClientProvider>
         </WagmiProvider> */}
       </body>
     </html>

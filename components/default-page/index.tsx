@@ -164,7 +164,7 @@ const DefaultPage = () => {
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
-                Register ip asset
+                Register IP asset
               </div>
             </div>
           </div>

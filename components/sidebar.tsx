@@ -241,7 +241,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Register ip asset
+                      Register IP asset
                     </div>
                   </div>
                 </div>

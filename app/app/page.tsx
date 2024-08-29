@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/components/layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideBarRight from "@/components/sidebar-right";
 import DefaultPage from "@/components/default-page";
 import ChatBox from "@/components/chat-box";

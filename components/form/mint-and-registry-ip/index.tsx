@@ -92,10 +92,11 @@ const MintAndRegistryIp = () => {
           ],
         };
       }
+      reset();
       toggleSidebar();
       setDataChat(dataChat);
+   
     }
-
     setLoading(false);
   };
 
