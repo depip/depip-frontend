@@ -126,49 +126,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </Button>
             <div className="self-stretch flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
-                Get started
+                Quick started
               </div>
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div
                   className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() =>
-                    setDataChat({
-                      from: address ?? "user",
-                      value: [
-                        {
-                          type: "string",
-                          content: "Hello, who are you?",
-                        },
-                      ],
-                    })
-                  }
-                >
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
-                        fill="#1C1C1C"
-                        fill-opacity="0.4"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Get started
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() =>
+                  onClick={() => {
+                    newSessionId();
                     setDataChat({
                       from: address ?? "user",
                       value: [
@@ -177,8 +141,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                           content: "What is IP?",
                         },
                       ],
-                    })
-                  }
+                    });
+                  }}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -205,7 +169,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 </div>
                 <div
                   className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() =>
+                  onClick={() => {
+                    newSessionId();
                     setDataChat({
                       from: address ?? "user",
                       value: [
@@ -215,8 +180,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                             "Can you show me full process to interact with Story Protocol by Depip server?",
                         },
                       ],
-                    })
-                  }
+                    });
+                  }}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -242,8 +207,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </div>
                 <div
-                  className="self-stretch px-4 py-2 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() =>
+                  className="self-stretch px-4 py-2 border-b justify-start items-center gap-4 inline-flex cursor-pointer"
+                  onClick={() => {
+                    newSessionId();
                     setDataChat({
                       from: address ?? "user",
                       value: [
@@ -253,8 +219,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                             "Can you register IP asset for me by Depip server",
                         },
                       ],
-                    })
-                  }
+                    });
+                  }}
                 >
                   <div className="w-4 h-4 relative">
                     <svg
@@ -276,6 +242,44 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                     <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
                       Register ip asset
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="self-stretch px-4 py-2 border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                  onClick={() => {
+                    newSessionId();
+                    setDataChat({
+                      from: address ?? "user",
+                      value: [
+                        {
+                          type: "string",
+                          content: "Register PIL term",
+                        },
+                      ],
+                    });
+                  }}
+                >
+                  <div className="w-4 h-4 relative">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
+                        fill="#1C1C1C"
+                        fill-opacity="0.4"
+                      />
+                    </svg>
+                  </div>
+                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                    <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
+                      Register PIL term
                     </div>
                   </div>
                 </div>

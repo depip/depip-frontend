@@ -57,45 +57,6 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "Hello, who are you?",
-                  },
-                ],
-              })
-            }
-            className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
-          >
-            <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
-              <div className="w-5 h-5 relative">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M16.667 1.6665H3.33366H1.66699H1.66699V3.33317H1.66699V18.3332H3.33366V3.33317H16.667V11.6665H18.3337V3.33317V1.6665H16.667ZM8.33366 13.3332H5.00033V14.9998H3.33387V16.6665H5.00053V14.9998H8.33366V13.3332ZM13.3337 9.99984H15.0003V13.3332H18.3337V14.9998H16.667V16.6665H15.0003V18.3332H13.3337V14.9998H10.0003V13.3332H11.667V11.6665H13.3337V9.99984Z"
-                    fill="#1C1C1C"
-                    fill-opacity="0.6"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
-              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
-                Get started
-              </div>
-            </div>
-          </div>
-          <div
-            onClick={() =>
-              setDataChat({
-                from: address ?? "user",
-                value: [
-                  {
-                    type: "string",
                     content: "What is IP?",
                   },
                 ],
@@ -135,7 +96,8 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "Can you show me full process to interact with Story Protocol by Depip server?",
+                    content:
+                      "Can you show me full process to interact with Story Protocol by Depip server?",
                   },
                 ],
               })
@@ -203,6 +165,45 @@ const DefaultPage = () => {
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
                 Register ip asset
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() =>
+              setDataChat({
+                from: address ?? "user",
+                value: [
+                  {
+                    type: "string",
+                    content: "Register PIL term",
+                  },
+                ],
+              })
+            }
+            className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
+          >
+            <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
+              <div className="w-5 h-5 relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M16.667 1.6665H3.33366H1.66699H1.66699V3.33317H1.66699V18.3332H3.33366V3.33317H16.667V11.6665H18.3337V3.33317V1.6665H16.667ZM8.33366 13.3332H5.00033V14.9998H3.33387V16.6665H5.00053V14.9998H8.33366V13.3332ZM13.3337 9.99984H15.0003V13.3332H18.3337V14.9998H16.667V16.6665H15.0003V18.3332H13.3337V14.9998H10.0003V13.3332H11.667V11.6665H13.3337V9.99984Z"
+                    fill="#1C1C1C"
+                    fill-opacity="0.6"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
+              <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
+                Register PIL term
               </div>
             </div>
           </div>

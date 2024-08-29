@@ -307,13 +307,13 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
                   value: [
                     {
                       type: "string",
-                      content: "I already have an NFT",
+                      content: "What is an IP asset?",
                     },
                   ],
                 })
               }
             >
-              I already have an NFT
+              What is an IP asset?
             </div>
           </div>
         )}
