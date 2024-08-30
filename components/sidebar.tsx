@@ -126,7 +126,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </Button>
             <div className="self-stretch flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
-                Quick started
+                Quick start
               </div>
               <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
                 <div

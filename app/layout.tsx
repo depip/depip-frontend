@@ -44,7 +44,7 @@ const PixelOperator = localFont({
 // const queryClient = new QueryClient();
 export default function RootLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
-    document.title = "Depip";
+    document.title = "DePIP";
   }, []);
   return (
     <html>
