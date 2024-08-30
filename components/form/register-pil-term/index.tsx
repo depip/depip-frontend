@@ -185,6 +185,7 @@ const FormRegisterPilTerm = () => {
                     } `}
                     placeholder="Enter Minting Fee"
                     type="number"
+                    step="any"
                     id="mintingFee"
                     {...register("mintingFee", { required: true })}
                   />
