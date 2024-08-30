@@ -5,6 +5,7 @@ import api from "@/serivces/form-api";
 import { useDepip } from "@/provider/depip.provider";
 import { useAccount } from "@particle-network/connectkit";
 import { PIL_TYPE } from "@/constant/constant";
+import { parseEther } from "viem";
 
 const FormRegisterPilTerm = () => {
   const { toggleSidebar } = useSidebar();
@@ -16,14 +17,25 @@ const FormRegisterPilTerm = () => {
     register,
     setValue,
     getValues,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      type: PIL_TYPE.COMMERCIAL_USE,
+      currency: process.env.NEXT_PUBLIC_STORY_USD || "",
+      mintingFee: null,
+      commercialRevShare: null,
+    },
+  });
   const selectedType: PIL_TYPE = watch("type", PIL_TYPE.COMMERCIAL_USE);
   const { address } = useAccount();
   const { sessionKey } = useDepip();
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await api.licenceseTerms({
+    if (data.mintingFee) {
+      data.mintingFee = (data.mintingFee * Math.pow(10, 18)).toString();
+    }
+    const res = await api.registerPILTerms({
       ...data,
       session: sessionKey,
       userWallet: address,
@@ -44,14 +56,19 @@ const FormRegisterPilTerm = () => {
         setIsSubmit(true);
       }
     }
+    // reset();
     setLoading(false);
   };
 
   const handleChange = () => {
     const value = getValues();
     Object.keys(value).forEach((key) => {
-      if (key === "type") return;
-      setValue(key, null);
+      if (key == "type") return;
+      if (key == "currency") {
+        setValue("currency", process.env.NEXT_PUBLIC_STORY_USD || "");
+        return;
+      }
+      setValue(key as any, null);
     });
   };
 
@@ -100,7 +117,7 @@ const FormRegisterPilTerm = () => {
                 name="type"
                 control={control}
                 rules={{ required: "Type is required" }}
-                defaultValue={selectedType}
+                // defaultValue={selectedType}
                 render={({ field }) => (
                   <select
                     {...field}
@@ -136,7 +153,7 @@ const FormRegisterPilTerm = () => {
             <>
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
                 <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-                Currency token contract
+                  Currency token contract
                 </div>
                 <div className="w-full flex flex-col gap-1">
                   <input

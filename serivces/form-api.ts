@@ -5,7 +5,6 @@ const registerIpAsset = async (params: {
   nftAddress: string;
   tokenId: string;
   userWallet: "string";
-  session: {};
 }) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}ipasset/register`, {
@@ -23,13 +22,12 @@ const registerIpAsset = async (params: {
   }
 };
 
-const licenceseTerms = async (params: {
+const registerPILTerms = async (params: {
   ipId: string;
   currency: string;
   type: PIL_TYPE;
-  mintingFee: number;
+  mintingFee: string;
   userWallet: "string";
-  session: {};
 }) => {
   try {
     const res = await fetch(
@@ -56,7 +54,6 @@ const mintLicense = async (params: {
   receiver: string;
   amount: 0;
   userWallet: "string";
-  session: {};
 }) => {
   try {
     const res = await fetch(
@@ -103,7 +100,6 @@ const mintAndRegistryIp = async (params: {
   recipient: string;
   file: File;
   userWallet: "string";
-  session: {};
 }) => {
   try {
     const formData = new FormData();
@@ -112,7 +108,6 @@ const mintAndRegistryIp = async (params: {
     formData.append("description", params.description);
     formData.append("recipient", params.recipient);
     formData.append("userWallet", params.userWallet);
-    formData.append("session", JSON.stringify(params.session));
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API}SPG/mintAndRegistryIp`,
       {
@@ -132,7 +127,7 @@ const mintAndRegistryIp = async (params: {
 
 export default {
   registerIpAsset,
-  licenceseTerms,
+  registerPILTerms,
   mintLicense,
   attackPILTerms,
   mintAndRegistryIp,
