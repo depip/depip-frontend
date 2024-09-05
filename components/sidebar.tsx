@@ -296,7 +296,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                         {
                           type: "string",
                           content:
-                            "Can you register IP asset for me by Depip server",
+                            "Can you create IP asset for me by Depip server",
                         },
                       ],
                     });
