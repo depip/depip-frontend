@@ -2,12 +2,15 @@ import { useDepip } from "@/provider/depip.provider";
 import { useAccount, useSmartAccount } from "@particle-network/connectkit";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import Button from "./button";
+import { useRouter, usePathname } from "next/navigation";
 import { notification } from "antd";
+import Link from "next/link";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
   // const { smartAddress } = useDepip();
   const { address, isConnected } = useAccount();
+  const pathname = usePathname();
+  console.log(pathname);
   const {
     setDataChat,
     setSessionId,
@@ -104,7 +107,12 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           <div className="h-32 flex-col justify-start items-start gap-4 inline-flex">
             <div className="self-stretch h-32 flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch h-32 flex-col justify-start items-start gap-1 flex">
-                <div className="self-stretch px-3 py-2 bg-[#1c1c1c]/5 rounded-lg justify-start items-center gap-3 inline-flex">
+                <Link
+                  href={`/home`}
+                  className={`self-stretch px-3 py-2  rounded-lg justify-start items-center gap-3 inline-flex ${
+                    pathname === "/home" ? "bg-[#1c1c1c]/5" : ""
+                  }`}
+                >
                   <div className="w-5 h-5 relative">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -127,8 +135,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       Home
                     </div>
                   </div>
-                </div>
-                <div className="self-stretch px-3 py-2 rounded-lg justify-start items-center gap-3 inline-flex">
+                </Link>
+                <Link
+                  href={`/ip`}
+                  className={`self-stretch px-3 py-2  rounded-lg justify-start items-center gap-3 inline-flex ${
+                    pathname === "/ip" ? "bg-[#1c1c1c]/5" : ""
+                  }`}
+                >
                   <div className="w-5 h-5 relative">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -151,8 +164,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       IP assets
                     </div>
                   </div>
-                </div>
-                <div className="self-stretch h-10 px-3 py-2 rounded-lg flex-col justify-start items-start gap-3 flex">
+                </Link>
+                <Link
+                  href={`/app`}
+                  className={`self-stretch px-3 py-2  rounded-lg justify-start items-center gap-3 inline-flex ${
+                    pathname === "/app" ? "bg-[#1c1c1c]/5" : ""
+                  }`}
+                >
                   <div className="self-stretch justify-start items-center gap-3 inline-flex">
                     <div className="w-5 h-5 relative bg-[#111111] rounded-[66px]">
                       <svg
@@ -177,7 +195,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
