@@ -137,9 +137,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </Link>
                 <Link
-                  href={`/ip`}
+                  href={`/ip-assets`}
                   className={`self-stretch px-3 py-2  rounded-lg justify-start items-center gap-3 inline-flex ${
-                    pathname === "/ip" ? "bg-[#1c1c1c]/5" : ""
+                    pathname === "/ip-assets" ? "bg-[#1c1c1c]/5" : ""
                   }`}
                 >
                   <div className="w-5 h-5 relative">
