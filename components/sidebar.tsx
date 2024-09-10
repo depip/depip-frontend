@@ -20,15 +20,18 @@ const SideBar = ({ isOpen, setIsOpen }) => {
 
   const smartAccount = useSmartAccount();
   useEffect(() => {
-    if (smartAccount) {
+    if (address && smartAccount && !sessionId) {
       newSessionId();
     }
-  }, [smartAccount]);
+  }, [address]);
   const newSessionId = () => {
     if (address) {
       const date = new Date();
       setSessionId(address + date.getTime());
+      console.log("newSessionId");
+      console.log(sessionId);
       setSessionContent([]);
+      console.log('sessionContent bi xoa');
       loadListSession();
     }
   };
@@ -47,11 +50,14 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     }
   };
   useEffect(() => {
+    console.log("new session content");
+    console.log(sessionContent);
     loadListSession();
   }, [sessionContent]);
   const handleClickSession = (item) => {
     setSessionId(item.sessionId);
     setSessionContent(item.content);
+    console.log('sessionContent tu click session');
     loadListSession();
   };
   const deleteSession = (item) => {

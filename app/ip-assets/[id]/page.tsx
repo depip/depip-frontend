@@ -6,7 +6,6 @@ import api from "@/serivces/story-api";
 import { useEffect, useState } from "react";
 import Layout from "@/components/layout";
 import ChatBox from "@/components/chat-box";
-import InputGroup from "@/components/input-group";
 
 const PostPage = () => {
   const { id } = useParams();
@@ -26,7 +25,6 @@ const PostPage = () => {
   useEffect(() => {
     getDetail();
   }, []);
-  const [isLoading, setLoading] = useState<boolean>(false);
   return (
     <Layout>
       <div className="flex pt-[118px]">
@@ -102,8 +100,7 @@ const PostPage = () => {
           </div>
         )}
         <div className="border shadow-lg h-[calc(100vh-198px)] m-5 rounded-lg">
-          <ChatBox isLoading={isLoading} setLoading={setLoading}></ChatBox>
-          <InputGroup isLoading={isLoading}></InputGroup>
+          <ChatBox></ChatBox>
         </div>
       </div>
     </Layout>

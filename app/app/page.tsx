@@ -9,15 +9,14 @@ import { useDepip } from "@/provider/depip.provider";
 
 const Index = () => {
   const { sessionContent } = useDepip();
-  const [isLoading, setLoading] = useState<boolean>(false);
+
 
   return (
     <Layout>
       <div className="relative h-full flex flex-col pt-[118px] p-4">
         <SideBarRight />
         {sessionContent.length == 0 && <DefaultPage />}
-        <ChatBox isLoading={isLoading} setLoading={setLoading}></ChatBox>
-        <InputGroup isLoading={isLoading}></InputGroup>
+        <ChatBox></ChatBox>
       </div>
     </Layout>
   );

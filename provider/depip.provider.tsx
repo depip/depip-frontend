@@ -35,6 +35,7 @@ export const DepipProvider = ({ children }) => {
   useEffect(() => {
     try {
       if (!address) return;
+      console.log(sessionId);
       if (sessionContent && sessionContent.length > 0) {
         const listChat = window.localStorage.getItem(address);
         let jsonChat = listChat ? JSON.parse(listChat) : [];
@@ -83,7 +84,6 @@ export const DepipProvider = ({ children }) => {
 
   const getSMAddress = async () => {
     const sMAddress = await smartAccount.getAddress();
-    console.log("SM Address:", sMAddress);
     setSmartAddress(sMAddress);
   };
 
