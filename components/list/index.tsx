@@ -1,10 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../button";
-import { Controller } from "react-hook-form";
+import Select from "react-select";
+import api from "@/serivces/story-api";
+import { it } from "node:test";
+
+const customStyles = {
+  container: (provided) => ({
+    ...provided,
+  }),
+  control: (provided) => ({
+    ...provided,
+    border: "1px solid #ffffff",
+    boxShadow: "none",
+    "&:hover": {
+      border: "1px solid #000000", // Change border color on hover
+    },
+  }),
+  menu: (provided) => ({
+    ...provided,
+    borderRadius: "4px",
+    marginTop: "8px",
+  }),
+  menuList: (provided) => ({
+    ...provided,
+    padding: 0,
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? "#0070f3" : "white",
+    color: state.isSelected ? "white" : "black",
+    "&:hover": {
+      backgroundColor: "#f0f0f0", // Change background color on hover
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#000000", // Color of the selected value
+  }),
+};
 
 const ListIpAssets = () => {
-  const numbers = Array.from({ length: 10 }, (_, index) => index + 1);
   const [tabActive, setTabActive] = useState("");
+  const [data, setData] = useState([]);
+  const options = [
+    { value: "1", label: "Newest" },
+    { value: "2", label: "Oldest" },
+    { value: "3", label: "normal" },
+  ];
+  const [isLoading, setLoading] = useState<boolean>(false);
+
+  const getData = async () => {
+    setLoading(true);
+    const param = {
+      options: {
+        where: {
+          tokenContract: "0xB9a173286C1052D9f5cd1223E64f111E10e033f2",
+        },
+      },
+    };
+    const res = await api.listAll(param);
+    if (res && res.data) {
+      await Promise.all(
+        res.data.map(async (item) => {
+          item.img = await getImg(item);
+        })
+      );
+      setData(res.data);
+    }
+    setLoading(false);
+  };
+
+  const getImg = async (item) => {
+    const res = await api.getImg(
+      "0xB9a173286C1052D9f5cd1223E64f111E10e033f2",
+      item.nftMetadata.tokenId
+    );
+    if (res?.image_url) {
+      return res.image_url;
+    }
+    return "";
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="px-20 rounded-[20px]  flex-col justify-start items-center gap-6 inline-flex">
       <div className="self-stretch flex-col justify-start items-start gap-8 flex">
@@ -116,91 +196,22 @@ const ListIpAssets = () => {
                 <div className="w-4 h-4 relative" />
               </div>
             </div> */}
-
-            <button
-              id="dropdownDefaultButton"
-              data-dropdown-toggle="dropdown"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
-            >
-              Dropdown button{" "}
-              <svg
-                className="w-2.5 h-2.5 ms-3"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
-            </button>
-
-            <div
-              id="dropdown"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-            >
-              <ul
-                className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownDefaultButton"
-              >
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Earnings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Sign out
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <Select styles={customStyles} options={options} />
           </div>
           <div className="flex flex-wrap gap-3">
-            {numbers.map((number) => (
+            {data.map((item) => (
               <div className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px]">
-                <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex">
-                  <img
-                    className="w-[172.80px] h-[172.80px]"
-                    src="https://cdn.simplehash.com/assets/e9812f826cef7b3077d499e449d9fc6bef98048e288348b59972e127be854055.png"
-                  />
+                <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex overflow-hidden">
+                  <img className="w-[172.80px] h-[172.80px]" src={item.img} />
                 </div>
-                <div className="self-stretch h-[46px] flex-col justify-start items-start gap-3 flex">
-                  <div className="self-stretch h-[46px] flex-col justify-start items-start gap-1 flex">
+                <div className="self-stretch flex-col justify-start items-start gap-3 flex">
+                  <div className="self-stretch flex-col justify-start items-start gap-1 flex">
                     <div className="self-stretch text-[#141414] text-base font-medium font-geist leading-normal">
-                      Nukumorí
+                      {item?.nftMetadata?.name}
                     </div>
                     <div className="justify-center items-center gap-1.5 inline-flex">
                       <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
-                        Registered
+                        {item?.nftMetadata?.tokenId}
                       </div>
                     </div>
                   </div>

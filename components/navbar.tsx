@@ -3,7 +3,7 @@ import ConnectButtonCustom from "./connect-button";
 const Navnar = ({ onClick }) => {
   return (
     <>
-      <nav className="fixed z-30 top-0 left-0 w-screen border-b border-[#EDF2F1]">
+      <nav className="fixed z-30 top-0 left-0 w-screen border-b border-[#EDF2F1] bg-[#FAF9EF]">
         <div className="flex flex-wrap justify-between items-center p-6">
           <div onClick={onClick} className="flex items-center">
             <svg

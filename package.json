@@ -26,6 +26,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.52.1",
+    "react-select": "^5.8.0",
     "swr": "^2.2.5",
     "viem": "2.x",
     "wagmi": "^2.12.7",
