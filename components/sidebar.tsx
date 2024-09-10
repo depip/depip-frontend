@@ -10,7 +10,6 @@ const SideBar = ({ isOpen, setIsOpen }) => {
   // const { smartAddress } = useDepip();
   const { address, isConnected } = useAccount();
   const pathname = usePathname();
-  console.log(pathname);
   const {
     setDataChat,
     setSessionId,
@@ -199,8 +198,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
           </div>
-          <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
-            {/* <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
+          {pathname === "/app" && (
+            <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
+              {/* <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
               <div className="w-4 h-4 relative">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -222,239 +222,240 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 New chat
               </div>
             </Button> */}
-            <div className="self-stretch flex-col justify-start items-start gap-2 flex">
-              <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
-                Quick start
-              </div>
-              <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
-                <div
-                  className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => {
-                    newSessionId();
-                    setDataChat({
-                      from: address ?? "user",
-                      value: [
-                        {
-                          type: "string",
-                          content: "What is IP?",
-                        },
-                      ],
-                    });
-                  }}
-                >
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
-                        fill="#1C1C1C"
-                        fill-opacity="0.4"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      What is IP?
-                    </div>
-                  </div>
+              <div className="self-stretch flex-col justify-start items-start gap-2 flex">
+                <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
+                  Quick start
                 </div>
-                <div
-                  className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => {
-                    newSessionId();
-                    setDataChat({
-                      from: address ?? "user",
-                      value: [
-                        {
-                          type: "string",
-                          content:
-                            "Can you show me full process to interact with Story Protocol by Depip server?",
-                        },
-                      ],
-                    });
-                  }}
-                >
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
-                        fill="#1C1C1C"
-                        fill-opacity="0.4"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Full process
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="self-stretch px-4 py-2 border-b justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => {
-                    newSessionId();
-                    setDataChat({
-                      from: address ?? "user",
-                      value: [
-                        {
-                          type: "string",
-                          content:
-                            "Can you create IP asset for me by Depip server",
-                        },
-                      ],
-                    });
-                  }}
-                >
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
-                        fill="#1C1C1C"
-                        fill-opacity="0.4"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Register IP asset
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="self-stretch px-4 py-2 border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
-                  onClick={() => {
-                    newSessionId();
-                    setDataChat({
-                      from: address ?? "user",
-                      value: [
-                        {
-                          type: "string",
-                          content: "Register PIL term",
-                        },
-                      ],
-                    });
-                  }}
-                >
-                  <div className="w-4 h-4 relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
-                        fill="#1C1C1C"
-                        fill-opacity="0.4"
-                      />
-                    </svg>
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                    <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                      Register PIL term
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
-              <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
-                Session
-              </div>
-              <div className="flex flex-col gap-1 overflow-auto max-h-52">
-                {logChat.map((item: any) => (
-                  <>
-                    {item?.sessionId && (
-                      <div
-                        className={`cursor-pointer self-stretch grow shrink overflow-hidden rounded-md border border-stone-50/opacity-20 flex justify-start items-center min-h-12 ${
-                          sessionId === item?.sessionId ? "bg-gray-200" : ""
-                        }`}
+                <div className="self-stretch rounded-2xl border border-zinc-900/opacity-10 flex-col justify-start items-start flex">
+                  <div
+                    className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                    onClick={() => {
+                      newSessionId();
+                      setDataChat({
+                        from: address ?? "user",
+                        value: [
+                          {
+                            type: "string",
+                            content: "What is IP?",
+                          },
+                        ],
+                      });
+                    }}
+                  >
+                    <div className="w-4 h-4 relative">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
                       >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
+                          fill="#1C1C1C"
+                          fill-opacity="0.4"
+                        />
+                      </svg>
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
+                        What is IP?
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="self-stretch px-4 py-2 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                    onClick={() => {
+                      newSessionId();
+                      setDataChat({
+                        from: address ?? "user",
+                        value: [
+                          {
+                            type: "string",
+                            content:
+                              "Can you show me full process to interact with Story Protocol by Depip server?",
+                          },
+                        ],
+                      });
+                    }}
+                  >
+                    <div className="w-4 h-4 relative">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
+                          fill="#1C1C1C"
+                          fill-opacity="0.4"
+                        />
+                      </svg>
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
+                        Full process
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="self-stretch px-4 py-2 border-b justify-start items-center gap-4 inline-flex cursor-pointer"
+                    onClick={() => {
+                      newSessionId();
+                      setDataChat({
+                        from: address ?? "user",
+                        value: [
+                          {
+                            type: "string",
+                            content:
+                              "Can you create IP asset for me by Depip server",
+                          },
+                        ],
+                      });
+                    }}
+                  >
+                    <div className="w-4 h-4 relative">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
+                          fill="#1C1C1C"
+                          fill-opacity="0.4"
+                        />
+                      </svg>
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
+                        Register IP asset
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="self-stretch px-4 py-2 border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex cursor-pointer"
+                    onClick={() => {
+                      newSessionId();
+                      setDataChat({
+                        from: address ?? "user",
+                        value: [
+                          {
+                            type: "string",
+                            content: "Register PIL term",
+                          },
+                        ],
+                      });
+                    }}
+                  >
+                    <div className="w-4 h-4 relative">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V9.3335H14.6663V2.66683V1.3335H13.333ZM6.66634 10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H6.66634V10.6668ZM10.6663 8.00016H11.9997V10.6668H14.6663V12.0002H13.333V13.3335H11.9997V14.6668H10.6663V12.0002H7.99968V10.6668H9.33301V9.3335H10.6663V8.00016Z"
+                          fill="#1C1C1C"
+                          fill-opacity="0.4"
+                        />
+                      </svg>
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                      <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
+                        Register PIL term
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
+                <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
+                  Session
+                </div>
+                <div className="flex flex-col gap-1 overflow-auto max-h-52">
+                  {logChat.map((item: any) => (
+                    <>
+                      {item?.sessionId && (
                         <div
-                          onClick={() => handleClickSession(item)}
-                          className="self-stretch pl-4 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex"
+                          className={`cursor-pointer self-stretch grow shrink overflow-hidden rounded-md border border-stone-50/opacity-20 flex justify-start items-center min-h-12 ${
+                            sessionId === item?.sessionId ? "bg-gray-200" : ""
+                          }`}
                         >
-                          <div className="w-4 h-4 relative">
+                          <div
+                            onClick={() => handleClickSession(item)}
+                            className="self-stretch pl-4 border-b border-zinc-900/opacity-10 justify-start items-center gap-4 inline-flex"
+                          >
+                            <div className="w-4 h-4 relative">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
+                                  fill="#1C1C1C"
+                                />
+                              </svg>
+                            </div>
+                            <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
+                              <div className="self-stretch text-zinc-900/opacity-80 text-sm font-medium font-geist leading-normal truncate w-[190px]">
+                                {item?.content[0]?.value[0]?.content || ""}
+                              </div>
+                              <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
+                                {getTime(item?.sessionId)}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className="p-4"
+                            onClick={(event) => {
+                              event.preventDefault;
+                              deleteSession(item);
+                            }}
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
                               fill="none"
                             >
                               <path
                                 fill-rule="evenodd"
                                 clip-rule="evenodd"
-                                d="M13.333 1.3335H2.66634H1.33301H1.33301V2.66683H1.33301V14.6668H2.66634V2.66683H13.333V10.6668H3.99968V12.0002H2.66651V13.3335H3.99984V12.0002H13.333H14.6663V10.6668V2.66683V1.3335H13.333Z"
+                                d="M5 5H7V7H5V5ZM9 9H7V7H9V9ZM11 11H9V9H11V11ZM13 11H11V13H9V15H7V17H5V19H7V17H9V15H11V13H13V15H15V17H17V19H19V17H17V15H15V13H13V11ZM15 9V11H13V9H15ZM17 7V9H15V7H17ZM17 7V5H19V7H17Z"
                                 fill="#1C1C1C"
+                                fill-opacity="0.8"
                               />
                             </svg>
                           </div>
-                          <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
-                            <div className="self-stretch text-zinc-900/opacity-80 text-sm font-medium font-geist leading-normal truncate w-[190px]">
-                              {item?.content[0]?.value[0]?.content || ""}
-                            </div>
-                            <div className="text-zinc-900/opacity-40 text-xs font-normal font-geist leading-[18px]">
-                              {getTime(item?.sessionId)}
-                            </div>
-                          </div>
                         </div>
-                        <div
-                          className="p-4"
-                          onClick={(event) => {
-                            event.preventDefault;
-                            deleteSession(item);
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M5 5H7V7H5V5ZM9 9H7V7H9V9ZM11 11H9V9H11V11ZM13 11H11V13H9V15H7V17H5V19H7V17H9V15H11V13H13V15H15V17H17V19H19V17H17V15H15V13H13V11ZM15 9V11H13V9H15ZM17 7V9H15V7H17ZM17 7V5H19V7H17Z"
-                              fill="#1C1C1C"
-                              fill-opacity="0.8"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ))}
+                      )}
+                    </>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="grow"></div>
           <div className="h-[90px] flex-col justify-start items-start gap-4 inline-flex">
             <div className="self-stretch h-[46px] flex-col justify-start items-start gap-1.5 flex">

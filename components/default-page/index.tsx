@@ -2,6 +2,7 @@ import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import utils from "@/utils";
 import { useAccount } from "@particle-network/connectkit";
+import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 
 const DefaultPage = () => {
@@ -9,6 +10,8 @@ const DefaultPage = () => {
   const { isSidebarOpen, setTypeForm } = useSidebar();
   const { setDataChat, smartAddress } = useDepip();
   const { address, isConnected } = useAccount();
+  const router = useRouter();
+
   useEffect(() => {
     if (address) {
       setAvatar(utils.genAVT(address as string));
@@ -51,7 +54,8 @@ const DefaultPage = () => {
         </div>
         <div className="justify-start items-start gap-3 inline-flex w-full">
           <div
-            onClick={() =>
+            onClick={() => {
+              router.push("/app");
               setDataChat({
                 from: address ?? "user",
                 value: [
@@ -60,8 +64,8 @@ const DefaultPage = () => {
                     content: "What is IP?",
                   },
                 ],
-              })
-            }
+              });
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -90,7 +94,8 @@ const DefaultPage = () => {
             </div>
           </div>
           <div
-            onClick={() =>
+            onClick={() => {
+              router.push("/app");
               setDataChat({
                 from: address ?? "user",
                 value: [
@@ -100,8 +105,8 @@ const DefaultPage = () => {
                       "Can you show me full process to interact with Story Protocol by Depip server?",
                   },
                 ],
-              })
-            }
+              });
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -130,7 +135,8 @@ const DefaultPage = () => {
             </div>
           </div>
           <div
-            onClick={() =>
+            onClick={() => {
+              router.push("/app");
               setDataChat({
                 from: address ?? "user",
                 value: [
@@ -139,8 +145,8 @@ const DefaultPage = () => {
                     content: "Can you register IP asset for me by Depip server",
                   },
                 ],
-              })
-            }
+              });
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">
@@ -169,7 +175,8 @@ const DefaultPage = () => {
             </div>
           </div>
           <div
-            onClick={() =>
+            onClick={() => {
+              router.push("/app");
               setDataChat({
                 from: address ?? "user",
                 value: [
@@ -178,8 +185,8 @@ const DefaultPage = () => {
                     content: "Register PIL term",
                   },
                 ],
-              })
-            }
+              });
+            }}
             className="cursor-pointer w-full h-[150px] p-5 rounded-2xl border border-zinc-900/10 flex-col justify-between items-start inline-flex"
           >
             <div className="p-3 bg-zinc-900/5 rounded-[99px] justify-start items-center gap-2 inline-flex">

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import Button from "../button";
 import Select from "react-select";
 import api from "@/serivces/story-api";
-import { it } from "node:test";
+import Link from "next/link";
 
 const customStyles = {
   container: (provided) => ({
@@ -39,7 +38,11 @@ const customStyles = {
   }),
 };
 
-const ListIpAssets = () => {
+type Props = {
+  isFull?: boolean;
+};
+
+const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
   const [tabActive, setTabActive] = useState("");
   const [data, setData] = useState([]);
   const options = [
@@ -62,7 +65,7 @@ const ListIpAssets = () => {
     if (res && res.data) {
       await Promise.all(
         res.data.map(async (item) => {
-          item.img = await getImg(item);
+          item.img = await getDetail(item);
         })
       );
       setData(res.data);
@@ -70,8 +73,8 @@ const ListIpAssets = () => {
     setLoading(false);
   };
 
-  const getImg = async (item) => {
-    const res = await api.getImg(
+  const getDetail = async (item) => {
+    const res = await api.getDetail(
       "0xB9a173286C1052D9f5cd1223E64f111E10e033f2",
       item.nftMetadata.tokenId
     );
@@ -86,142 +89,111 @@ const ListIpAssets = () => {
   }, []);
 
   return (
-    <div className="px-20 rounded-[20px]  flex-col justify-start items-center gap-6 inline-flex">
-      <div className="self-stretch flex-col justify-start items-start gap-8 flex">
-        <div className="self-stretch justify-between items-center inline-flex">
-          <div className="text-black text-xl font-normal font-pixel uppercase leading-[30px]">
-            Your IP assets
+    <>
+      {isFull && (
+        <div className="self-stretch justify-start items-center gap-3 inline-flex">
+          <div className="grow shrink basis-0 h-10 justify-start items-center gap-1 flex">
+            <div
+              className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
+                tabActive == ""
+                  ? "bg-[#1c1c1c] text-white"
+                  : "bg-white text-[#141414]"
+              }`}
+              onClick={() => {
+                setTabActive("");
+              }}
+            >
+              <div className="text-base font-medium font-geist leading-normal">
+                All
+              </div>
+              <div className="text-xs font-medium font-geist leading-[18px] opacity-80">
+                60
+              </div>
+            </div>
+            <div
+              className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
+                tabActive == "registered"
+                  ? "bg-[#1c1c1c] text-white"
+                  : "bg-white text-[#141414]"
+              }`}
+              onClick={() => {
+                setTabActive("registered");
+              }}
+            >
+              <div className="text-base font-medium font-geist leading-normal">
+                Registered
+              </div>
+              <div className="text-xs font-medium font-geist leading-[18px]">
+                20
+              </div>
+            </div>
+            <div
+              className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
+                tabActive == "licencesAttached"
+                  ? "bg-[#1c1c1c] text-white"
+                  : "bg-white text-[#141414]"
+              }`}
+              onClick={() => {
+                setTabActive("licencesAttached");
+              }}
+            >
+              <div className="text-base font-medium font-geist leading-normal">
+                Licences attached
+              </div>
+              <div className="text-xs font-medium font-geist leading-[18px]">
+                20
+              </div>
+            </div>
+            <div
+              className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
+                tabActive == "licenseMinted"
+                  ? "bg-[#1c1c1c] text-white"
+                  : "bg-white text-[#141414]"
+              }`}
+              onClick={() => {
+                setTabActive("licenseMinted");
+              }}
+            >
+              <div className="text-base font-medium font-geist leading-normal">
+                License minted
+              </div>
+              <div className="text-xs font-medium font-geist leading-[18px]">
+                20
+              </div>
+            </div>
           </div>
-
-          <Button onClick={() => {}} className="w-auto px-5 h-10">
-            <div className="w-4 h-4 relative">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M7.33366 2.6665H8.66699V3.99984V7.33317H13.3337V8.6665H8.66699V11.9998V13.3332H7.33366V11.9998V8.6665H2.66699V7.33317H7.33366V3.99984V2.6665Z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-
-            <div className="text-xs font-normal font-pixel uppercase leading-5">
-              Register
-            </div>
-          </Button>
+          <Select styles={customStyles} options={options} />
         </div>
-        <div className="self-stretch h-[828.40px] flex-col justify-start items-center gap-6 flex">
-          <div className="self-stretch justify-start items-center gap-3 inline-flex">
-            <div className="grow shrink basis-0 h-10 justify-start items-center gap-1 flex">
-              <div
-                className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
-                  tabActive == ""
-                    ? "bg-[#1c1c1c] text-white"
-                    : "bg-white text-[#141414]"
-                }`}
-                onClick={() => {
-                  setTabActive("");
-                }}
-              >
-                <div className="text-base font-medium font-geist leading-normal">
-                  All
-                </div>
-                <div className="text-xs font-medium font-geist leading-[18px] opacity-80">
-                  60
-                </div>
-              </div>
-              <div
-                className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
-                  tabActive == "registered"
-                    ? "bg-[#1c1c1c] text-white"
-                    : "bg-white text-[#141414]"
-                }`}
-                onClick={() => {
-                  setTabActive("registered");
-                }}
-              >
-                <div className="text-base font-medium font-geist leading-normal">
-                  Registered
-                </div>
-                <div className="text-xs font-medium font-geist leading-[18px]">
-                  20
-                </div>
-              </div>
-              <div
-                className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
-                  tabActive == "licencesAttached"
-                    ? "bg-[#1c1c1c] text-white"
-                    : "bg-white text-[#141414]"
-                }`}
-                onClick={() => {
-                  setTabActive("licencesAttached");
-                }}
-              >
-                <div className="text-base font-medium font-geist leading-normal">
-                  Licences attached
-                </div>
-                <div className="text-xs font-medium font-geist leading-[18px]">
-                  20
-                </div>
-              </div>
-              <div
-                className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
-                  tabActive == "licenseMinted"
-                    ? "bg-[#1c1c1c] text-white"
-                    : "bg-white text-[#141414]"
-                }`}
-                onClick={() => {
-                  setTabActive("licenseMinted");
-                }}
-              >
-                <div className="text-base font-medium font-geist leading-normal">
-                  License minted
-                </div>
-                <div className="text-xs font-medium font-geist leading-[18px]">
-                  20
-                </div>
-              </div>
+      )}
+      <div
+        className={`flex flex-wrap gap-3 ${
+          isFull ? "overflow-auto" : "h-[520px] overflow-hidden"
+        }`}
+      >
+        {data.map((item) => (
+          <Link
+            href={`/ip-assets/${item?.nftMetadata?.tokenId}`}
+            className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px] group cursor-pointer"
+          >
+            <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex overflow-hidden">
+              <img className="w-[172.80px] h-[172.80px]" src={item.img} />
             </div>
-            {/* <div className="justify-start items-center gap-2 flex">
-              <div className="px-4 py-2.5 bg-white rounded-[99px] justify-start items-center gap-3 flex">
-                <div className="text-[#141414] text-sm font-normal font-geist leading-tight">
-                  Newest
+            <div className="self-stretch flex-col justify-start items-start gap-3 flex">
+              <div className="self-stretch flex-col justify-start items-start gap-1 flex">
+                <div className="self-stretch text-[#141414] text-base font-medium font-geist leading-normal">
+                  {item?.nftMetadata?.name}
                 </div>
-                <div className="w-4 h-4 relative" />
-              </div>
-            </div> */}
-            <Select styles={customStyles} options={options} />
-          </div>
-          <div className="flex flex-wrap gap-3">
-            {data.map((item) => (
-              <div className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px]">
-                <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex overflow-hidden">
-                  <img className="w-[172.80px] h-[172.80px]" src={item.img} />
-                </div>
-                <div className="self-stretch flex-col justify-start items-start gap-3 flex">
-                  <div className="self-stretch flex-col justify-start items-start gap-1 flex">
-                    <div className="self-stretch text-[#141414] text-base font-medium font-geist leading-normal">
-                      {item?.nftMetadata?.name}
-                    </div>
-                    <div className="justify-center items-center gap-1.5 inline-flex">
-                      <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
-                        {item?.nftMetadata?.tokenId}
-                      </div>
-                    </div>
+                <div className="justify-center items-center gap-1.5 inline-flex">
+                  <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                    {item?.nftMetadata?.tokenId}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          </Link>
+        ))}
       </div>
-    </div>
+    </>
   );
 };
 

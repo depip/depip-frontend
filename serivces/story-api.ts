@@ -25,9 +25,9 @@ const listAll = async (param) => {
   }
 };
 
-const getImg = async (id, tokenId) => {
+const getDetail = async (tokenContract, tokenId) => {
   try {
-    const url = `https://api.simplehash.com/api/v0/nfts/story-testnet/${id}/${tokenId}`;
+    const url = `https://api.simplehash.com/api/v0/nfts/story-testnet/${tokenContract}/${tokenId}`;
     const res = await fetch(url, {
       method: "GET",
       headers: {
@@ -47,5 +47,5 @@ const getImg = async (id, tokenId) => {
 };
 export default {
   listAll,
-  getImg
+  getDetail,
 };
