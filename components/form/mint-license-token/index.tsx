@@ -348,7 +348,7 @@ const FormMintLicenseToken = () => {
           <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
-                onClick={() => toggleSidebar()}
+                onClick={() => router.back()}
                 className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >
                 Cancel

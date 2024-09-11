@@ -3,6 +3,7 @@ import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
 import { useAccount } from "@particle-network/connectkit";
 import { notification } from "antd";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -12,6 +13,7 @@ const FormRegisterIPAsset = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const { address } = useAccount();
   const { sessionKey } = useDepip();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -131,7 +133,7 @@ const FormRegisterIPAsset = () => {
           <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
-                onClick={() => toggleSidebar()}
+                onClick={() => {router.back();}}
                 className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >
                 Cancel
