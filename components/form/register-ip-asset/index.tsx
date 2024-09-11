@@ -2,11 +2,12 @@ import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
 import { useAccount } from "@particle-network/connectkit";
+import { notification } from "antd";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const FormRegisterIPAsset = () => {
-  const { toggleSidebar } = useSidebar();
+  // const { toggleSidebar } = useSidebar();
   const { setDataChat, setIsSubmit } = useDepip();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { address } = useAccount();
@@ -24,26 +25,33 @@ const FormRegisterIPAsset = () => {
       userWallet: address,
     });
     if (res) {
-      toggleSidebar();
-      const dataChat = {
-        from: address ?? "user",
-        value: [
-          {
-            type: "string",
-            content: JSON.stringify(res),
-          },
-        ],
-      };
-      setDataChat(dataChat);
+      // toggleSidebar();
+      // const dataChat = {
+      //   from: address ?? "user",
+      //   value: [
+      //     {
+      //       type: "string",
+      //       content: JSON.stringify(res),
+      //     },
+      //   ],
+      // };
+      // setDataChat(dataChat);
       if (res.status == "success") {
-        setIsSubmit(true);
+        // setIsSubmit(true);
+        notification.success({
+          message: "Successfully register",
+        });
+      } else {
+        notification.error({
+          message: JSON.stringify(res),
+        });
       }
     }
     setLoading(false);
   };
   return (
     <div className="w-full flex-col justify-start items-start gap-6 inline-flex">
-    {/* <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
+      {/* <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
           Register IP Asset

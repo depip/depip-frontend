@@ -6,9 +6,11 @@ import { useDepip } from "@/provider/depip.provider";
 import { useAccount } from "@particle-network/connectkit";
 import { PIL_TYPE } from "@/constant/constant";
 import { parseEther } from "viem";
+import { notification } from "antd";
+import { useRouter } from "next/navigation";
 
 const FormRegisterPilTerm = () => {
-  const { toggleSidebar } = useSidebar();
+  // const { toggleSidebar } = useSidebar();
   const { setDataChat, setIsSubmit } = useDepip();
   const {
     handleSubmit,
@@ -30,6 +32,7 @@ const FormRegisterPilTerm = () => {
   const selectedType: PIL_TYPE = watch("type", PIL_TYPE.COMMERCIAL_USE);
   const { address } = useAccount();
   const { sessionKey } = useDepip();
+  const router = useRouter();
   const onSubmit = async (data) => {
     setLoading(true);
     if (data.mintingFee) {
@@ -41,19 +44,26 @@ const FormRegisterPilTerm = () => {
       userWallet: address,
     });
     if (res) {
-      toggleSidebar();
-      const dataChat = {
-        from: address ?? "user",
-        value: [
-          {
-            type: "string",
-            content: JSON.stringify(res),
-          },
-        ],
-      };
-      setDataChat(dataChat);
+      // toggleSidebar();
+      // const dataChat = {
+      //   from: address ?? "user",
+      //   value: [
+      //     {
+      //       type: "string",
+      //       content: JSON.stringify(res),
+      //     },
+      //   ],
+      // };
+      // setDataChat(dataChat);
       if (res.status == "success") {
-        setIsSubmit(true);
+        // setIsSubmit(true);
+        notification.success({
+          message: "Successfully",
+        });
+      } else {
+        notification.error({
+          message: JSON.stringify(res),
+        });
       }
     }
     // reset();
@@ -76,11 +86,39 @@ const FormRegisterPilTerm = () => {
 
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
+      <div
+        className="rounded-[80px] justify-center items-center gap-1 inline-flex cursor-pointer"
+        onClick={() => {
+          router.back();
+        }}
+      >
+        <div className="rounded-lg justify-center items-center flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M10.667 12.6668L10.667 11.3335L9.33366 11.3335L9.33366 10.0002L8.00032 10.0002L8.00032 8.66683L6.66699 8.66683L6.66699 7.3335L8.00032 7.3335L8.00032 6.00016L9.33366 6.00016L9.33366 4.66683L8.00032 4.66683L8.00032 6.00016L6.66699 6.00016L6.66699 7.3335L5.33366 7.3335L5.33366 8.66683L6.66699 8.66683L6.66699 10.0002L8.00032 10.0002L8.00032 11.3335L9.33366 11.3335L9.33366 12.6668L10.667 12.6668ZM10.667 3.3335L10.667 4.66683L9.33366 4.66683L9.33366 3.3335L10.667 3.3335Z"
+              fill="#1C1C1C"
+            />
+          </svg>
+        </div>
+        <div className="rounded-lg flex-col justify-center items-start inline-flex">
+          <div className="self-stretch text-[#1c1c1c] text-[10px] font-normal font-pixel uppercase leading-none">
+            Back
+          </div>
+        </div>
+      </div>
       <div className="self-stretch justify-between items-center inline-flex">
-        <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
+        <div className="opacity-80 text-gray-800 text-lg font-light font-pixel uppercase tracking-tight">
           Register PIL Term
         </div>
-        <div
+        {/* <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
           onClick={() => toggleSidebar()}
         >
@@ -101,7 +139,7 @@ const FormRegisterPilTerm = () => {
               />
             </svg>
           </div>
-        </div>
+        </div> */}
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -110,7 +148,7 @@ const FormRegisterPilTerm = () => {
         <div className="flex-col justify-start items-start gap-4 flex">
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
             <div className="self-stretch text-gray-800/80 text-sm font-semibold font-geist leading-tight">
-              Select a type
+              Select a type of license
             </div>
             <div className="w-full flex flex-col gap-1">
               <Controller
@@ -230,7 +268,9 @@ const FormRegisterPilTerm = () => {
           <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
-                onClick={() => toggleSidebar()}
+                onClick={() => {
+                  router.back();
+                }}
                 className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >
                 Cancel

@@ -8,6 +8,8 @@ import FileUpload from "@/components/file-upload";
 import { useAccount } from "@particle-network/connectkit";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { notification } from "antd";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -25,8 +27,9 @@ const schema = yup.object().shape({
 });
 
 const MintAndRegistryIp = () => {
-  const { toggleSidebar } = useSidebar();
-  const { setDataChat, setIsSubmit } = useDepip();
+  // const { toggleSidebar } = useSidebar();
+  // const { setDataChat, setIsSubmit } = useDepip();
+  const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { address } = useAccount();
   const { sessionKey } = useDepip();
@@ -55,54 +58,48 @@ const MintAndRegistryIp = () => {
       userWallet: address,
     });
     if (res) {
-      let dataChat;
+      // let dataChat;
       if (res?.ipasset?.status == "success") {
-        const previews = URL.createObjectURL(data?.file);
-        dataChat = {
-          from: address ?? "user",
-          value: [
-            {
-              type: "image",
-              content: `Mint Successfully!,\n ipasset\n{\n ipId: ${res?.ipasset?.ipId},\n tx: ${res?.ipasset?.tx} \n}\n,nft\n{\ntokenId:${res?.nft?.tokenId},\ntx:${res?.nft?.tx}\n}`,
-              file: previews,
-            },
-          ],
-        };
-        // setDataChat(dataImage);
-
+        // const previews = URL.createObjectURL(data?.file);
         // dataChat = {
         //   from: address ?? "user",
         //   value: [
         //     {
-        //       type: "link",
-        //       content: "Click link to view this asset",
-        //       link: `https://ip.dev.aurascan.io/ip/detail/${res.ipasset.ipId}`,
+        //       type: "image",
+        //       content: `Mint Successfully!,\n ipasset\n{\n ipId: ${res?.ipasset?.ipId},\n tx: ${res?.ipasset?.tx} \n}\n,nft\n{\ntokenId:${res?.nft?.tokenId},\ntx:${res?.nft?.tx}\n}`,
+        //       file: previews,
         //     },
         //   ],
         // };
-        setIsSubmit(true);
+        // setIsSubmit(true);
+        notification.success({
+          message: "Successfully register",
+        });
+        router.push(`/ip-assets/${res?.ipasset?.ipId}`);
       } else {
-        dataChat = {
-          from: address ?? "user",
-          value: [
-            {
-              type: "string",
-              content: JSON.stringify(res),
-            },
-          ],
-        };
+        // dataChat = {
+        //   from: address ?? "user",
+        //   value: [
+        //     {
+        //       type: "string",
+        //       content: JSON.stringify(res),
+        //     },
+        //   ],
+        // };
+        notification.error({
+          message: JSON.stringify(res),
+        });
       }
       reset();
-      toggleSidebar();
-      setDataChat(dataChat);
-   
+      // toggleSidebar();
+      // setDataChat(dataChat);
     }
     setLoading(false);
   };
 
   return (
     <div className="w-full flex-col justify-start items-start gap-6 inline-flex">
-    {/* <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
+      {/* <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
           MINT AND CREATE IP ASSET

@@ -11,12 +11,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ethers, Contract, Interface } from "ethers";
 import { notification } from "antd";
+import { useRouter } from "next/navigation";
 
 const FormAttachPilTerm = () => {
-  const { toggleSidebar } = useSidebar();
-  const { setDataChat, setIsSubmit } = useDepip();
+  // const { toggleSidebar } = useSidebar();
+  // const { setDataChat, setIsSubmit } = useDepip();
   const [primaryWallet] = useWallets();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -35,19 +37,28 @@ const FormAttachPilTerm = () => {
       userWallet: address,
     });
     if (res) {
-      toggleSidebar();
-      const dataChat = {
-        from: address ?? "user",
-        value: [
-          {
-            type: "string",
-            content: JSON.stringify(res),
-          },
-        ],
-      };
-      setDataChat(dataChat);
+      // toggleSidebar();
+      // const dataChat = {
+      //   from: address ?? "user",
+      //   value: [
+      //     {
+      //       type: "string",
+      //       content: JSON.stringify(res),
+      //     },
+      //   ],
+      // };
+      // setDataChat(dataChat);
+      // if (res.status == "success") {
+      //   setIsSubmit(true);
+      // }
       if (res.status == "success") {
-        setIsSubmit(true);
+        notification.success({
+          message: "Successfully",
+        });
+      } else {
+        notification.error({
+          message: JSON.stringify(res),
+        });
       }
     }
     setLoading(false);
@@ -191,11 +202,39 @@ const FormAttachPilTerm = () => {
 
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
-      <div className="self-stretch justify-between items-center inline-flex">
-        <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
-          Attach PIL Term to IP asset
+      <div
+        className="rounded-[80px] justify-center items-center gap-1 inline-flex cursor-pointer"
+        onClick={() => {
+          router.back();
+        }}
+      >
+        <div className="rounded-lg justify-center items-center flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M10.667 12.6668L10.667 11.3335L9.33366 11.3335L9.33366 10.0002L8.00032 10.0002L8.00032 8.66683L6.66699 8.66683L6.66699 7.3335L8.00032 7.3335L8.00032 6.00016L9.33366 6.00016L9.33366 4.66683L8.00032 4.66683L8.00032 6.00016L6.66699 6.00016L6.66699 7.3335L5.33366 7.3335L5.33366 8.66683L6.66699 8.66683L6.66699 10.0002L8.00032 10.0002L8.00032 11.3335L9.33366 11.3335L9.33366 12.6668L10.667 12.6668ZM10.667 3.3335L10.667 4.66683L9.33366 4.66683L9.33366 3.3335L10.667 3.3335Z"
+              fill="#1C1C1C"
+            />
+          </svg>
         </div>
-        <div
+        <div className="rounded-lg flex-col justify-center items-start inline-flex">
+          <div className="self-stretch text-[#1c1c1c] text-[10px] font-normal font-pixel uppercase leading-none">
+            Back
+          </div>
+        </div>
+      </div>
+      <div className="self-stretch justify-between items-center inline-flex">
+        <div className="opacity-80 text-gray-800 text-lg font-light font-pixel uppercase tracking-tight">
+          Attach PIL Term
+        </div>
+        {/* <div
           className="p-2 rounded-[64px] shadow border justify-center items-center gap-2 flex"
           onClick={() => toggleSidebar()}
         >
@@ -216,34 +255,13 @@ const FormAttachPilTerm = () => {
               />
             </svg>
           </div>
-        </div>
+        </div> */}
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-4"
       >
         <div className="flex-col justify-start items-start gap-4 flex">
-          <div className="self-stretch flex-col justify-start items-start gap-2 flex">
-            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
-              License term ID
-            </div>
-            <div className="w-full flex flex-col gap-1">
-              <input
-                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
-                  errors.termId ? "border-red-500" : "border-zinc-900/10"
-                } `}
-                placeholder="Enter License term ID"
-                id="termId"
-                type="text"
-                {...register("termId", { required: true })}
-              />
-              {errors.termId && (
-                <p className=" text-sm text-red-600 dark:text-red-500">
-                  License term ID Address is required
-                </p>
-              )}
-            </div>
-          </div>
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
             <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
               IP Asset ID
@@ -265,12 +283,35 @@ const FormAttachPilTerm = () => {
               )}
             </div>
           </div>
+          <div className="self-stretch flex-col justify-start items-start gap-2 flex">
+            <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
+              License term ID
+            </div>
+            <div className="w-full flex flex-col gap-1">
+              <input
+                className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
+                  errors.termId ? "border-red-500" : "border-zinc-900/10"
+                } `}
+                placeholder="Enter License term ID"
+                id="termId"
+                type="text"
+                {...register("termId", { required: true })}
+              />
+              {errors.termId && (
+                <p className=" text-sm text-red-600 dark:text-red-500">
+                  License term ID Address is required
+                </p>
+              )}
+            </div>
+          </div>
         </div>
         <div className="self-stretch justify-end items-start gap-2 inline-flex">
           <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
-                onClick={() => toggleSidebar()}
+                onClick={() => {
+                  router.back();
+                }}
                 className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >
                 Cancel

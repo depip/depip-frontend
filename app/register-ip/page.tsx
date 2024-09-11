@@ -7,7 +7,7 @@ import FormRegisterIPAsset from "@/components/form/register-ip-asset";
 import { useRouter } from "next/navigation";
 
 const Index = () => {
-  const [type, setType] = useState(1);
+  const [type, setType] = useState(null);
   const router = useRouter();
   return (
     <Layout>
@@ -15,7 +15,7 @@ const Index = () => {
         <div className="w-1/2 flex-col justify-start items-start inline-flex pl-4">
           <div className="p-5 w-full rounded-2xl border border-[#e1dfd7] flex-col justify-start items-start gap-6 inline-flex">
             <div
-              className="rounded-[80px] justify-center items-center gap-1 inline-flex cursor-pointers"
+              className="rounded-[80px] justify-center items-center gap-1 inline-flex cursor-pointer"
               onClick={() => {
                 router.back();
               }}
