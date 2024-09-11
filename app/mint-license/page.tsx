@@ -6,7 +6,7 @@ import FormMintLicenseToken from "@/components/form/mint-license-token";
 const Index = () => {
   return (
     <Layout>
-      <div className="flex pt-[118px]">
+      <div className="flex pt-[118px] bg-[#FAF9EF]">
         <div className="w-1/2 flex-col justify-start items-start inline-flex pl-4">
           <FormMintLicenseToken />
         </div>

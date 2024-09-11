@@ -11,7 +11,7 @@ const Index = () => {
   const router = useRouter();
   return (
     <Layout>
-      <div className="flex pt-[118px]">
+      <div className="flex pt-[118px] bg-[#FAF9EF]">
         <div className="w-1/2 flex-col justify-start items-start inline-flex pl-4">
           <div className="p-5 w-full rounded-2xl border border-[#e1dfd7] flex-col justify-start items-start gap-6 inline-flex">
             <div

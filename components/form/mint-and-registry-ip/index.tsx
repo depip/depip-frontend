@@ -28,7 +28,7 @@ const schema = yup.object().shape({
 
 const MintAndRegistryIp = () => {
   // const { toggleSidebar } = useSidebar();
-  // const { setDataChat, setIsSubmit } = useDepip();
+  const { setDataChat, setIsSubmit } = useDepip();
   const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { address } = useAccount();
@@ -58,41 +58,43 @@ const MintAndRegistryIp = () => {
       userWallet: address,
     });
     if (res) {
-      // let dataChat;
+      let dataChat;
       if (res?.ipasset?.status == "success") {
-        // const previews = URL.createObjectURL(data?.file);
-        // dataChat = {
-        //   from: address ?? "user",
-        //   value: [
-        //     {
-        //       type: "image",
-        //       content: `Mint Successfully!,\n ipasset\n{\n ipId: ${res?.ipasset?.ipId},\n tx: ${res?.ipasset?.tx} \n}\n,nft\n{\ntokenId:${res?.nft?.tokenId},\ntx:${res?.nft?.tx}\n}`,
-        //       file: previews,
-        //     },
-        //   ],
-        // };
+        const previews = URL.createObjectURL(data?.file);
+        dataChat = {
+          from: address ?? "user",
+          value: [
+            {
+              type: "image",
+              content: `Mint Successfully!,\n ipasset\n{\n ipId: ${res?.ipasset?.ipId},\n tx: ${res?.ipasset?.tx} \n}\n,nft\n{\ntokenId:${res?.nft?.tokenId},\ntx:${res?.nft?.tx}\n}`,
+              file: previews,
+            },
+          ],
+        };
         // setIsSubmit(true);
         notification.success({
           message: "Successfully register",
         });
-        router.push(`/ip-assets/${res?.ipasset?.ipId}`);
+        setTimeout(() => {
+          router.push(`/ip-assets/${res?.ipasset?.ipId}`);
+        }, 5000);
       } else {
-        // dataChat = {
-        //   from: address ?? "user",
-        //   value: [
-        //     {
-        //       type: "string",
-        //       content: JSON.stringify(res),
-        //     },
-        //   ],
-        // };
+        dataChat = {
+          from: address ?? "user",
+          value: [
+            {
+              type: "string",
+              content: JSON.stringify(res),
+            },
+          ],
+        };
         notification.error({
           message: JSON.stringify(res),
         });
       }
       reset();
       // toggleSidebar();
-      // setDataChat(dataChat);
+      setDataChat(dataChat);
     }
     setLoading(false);
   };
@@ -213,8 +215,7 @@ const MintAndRegistryIp = () => {
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
                 onClick={() => {
-                  toggleSidebar();
-                  reset();
+                  router.back();
                 }}
                 className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >

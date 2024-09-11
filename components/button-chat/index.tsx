@@ -2,7 +2,7 @@ import { useState } from "react";
 import ChatBox from "../chat-box";
 
 const ButtonChat = () => {
-  const [isOpenChat, setIsOpenChat] = useState<boolean>(false);
+  const [isOpenChat, setIsOpenChat] = useState<boolean>(true);
   return (
     <div className="w-1/2 h-full flex flex-row justify-end items-start gap-3 px-4">
       <div
