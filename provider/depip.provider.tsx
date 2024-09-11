@@ -45,6 +45,7 @@ export const DepipProvider = ({ children }) => {
         jsonChat.unshift({ sessionId: sessionId, content: sessionContent });
         jsonChat = JSON.stringify(jsonChat);
         window.localStorage.setItem(address, jsonChat);
+        setDataChat(null);
       }
     } catch (error) {
       console.error(error);

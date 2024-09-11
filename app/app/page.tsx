@@ -13,7 +13,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <div className="relative h-full flex flex-col pt-[118px] p-4">
+      <div className="relative h-full flex flex-col pt-[118px] p-4 px-20">
         <SideBarRight />
         {sessionContent.length == 0 && <DefaultPage />}
         <ChatBox></ChatBox>

@@ -65,7 +65,9 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
     if (res && res.data) {
       await Promise.all(
         res.data.map(async (item) => {
-          item.img = await getDetail(item);
+          const it2 = await getDetail(item);
+          item.img = it2?.image_url;
+          item.name = it2?.name;
         })
       );
       setData(res.data);
@@ -78,8 +80,8 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
       "0xB9a173286C1052D9f5cd1223E64f111E10e033f2",
       item.nftMetadata.tokenId
     );
-    if (res?.image_url) {
-      return res.image_url;
+    if (res) {
+      return res;
     }
     return "";
   };
@@ -167,21 +169,21 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
       )}
       <div
         className={`flex flex-wrap gap-3 ${
-          isFull ? "overflow-auto" : "h-[520px] overflow-hidden"
+          isFull ? "overflow-auto" : "h-[480px] overflow-hidden"
         }`}
       >
         {data.map((item) => (
           <Link
-            href={`/ip-assets/${item?.nftMetadata?.tokenId}`}
+            href={`/ip-assets/${item?.id}`}
             className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px] group cursor-pointer"
           >
-            <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex overflow-hidden">
-              <img className="w-[172.80px] h-[172.80px]" src={item.img} />
+            <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex overflow-hidden border">
+              <img className="w-[172.80px] h-[172.80px]" src={item?.img} />
             </div>
             <div className="self-stretch flex-col justify-start items-start gap-3 flex">
               <div className="self-stretch flex-col justify-start items-start gap-1 flex">
                 <div className="self-stretch text-[#141414] text-base font-medium font-geist leading-normal">
-                  {item?.nftMetadata?.name}
+                  {item?.name}
                 </div>
                 <div className="justify-center items-center gap-1.5 inline-flex">
                   <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">

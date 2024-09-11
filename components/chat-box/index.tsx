@@ -80,19 +80,14 @@ const ChatBox = () => {
     }
   }, [address]);
 
-  useEffect(() => {
-    return () => {
-     setDataChat(null)
-    };
-  }, []); 
-
   return (
     <>
-      <div
+      {/* <div
         className={`grow overflow-auto transition-all pt-2 ${
-          isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
+          isSidebarOpen ? "pl-0 pr-[424px]" : ""
         }`}
-      >
+      > */}
+        <div className="grow overflow-auto transition-all pt-2">
         {sessionContent.map((item, index) => (
           <>
             {item.from !== "bot" && (

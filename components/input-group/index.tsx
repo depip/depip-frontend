@@ -60,7 +60,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   return (
     <div
       className={`w-full transition-all ${
-        isSidebarOpen ? "pl-0 pr-[424px]" : "px-20"
+        isSidebarOpen ? "pl-0 pr-[424px]" : ""
       }`}
     >
       <div className="flex items-center gap-1 mb-1">

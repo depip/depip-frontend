@@ -2,8 +2,9 @@
 import Button from "@/components/button";
 import Layout from "@/components/layout";
 import ListIpAssets from "@/components/list";
-
+import { useRouter } from "next/navigation";
 const Index = () => {
+  const router = useRouter();
   return (
     <Layout>
       <div className="px-20 pt-[118px] bg-[#FAF9EF]">
@@ -13,7 +14,12 @@ const Index = () => {
               Your IP assets
             </div>
 
-            <Button onClick={() => {}} className="w-auto px-5 h-10">
+            <Button
+              onClick={() => {
+                router.push("/register-ip");
+              }}
+              className="w-auto px-5 h-10"
+            >
               <div className="w-4 h-4 relative">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

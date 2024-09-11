@@ -101,7 +101,8 @@ const MintAndRegistryIp = () => {
   };
 
   return (
-    <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
+    <div className="w-full flex-col justify-start items-start gap-6 inline-flex">
+    {/* <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div className="self-stretch justify-between items-center inline-flex">
         <div className="opacity-80 text-gray-800 text-xs font-light font-pixel uppercase tracking-tight">
           MINT AND CREATE IP ASSET
@@ -131,7 +132,7 @@ const MintAndRegistryIp = () => {
             </svg>
           </div>
         </div>
-      </div>
+      </div> */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-4"
