@@ -65,8 +65,34 @@ const getDetail = async (tokenContract, tokenId) => {
     return false;
   }
 };
+
+const getListIPAsset = async (
+  owner: string,
+  chainId: string,
+  pageLimit: string,
+  pageOffset: string
+) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API}ipasset?owner=${owner}&chainId=${chainId}&pageLimit=${pageLimit}&pageOffset=${pageOffset}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    notification.error({
+      message: "Could not get data",
+    });
+    return false;
+  }
+};
+
 export default {
   listAll,
   getDetail,
-  getIPAsset
+  getIPAsset,
+  getListIPAsset,
 };

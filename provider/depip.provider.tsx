@@ -5,12 +5,16 @@ import {
   useDisconnect,
   useSmartAccount,
 } from "@particle-network/connectkit";
-import { IChat } from "@/types/types";
+import { IChat, IpAsset } from "@/types/types";
 import { notification } from "antd";
 
 const depipContext = createContext({
   dataChat: null,
   setDataChat: (a) => {},
+  listIP: null,
+  setListIP: (a) => {},
+  reloadListIP: null,
+  setReloadListIP: (a) => {},
   sessionId: "",
   setSessionId: (a) => {},
   sessionContent: [],
@@ -25,6 +29,8 @@ const depipContext = createContext({
 
 export const DepipProvider = ({ children }) => {
   const [dataChat, setDataChat] = useState<IChat>(null);
+  const [listIP, setListIP] = useState<IpAsset[]>([]);
+  const [reloadListIP, setReloadListIP] = useState<boolean>();
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState<IChat[]>([]);
   const [smartAddress, setSmartAddress] = useState("");
@@ -110,6 +116,10 @@ export const DepipProvider = ({ children }) => {
       value={{
         dataChat,
         setDataChat,
+        listIP,
+        setListIP,
+        reloadListIP,
+        setReloadListIP,
         sessionId,
         setSessionId,
         sessionContent,

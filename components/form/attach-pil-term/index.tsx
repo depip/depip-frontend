@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import { ethers, Contract, Interface } from "ethers";
 import { notification } from "antd";
 import { useRouter } from "next/navigation";
+import Dropdown from "@/components/dropdown";
+import { IpAsset } from "@/types/types";
 
 const FormAttachPilTerm = () => {
   // const { toggleSidebar } = useSidebar();
@@ -26,15 +28,15 @@ const FormAttachPilTerm = () => {
   } = useForm();
   const { address } = useAccount();
   const { sessionKey } = useDepip();
+  const [selectedItem, setSelectedItem] = useState<IpAsset>(null);
   const onSubmit = (data) => {
     checkAndSetPermission(data);
   };
 
   const attachFunc = async (data) => {
     const res = await api.attackPILTerms({
-      ...data,
-      session: sessionKey,
-      userWallet: address,
+      ipId: selectedItem.ip_id,
+      termId: data.term_id
     });
     if (res) {
       // toggleSidebar();
@@ -120,7 +122,7 @@ const FormAttachPilTerm = () => {
       );
 
       const rs = await contract.getPermission(
-        data?.ipId,
+        selectedItem.ip_id,
         process.env.NEXT_PUBLIC_SESSION_ADDRESS,
         process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
         process.env.NEXT_PUBLIC_FUNC_ATTACH_PIL_TERM || ""
@@ -134,7 +136,7 @@ const FormAttachPilTerm = () => {
           "function setPermission(address, address, address, bytes4, uint8) public",
         ]);
         const encodedData = mintInterface.encodeFunctionData("setPermission", [
-          data?.ipId,
+          selectedItem.ip_id,
           process.env.NEXT_PUBLIC_SESSION_ADDRESS,
           process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
           process.env.NEXT_PUBLIC_FUNC_ATTACH_PIL_TERM || "",
@@ -267,7 +269,7 @@ const FormAttachPilTerm = () => {
               IP Asset ID
             </div>
             <div className="w-full flex flex-col gap-1">
-              <input
+              {/* <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.ipId ? "border-red-500" : "border-zinc-900/10"
                 } `}
@@ -280,7 +282,11 @@ const FormAttachPilTerm = () => {
                 <p className="text-sm text-red-600 dark:text-red-500">
                   IP Asset ID is required
                 </p>
-              )}
+              )} */}
+              <Dropdown
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+              />
             </div>
           </div>
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">

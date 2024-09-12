@@ -5,9 +5,13 @@ import { format } from "date-fns";
 import { useRouter, usePathname } from "next/navigation";
 import { notification } from "antd";
 import Link from "next/link";
+import api from "@/serivces/story-api";
+import { storytestnet } from "@/config/chain";
+import { IpAsset } from "@/types/types";
+import { getAddress } from "viem";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
-  // const { smartAddress } = useDepip();
+  const { setListIP, listIP } = useDepip();
   const { address, isConnected } = useAccount();
   const pathname = usePathname();
   const {
@@ -23,6 +27,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     if (address && smartAccount && !sessionId) {
       newSessionId();
     }
+    if (address) {
+      getIpAssetOwner();
+    }
   }, [address]);
   const newSessionId = () => {
     if (address) {
@@ -31,11 +38,12 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       console.log("newSessionId");
       console.log(sessionId);
       setSessionContent([]);
-      console.log('sessionContent bi xoa');
+      console.log("sessionContent bi xoa");
       loadListSession();
     }
   };
   const [logChat, setLogChat] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const loadListSession = () => {
     try {
@@ -57,7 +65,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
   const handleClickSession = (item) => {
     setSessionId(item.sessionId);
     setSessionContent(item.content);
-    console.log('sessionContent tu click session');
+    console.log("sessionContent tu click session");
     loadListSession();
   };
   const deleteSession = (item) => {
@@ -78,6 +86,52 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     }
     return "";
   };
+
+  // const getData = async () => {
+  //   const param = {
+  //     options: {
+  //       where: {
+  //         tokenContract: "0xB9a173286C1052D9f5cd1223E64f111E10e033f2",
+  //       },
+  //     },
+  //   };
+  //   const res = await api.listAll(param);
+  //   if (res && res.data) {
+  //     await Promise.all(
+  //       res.data.map(async (item) => {
+  //         const it2 = await getDetail(item);
+  //         item.img = it2?.image_url;
+  //         item.name = it2?.name;
+  //       })
+  //     );
+  //     setListIP(res.data);
+  //   }
+  // };
+
+  // const getDetail = async (item) => {
+  //   const res = await api.getDetail(
+  //     "0xB9a173286C1052D9f5cd1223E64f111E10e033f2",
+  //     item.nftMetadata.tokenId
+  //   );
+  //   if (res) {
+  //     return res;
+  //   }
+  //   return "";
+  // };
+
+  const getIpAssetOwner = async () => {
+    const newAdd = getAddress(address);
+    const res = await api.getListIPAsset(
+      newAdd,
+      storytestnet.id.toString(),
+      "1000",
+      "0"
+    );
+    if (res) {
+      setListIP(res);
+    }
+  };
+
   return (
     <>
       <aside
@@ -459,6 +513,41 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </>
                   ))}
                 </div>
+              </div>
+            </div>
+          )}
+          {pathname !== "app" && listIP.length > 0 && (
+            <div className="">
+              <div className="justify-between items-baseline flex">
+                <div className="grow shrink basis-0 text-[#1c1c1c]/40 text-sm font-medium font-geist leading-tight">
+                  Your IP assets
+                </div>
+                <Link
+                  href={"/ip-assets"}
+                  className="text-[#1c1c1c] text-sm font-medium font-geist leading-tight cursor-pointer"
+                >
+                  View all
+                </Link>
+              </div>
+              <div className="mt-2 border border-gray-300 rounded-xl py-2">
+                {listIP.map((item: IpAsset) => (
+                  <div className="p-2 justify-between items-center gap-4 flex hover:bg-slate-400 w-full">
+                    <div className="rounded justify-start items-start gap-2 flex">
+                      <img
+                        className="min-w-[40px] w-[40px] h-[40px]"
+                        src={item?.ipAssetData?.metadata_offchain?.image?.url}
+                      />
+                    </div>
+                    <div className="justify-start items-baseline flex flex-col">
+                      <div className="text-[#1c1c1c] text-xs font-medium font-geist leading-normal">
+                        {item?.name}
+                      </div>
+                      <div className="text-[#1c1c1c]/80 text-xs font-medium font-geist leading-normal">
+                        {item?.token_id}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
