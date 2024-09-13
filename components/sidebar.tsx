@@ -447,7 +447,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 <div className="self-stretch text-zinc-400 text-sm font-medium font-geist leading-tight">
                   Session
                 </div>
-                <div className="flex flex-col gap-1 overflow-auto max-h-52">
+                <div className="flex flex-col gap-1 overflow-auto max-h-52 w-full">
                   {logChat.map((item: any) => (
                     <>
                       {item?.sessionId && (
@@ -516,8 +516,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
           )}
-          {pathname !== "app" && listIP.length > 0 && (
-            <div className="">
+          {pathname !== "/app" && listIP.length > 0 && (
+            <div className="w-full">
               <div className="justify-between items-baseline flex">
                 <div className="grow shrink basis-0 text-[#1c1c1c]/40 text-sm font-medium font-geist leading-tight">
                   Your IP assets
@@ -531,14 +531,17 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               </div>
               <div className="mt-2 border border-gray-300 rounded-xl py-2">
                 {listIP.map((item: IpAsset) => (
-                  <div className="p-2 justify-between items-center gap-4 flex hover:bg-slate-400 w-full">
+                  <Link
+                    href={`/ip-assets/${item?.ip_id}`}
+                    className="p-2 justify-between items-center gap-3 flex hover:bg-[#1c1c1c]/5 w-full"
+                  >
                     <div className="rounded justify-start items-start gap-2 flex">
                       <img
-                        className="min-w-[40px] w-[40px] h-[40px]"
+                        className="min-w-[40px] w-[40px] h-[40px] rounded"
                         src={item?.ipAssetData?.metadata_offchain?.image?.url}
                       />
                     </div>
-                    <div className="justify-start items-baseline flex flex-col">
+                    <div className="justify-start items-baseline flex flex-col grow">
                       <div className="text-[#1c1c1c] text-xs font-medium font-geist leading-normal">
                         {item?.name}
                       </div>
@@ -546,7 +549,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                         {item?.token_id}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

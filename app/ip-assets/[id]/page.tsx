@@ -75,7 +75,7 @@ const Index = () => {
                   PIL Terms
                 </div>
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 inline-flex">
-                  <Link href={`/attach-pil-term`} className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex">
+                  <Link href={`/attach-pil-term/${id}`} className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex">
                     <div className="rounded-lg flex-col justify-center items-start inline-flex">
                       <div className="self-stretch text-[#141414] text-[10px] font-normal font-pixel uppercase leading-none">
                         Attach PIL Terms
@@ -89,7 +89,7 @@ const Index = () => {
                   License
                 </div>
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 inline-flex">
-                  <Link href={`/mint-license`} className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex">
+                  <Link href={`/mint-license/${id}`} className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex">
                     <div className="rounded-lg flex-col justify-center items-start inline-flex">
                       <div className="self-stretch text-[#141414] text-[10px] font-normal font-pixel uppercase leading-none">
                         Mint license

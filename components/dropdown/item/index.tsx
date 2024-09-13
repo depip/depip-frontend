@@ -22,7 +22,7 @@ const Item: React.FC<ButtonProps> = ({
       <div className="justify-start items-center gap-2 flex">
         <div className="grow shrink basis-0 rounded justify-start items-start gap-2 flex">
           <img
-            className="w-[40px] h-[40px]"
+            className="w-[40px] h-[40px] rounded"
             src={item?.ipAssetData?.metadata_offchain?.image?.url}
           />
         </div>

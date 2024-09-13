@@ -27,7 +27,7 @@ const registerPILTerms = async (params: {
   currency: string;
   type: PIL_TYPE;
   mintingFee: string;
-  userWallet: "string";
+  userWallet?: string;
 }) => {
   try {
     const res = await fetch(
@@ -52,8 +52,9 @@ const mintLicense = async (params: {
   licensorIpId: string;
   licenseTermsId: string;
   receiver: string;
-  amount: 0;
-  userWallet: "string";
+  amount: number;
+  session?: {},
+  userWallet?: "string"
 }) => {
   try {
     const res = await fetch(

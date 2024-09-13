@@ -1,17 +1,22 @@
+import Dropdown from "@/components/dropdown";
 import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
+import { IpAsset } from "@/types/types";
 import { useAccount, useWallets } from "@particle-network/connectkit";
 import { notification } from "antd";
 import { Contract, ethers, Interface } from "ethers";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
-const FormMintLicenseToken = () => {
-  const { toggleSidebar } = useSidebar();
-  const { setDataChat, setIsSubmit } = useDepip();
+type Props = {
+  id?: string;
+};
+const FormMintLicenseToken: React.FC<Props> = ({ id }) => {
+  // const { toggleSidebar } = useSidebar();
+  // const { setDataChat, setIsSubmit } = useDepip();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<IpAsset>(null);
   const {
     register,
     handleSubmit,
@@ -19,7 +24,7 @@ const FormMintLicenseToken = () => {
   } = useForm();
   // const { smartAddress } = useDepip();
   const { address } = useAccount();
-  const { sessionKey, smartAddress } = useDepip();
+  const { sessionKey, listIP } = useDepip();
   const [primaryWallet] = useWallets();
   const router = useRouter();
   const onSubmit = (data) => {
@@ -28,9 +33,10 @@ const FormMintLicenseToken = () => {
 
   const mintFunc = async (data) => {
     const res = await api.mintLicense({
-      ...data,
-      session: sessionKey,
-      userWallet: address,
+      licensorIpId: selectedItem.ip_id,
+      licenseTermsId: data.licenseTermsId,
+      receiver: data.receiver,
+      amount: Number(data.amount),
     });
     if (res) {
       // toggleSidebar();
@@ -62,6 +68,9 @@ const FormMintLicenseToken = () => {
 
   const checkAndSetPermission = async (data) => {
     try {
+      if (!selectedItem) {
+        return;
+      }
       notification.info({
         message: "Checking permissions",
       });
@@ -115,7 +124,7 @@ const FormMintLicenseToken = () => {
       );
 
       const rs = await contract.getPermission(
-        data?.licensorIpId,
+        selectedItem.ip_id,
         process.env.NEXT_PUBLIC_SESSION_ADDRESS,
         process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
         process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || ""
@@ -129,7 +138,7 @@ const FormMintLicenseToken = () => {
           "function setPermission(address, address, address, bytes4, uint8) public",
         ]);
         const encodedData = mintInterface.encodeFunctionData("setPermission", [
-          data?.licensorIpId,
+          selectedItem.ip_id,
           process.env.NEXT_PUBLIC_SESSION_ADDRESS,
           process.env.NEXT_PUBLIC_TO_ADDRESS_PERMISSION || "",
           process.env.NEXT_PUBLIC_FUNC_MINT_LICENSE_TOKEN || "",
@@ -194,6 +203,13 @@ const FormMintLicenseToken = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (id && listIP.length > 0) {
+      const item = listIP.find((item: IpAsset) => item.ip_id == id);
+      setSelectedItem(item);
+    }
+  }, [listIP]);
 
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
@@ -262,7 +278,7 @@ const FormMintLicenseToken = () => {
               IP asset ID
             </div>
             <div className="w-full flex flex-col gap-1">
-              <input
+              {/* <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.licensorIpId ? "border-red-500" : "border-zinc-900/10"
                 } `}
@@ -274,6 +290,15 @@ const FormMintLicenseToken = () => {
               {errors.licensorIpId && (
                 <p className="text-sm text-red-600 dark:text-red-500">
                   IP asset ID is required
+                </p>
+              )} */}
+              <Dropdown
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+              />
+              {!selectedItem && (
+                <p className=" text-sm text-red-600 dark:text-red-500">
+                  IP Asset is required
                 </p>
               )}
             </div>

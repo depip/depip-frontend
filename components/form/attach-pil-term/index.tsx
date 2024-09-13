@@ -7,15 +7,18 @@ import {
   useSmartAccount,
   useWallets,
 } from "@particle-network/connectkit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ethers, Contract, Interface } from "ethers";
 import { notification } from "antd";
 import { useRouter } from "next/navigation";
 import Dropdown from "@/components/dropdown";
 import { IpAsset } from "@/types/types";
-
-const FormAttachPilTerm = () => {
+import Link from "next/link";
+type Props = {
+  id?: string;
+};
+const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
   // const { toggleSidebar } = useSidebar();
   // const { setDataChat, setIsSubmit } = useDepip();
   const [primaryWallet] = useWallets();
@@ -27,7 +30,7 @@ const FormAttachPilTerm = () => {
     formState: { errors },
   } = useForm();
   const { address } = useAccount();
-  const { sessionKey } = useDepip();
+  const { listIP } = useDepip();
   const [selectedItem, setSelectedItem] = useState<IpAsset>(null);
   const onSubmit = (data) => {
     checkAndSetPermission(data);
@@ -36,7 +39,7 @@ const FormAttachPilTerm = () => {
   const attachFunc = async (data) => {
     const res = await api.attackPILTerms({
       ipId: selectedItem.ip_id,
-      termId: data.term_id
+      termId: data.termId,
     });
     if (res) {
       // toggleSidebar();
@@ -68,6 +71,9 @@ const FormAttachPilTerm = () => {
 
   const checkAndSetPermission = async (data) => {
     try {
+      if (!selectedItem) {
+        return;
+      }
       setLoading(true);
       notification.info({
         message: "Checking permissions",
@@ -202,6 +208,13 @@ const FormAttachPilTerm = () => {
     }
   };
 
+  useEffect(() => {
+    if (id && listIP.length > 0) {
+      const item = listIP.find((item: IpAsset) => item.ip_id == id);
+      setSelectedItem(item);
+    }
+  }, [listIP]);
+
   return (
     <div className="w-full p-5 rounded-2xl border border-stone-200 flex-col justify-start items-start gap-6 inline-flex">
       <div
@@ -287,6 +300,11 @@ const FormAttachPilTerm = () => {
                 selectedItem={selectedItem}
                 setSelectedItem={setSelectedItem}
               />
+              {!selectedItem && (
+                <p className=" text-sm text-red-600 dark:text-red-500">
+                  IP Asset is required
+                </p>
+              )}
             </div>
           </div>
           <div className="self-stretch flex-col justify-start items-start gap-2 flex">
@@ -311,19 +329,7 @@ const FormAttachPilTerm = () => {
             </div>
           </div>
         </div>
-        <div className="self-stretch justify-end items-start gap-2 inline-flex">
-          <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
-            <div className="rounded-lg flex-col justify-center items-start inline-flex">
-              <button
-                onClick={() => {
-                  router.back();
-                }}
-                className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+        <div className="self-stretch justify-start items-start gap-2 inline-flex">
           <Button type="submit" disabled={isLoading} className="px-6 py-3">
             {isLoading ? (
               <svg
@@ -343,9 +349,36 @@ const FormAttachPilTerm = () => {
                 />
               </svg>
             ) : (
-              <span>Submit</span>
+              <span className="text-white text-xs font-light font-pixel uppercase leading-[18px]">
+                Submit
+              </span>
             )}
           </Button>
+          <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
+            <div className="rounded-lg flex-col justify-center items-start inline-flex">
+              <button
+                onClick={() => {
+                  router.back();
+                }}
+                className="text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="h-[46px] flex-col justify-start items-center gap-2 inline-flex">
+          <div className="self-stretch text-center text-[#1c1c1c]/80 text-sm font-medium font-geist leading-tight">
+            Need other terms?
+          </div>
+          <Link
+            href={"/register-pil-term"}
+            className="rounded-lg flex-col justify-center items-start inline-flex"
+          >
+            <div className="self-stretch text-[#141414] text-xs font-normal font-pixel uppercase leading-[18px]">
+              Register new Term
+            </div>
+          </Link>
         </div>
       </form>
     </div>
