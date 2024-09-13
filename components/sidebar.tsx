@@ -11,7 +11,7 @@ import { IpAsset } from "@/types/types";
 import { getAddress } from "viem";
 
 const SideBar = ({ isOpen, setIsOpen }) => {
-  const { setListIP, listIP } = useDepip();
+  const { setListIP, listIP, reloadListIP, setReloadListIP } = useDepip();
   const { address, isConnected } = useAccount();
   const pathname = usePathname();
   const {
@@ -31,6 +31,12 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       getIpAssetOwner();
     }
   }, [address]);
+  useEffect(() => {
+    if (reloadListIP) {
+      getIpAssetOwner();
+      setReloadListIP(false);
+    }
+  }, [reloadListIP]);
   const newSessionId = () => {
     if (address) {
       const date = new Date();
@@ -530,26 +536,32 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                 </Link>
               </div>
               <div className="mt-2 border border-gray-300 rounded-xl py-2">
-                {listIP.map((item: IpAsset) => (
-                  <Link
-                    href={`/ip-assets/${item?.ip_id}`}
-                    className="p-2 justify-between items-center gap-3 flex hover:bg-[#1c1c1c]/5 w-full"
-                  >
-                    <div className="rounded justify-start items-start gap-2 flex">
-                      <img
-                        className="min-w-[40px] w-[40px] h-[40px] rounded"
-                        src={item?.ipAssetData?.metadata_offchain?.image?.url}
-                      />
-                    </div>
-                    <div className="justify-start items-baseline flex flex-col grow">
-                      <div className="text-[#1c1c1c] text-xs font-medium font-geist leading-normal">
-                        {item?.name}
-                      </div>
-                      <div className="text-[#1c1c1c]/80 text-xs font-medium font-geist leading-normal">
-                        {item?.token_id}
-                      </div>
-                    </div>
-                  </Link>
+                {listIP.map((item: IpAsset, index) => (
+                  <>
+                    {index < 8 && (
+                      <Link
+                        href={`/ip-assets/${item?.ip_id}`}
+                        className="p-2 justify-between items-center gap-3 flex hover:bg-[#1c1c1c]/5 w-full"
+                      >
+                        <div className="rounded justify-start items-start gap-2 flex">
+                          <img
+                            className="min-w-[40px] w-[40px] h-[40px] rounded"
+                            src={
+                              item?.ipAssetData?.metadata_offchain?.image?.url
+                            }
+                          />
+                        </div>
+                        <div className="justify-start items-baseline flex flex-col grow">
+                          <div className="text-[#1c1c1c] text-xs font-medium font-geist leading-normal">
+                            {item?.name}
+                          </div>
+                          <div className="text-[#1c1c1c]/80 text-xs font-medium font-geist leading-normal">
+                            {item?.token_id}
+                          </div>
+                        </div>
+                      </Link>
+                    )}
+                  </>
                 ))}
               </div>
             </div>

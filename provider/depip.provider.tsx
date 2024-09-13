@@ -30,7 +30,7 @@ const depipContext = createContext({
 export const DepipProvider = ({ children }) => {
   const [dataChat, setDataChat] = useState<IChat>(null);
   const [listIP, setListIP] = useState<IpAsset[]>([]);
-  const [reloadListIP, setReloadListIP] = useState<boolean>();
+  const [reloadListIP, setReloadListIP] = useState<boolean>(false);
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState<IChat[]>([]);
   const [smartAddress, setSmartAddress] = useState("");

@@ -3,8 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-const FileUpload = ({ setValue }) => {
-  const [previews, setPreviews] = useState([]);
+const FileUpload = ({ setValue, previews, setPreviews }) => {
   const [fileError, setFileError] = useState(null);
   const onDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {

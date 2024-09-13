@@ -255,7 +255,7 @@ const ChatBox = () => {
                     )} */}
                       {item.value.map((value, index) => (
                         <>
-                          {value.type == "string" && (
+                          {/* {value.type == "string" && (
                             <span style={{ whiteSpace: "pre-line" }}>
                               {value.content}
                             </span>
@@ -271,6 +271,11 @@ const ChatBox = () => {
                                   value.json?.type}
                               </span>
                             </Button>
+                          )} */}
+                           {value.type !== "link" && (
+                            <span style={{ whiteSpace: "pre-line" }}>
+                              {value.content}
+                            </span>
                           )}
                           {value.type == "link" && (
                             <a href={value.link} className="px-5 py-2">

@@ -32,7 +32,8 @@ const MintAndRegistryIp = () => {
   const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { address } = useAccount();
-  const { sessionKey } = useDepip();
+  const { sessionKey, setReloadListIP } = useDepip();
+  const [previews, setPreviews] = useState([]);
   const {
     register,
     handleSubmit,
@@ -75,9 +76,11 @@ const MintAndRegistryIp = () => {
         notification.success({
           message: "Successfully register",
         });
-        // setTimeout(() => {
-        //   router.push(`/ip-assets/${res?.ipasset?.ipId}`);
-        // }, 5000);
+
+        setTimeout(() => {
+          setReloadListIP(true);
+          // router.push(`/ip-assets/${res?.ipasset?.ipId}`);
+        }, 3000);
       } else {
         dataChat = {
           from: address ?? "user",
@@ -93,6 +96,7 @@ const MintAndRegistryIp = () => {
         });
       }
       reset();
+      setPreviews([]);
       // toggleSidebar();
       setDataChat(dataChat);
     }
@@ -201,7 +205,11 @@ const MintAndRegistryIp = () => {
             name="file"
             control={control}
             render={({ field }) => (
-              <FileUpload setValue={setValue}></FileUpload>
+              <FileUpload
+                setValue={setValue}
+                previews={previews}
+                setPreviews={setPreviews}
+              ></FileUpload>
             )}
           />
           {errors.file && (
@@ -210,19 +218,7 @@ const MintAndRegistryIp = () => {
             </p>
           )}
         </div>
-        <div className="self-stretch justify-end items-start gap-2 inline-flex">
-          <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
-            <div className="rounded-lg flex-col justify-center items-start inline-flex">
-              <button
-                onClick={() => {
-                  router.back();
-                }}
-                className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+        <div className="self-stretch justify-start items-start gap-2 inline-flex">
           <Button type="submit" disabled={isLoading} className="px-6 py-3">
             {isLoading ? (
               <svg
@@ -245,6 +241,18 @@ const MintAndRegistryIp = () => {
               <span>Submit</span>
             )}
           </Button>
+          <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
+            <div className="rounded-lg flex-col justify-center items-start inline-flex">
+              <button
+                onClick={() => {
+                  router.back();
+                }}
+                className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </form>
     </div>

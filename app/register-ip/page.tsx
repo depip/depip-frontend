@@ -92,7 +92,7 @@ const Index = () => {
                 }}
               >
                 <div className="grow shrink basis-0 rounded-lg flex-col justify-center items-center inline-flex">
-                  <div className="self-stretch text-[#1c1c1c]/80 text-base font-medium font-geist leading-normal">
+                  <div className="self-stretch text-[#1c1c1c] text-base font-medium font-geist leading-normal">
                     Mint a new NFT and register it as IP asset
                   </div>
                 </div>
