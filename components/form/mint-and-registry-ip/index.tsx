@@ -75,9 +75,9 @@ const MintAndRegistryIp = () => {
         notification.success({
           message: "Successfully register",
         });
-        setTimeout(() => {
-          router.push(`/ip-assets/${res?.ipasset?.ipId}`);
-        }, 5000);
+        // setTimeout(() => {
+        //   router.push(`/ip-assets/${res?.ipasset?.ipId}`);
+        // }, 5000);
       } else {
         dataChat = {
           from: address ?? "user",
