@@ -57,6 +57,7 @@ const FormMintLicenseToken: React.FC<Props> = ({ id }) => {
         notification.success({
           message: "Successfully",
         });
+        router.push(`/ip-assets/${selectedItem.ip_id}`);
       } else {
         notification.error({
           message: JSON.stringify(res),
