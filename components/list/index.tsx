@@ -42,13 +42,15 @@ const customStyles = {
   }),
 };
 
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+
 type Props = {
   isFull?: boolean;
 };
 
 const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
   const [tabActive, setTabActive] = useState("");
-  const [data, setData] = useState<IpAsset[]>([]);
+  const [data, setData] = useState<IpAsset[]>(null);
   const { listIP } = useDepip();
   const options = [
     { value: "1", label: "Newest" },
@@ -61,7 +63,7 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
       setData(listIP);
     }
   }, [listIP]);
-  if (data.length == 0) {
+  if (data?.length == 0) {
     return (
       <div className="h-60 w-full p-8 rounded-2xl border border-[#1c1c1c]/10 flex-col justify-center items-center gap-5 inline-flex">
         <div className="self-stretch h-[108px] flex-col justify-start items-center gap-4 flex">
@@ -190,7 +192,7 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
               </div>
             </div>*/}
           </div>
-          <Select styles={customStyles} options={options} />
+          {/* <Select styles={customStyles} options={options} /> */}
         </div>
       )}
       <div
@@ -198,7 +200,7 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
           isFull ? "overflow-auto" : "h-[520px] overflow-hidden"
         }`}
       >
-        {data.map((item: IpAsset) => (
+        {data?.map((item: IpAsset) => (
           <Link
             href={`/ip-assets/${item?.ip_id}`}
             className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px] group cursor-pointer"
@@ -223,6 +225,37 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
             </div>
           </Link>
         ))}
+        {!data && (
+          <>
+            {numbers.map((number) => (
+              <div className="animate-pulse grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px] group cursor-pointer">
+                <div className="w-[172.80px] h-[172.80px] rounded-lg justify-center items-center gap-2 inline-flex overflow-hidden border">
+                  <svg
+                    className="w-12 h-12 text-gray-300"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 18"
+                  >
+                    <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                  </svg>
+                </div>
+                <div className="self-stretch flex-col justify-start items-start gap-3 flex  h-[70px]">
+                  <div className="self-stretch flex-col justify-start items-start gap-2 flex">
+                    <div className="self-stretch text-[#141414] text-base font-medium font-geist leading-normal truncate">
+                      <div className="h-3 bg-gray-400 w-36 rounded-lg"></div>
+                    </div>
+                    <div className="justify-center items-center gap-1.5 inline-flex">
+                      <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
+                        <div className="h-3 bg-gray-300 w-28 rounded-lg"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );
