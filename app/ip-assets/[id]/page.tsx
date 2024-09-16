@@ -42,7 +42,7 @@ const Index = () => {
             <div className="rounded-xl justify-start items-center gap-2 inline-flex overflow-hidden p-2 border">
               <div className="w-[200px] h-[200px] rounded-lg justify-start items-start gap-2 flex">
                 <img
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                   src={data2?.image_url}
                 />
               </div>
