@@ -197,17 +197,17 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
       )}
       <div
         className={`flex flex-wrap w-full gap-3 ${
-          isFull ? "overflow-auto" : "h-[520px] overflow-hidden"
+          isFull ? "overflow-auto" : "h-[300px] overflow-hidden"
         }`}
       >
         {data?.map((item: IpAsset) => (
           <Link
             href={`/ip-assets/${item?.ip_id}`}
-            className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px] group cursor-pointer"
+            className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[210px] max-w-[210px] group cursor-pointer"
           >
             <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex overflow-hidden border">
               <img
-                className="w-[172.80px] h-[172.80px]"
+                className="w-[210px] h-[210px]"
                 src={item?.ipAssetData?.metadata_offchain?.image?.url}
               />
             </div>
@@ -228,8 +228,8 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
         {!data && (
           <>
             {numbers.map((number) => (
-              <div className="animate-pulse grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[172.80px] max-w-[172.80px] group cursor-pointer">
-                <div className="w-[172.80px] h-[172.80px] rounded-lg justify-center items-center gap-2 inline-flex overflow-hidden border">
+              <div className="animate-pulse grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[210px] max-w-[210px] group cursor-pointer">
+                <div className="w-[210px] h-[210px] rounded-lg justify-center items-center gap-2 inline-flex overflow-hidden border">
                   <svg
                     className="w-12 h-12 text-gray-300"
                     aria-hidden="true"
