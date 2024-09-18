@@ -6,6 +6,9 @@ import { useDepip } from "@/provider/depip.provider";
 import { useRouter } from "next/navigation";
 import Button from "../button";
 import { IpAsset } from "@/types/types";
+import { getAddress } from "viem";
+import { storytestnet } from "@/config/chain";
+import { useAccount } from "@particle-network/connectkit";
 
 const customStyles = {
   container: (provided) => ({
@@ -13,15 +16,14 @@ const customStyles = {
   }),
   control: (provided) => ({
     ...provided,
-    border: "1px solid #ffffff",
-    boxShadow: "none",
+    backgroundColor: "#FAF9EF",
     "&:hover": {
       border: "1px solid #000000", // Change border color on hover
     },
   }),
   menu: (provided) => ({
     ...provided,
-    borderRadius: "4px",
+    borderRadius: "8px",
     marginTop: "8px",
   }),
   menuList: (provided) => ({
@@ -30,10 +32,11 @@ const customStyles = {
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isSelected ? "#0070f3" : "white",
+    backgroundColor: state.isSelected ? "black" : "FAF9EF",
     color: state.isSelected ? "white" : "black",
     "&:hover": {
-      backgroundColor: "#f0f0f0", // Change background color on hover
+      backgroundColor: "black", // Change background color on hover
+      color: "white", // Change text color on hover
     },
   }),
   singleValue: (provided) => ({
@@ -52,18 +55,42 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
   const [tabActive, setTabActive] = useState("");
   const [data, setData] = useState<IpAsset[]>(null);
   const { listIP } = useDepip();
+  const { address } = useAccount();
   const options = [
-    { value: "1", label: "Newest" },
-    { value: "2", label: "Oldest" },
-    { value: "3", label: "normal" },
+    { value: "ASC", label: "Newest" },
+    { value: "DESC", label: "Oldest" },
   ];
   const router = useRouter();
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const handleChange = (option) => {
+    setSelectedOption(option);
+  };
   useEffect(() => {
     if (listIP) {
       setData(listIP);
     }
   }, [listIP]);
-  if (data?.length == 0) {
+  useEffect(() => {
+    setData(null);
+    getIpAssetOwnerbyStatus();
+  }, [tabActive, selectedOption]);
+
+  const getIpAssetOwnerbyStatus = async () => {
+    const newAdd = getAddress(address);
+    const res = await api.getListIPAsset(
+      newAdd,
+      storytestnet.id.toString(),
+      "1000",
+      "0",
+      selectedOption.value,
+      tabActive
+    );
+    if (res) {
+      setData(res);
+    }
+  };
+
+  if (listIP?.length == 0) {
     return (
       <div className="h-60 w-full p-8 rounded-2xl border border-[#1c1c1c]/10 flex-col justify-center items-center gap-5 inline-flex">
         <div className="self-stretch h-[108px] flex-col justify-start items-center gap-4 flex">
@@ -140,59 +167,64 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
                 {listIP.length}
               </div>
             </div>
-            {/* <div
+            <div
               className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
-                tabActive == "registered"
+                tabActive == "REGISTERED"
                   ? "bg-[#1c1c1c] text-white"
                   : "bg-white text-[#141414]"
               }`}
               onClick={() => {
-                setTabActive("registered");
+                setTabActive("REGISTERED");
               }}
             >
               <div className="text-base font-medium font-geist leading-normal">
                 Registered
               </div>
-              <div className="text-xs font-medium font-geist leading-[18px]">
+              {/* <div className="text-xs font-medium font-geist leading-[18px]">
                 20
-              </div>
+              </div> */}
             </div>
             <div
               className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
-                tabActive == "licencesAttached"
+                tabActive == "LICENSE_ATTACHED"
                   ? "bg-[#1c1c1c] text-white"
                   : "bg-white text-[#141414]"
               }`}
               onClick={() => {
-                setTabActive("licencesAttached");
+                setTabActive("LICENSE_ATTACHED");
               }}
             >
               <div className="text-base font-medium font-geist leading-normal">
                 Licences attached
               </div>
-              <div className="text-xs font-medium font-geist leading-[18px]">
+              {/* <div className="text-xs font-medium font-geist leading-[18px]">
                 20
-              </div>
+              </div> */}
             </div>
             <div
               className={`px-4 py-2  rounded-lg justify-start items-start gap-2 flex cursor-pointer ${
-                tabActive == "licenseMinted"
+                tabActive == "LICENSE_TOKEN_MINTED"
                   ? "bg-[#1c1c1c] text-white"
                   : "bg-white text-[#141414]"
               }`}
               onClick={() => {
-                setTabActive("licenseMinted");
+                setTabActive("LICENSE_TOKEN_MINTED");
               }}
             >
               <div className="text-base font-medium font-geist leading-normal">
                 License minted
               </div>
-              <div className="text-xs font-medium font-geist leading-[18px]">
+              {/* <div className="text-xs font-medium font-geist leading-[18px]">
                 20
-              </div>
-            </div>*/}
+              </div> */}
+            </div>
           </div>
-          {/* <Select styles={customStyles} options={options} /> */}
+          <Select
+            styles={customStyles}
+            options={options}
+            value={selectedOption}
+            onChange={handleChange}
+          />
         </div>
       )}
       <div
@@ -214,11 +246,12 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
             <div className="self-stretch flex-col justify-start items-start gap-3 flex  h-[70px]">
               <div className="self-stretch flex-col justify-start items-start gap-1 flex">
                 <div className="self-stretch text-[#141414] text-base font-medium font-geist leading-normal truncate">
-                  {item?.name}
+                  {item?.ipAssetData?.metadata_onchain?.metadata?.name ||
+                    item?.name}
                 </div>
                 <div className="justify-center items-center gap-1.5 inline-flex">
                   <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
-                    {item?.token_id}
+                    {item?.status}
                   </div>
                 </div>
               </div>

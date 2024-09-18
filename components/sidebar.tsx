@@ -49,7 +49,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     }
   };
   const [logChat, setLogChat] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
+  // const [selectedItem, setSelectedItem] = useState(null);
 
   const loadListSession = () => {
     try {
@@ -131,7 +131,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       newAdd,
       storytestnet.id.toString(),
       "1000",
-      "0"
+      "0",
+      "ASC",
+      ""
     );
     if (res) {
       setListIP(res);
@@ -173,9 +175,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             <div className="self-stretch h-32 flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch h-32 flex-col justify-start items-start gap-1 flex">
                 <Link
-                  href={`/app`}
+                  href={`/app-depip`}
                   className={`self-stretch px-3 py-2  rounded-lg justify-start items-center gap-3 inline-flex ${
-                    pathname === "/app" ? "bg-[#1c1c1c]/5" : ""
+                    pathname === "/app-depip" ? "bg-[#1c1c1c]/5" : ""
                   }`}
                 >
                   <div className="w-5 h-5 relative">

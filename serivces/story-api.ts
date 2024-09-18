@@ -1,3 +1,4 @@
+import { IpAsset } from "@/types/types";
 import { notification } from "antd";
 const url = "https://edge.stg.storyprotocol.net/api/v1/assets";
 const apiKey = "D-P66oBXaF9BA_2OtPIq3Y5MnJM=";
@@ -70,17 +71,19 @@ const getListIPAsset = async (
   owner: string,
   chainId: string,
   pageLimit: string,
-  pageOffset: string
+  pageOffset: string,
+  order: string,
+  status: string
 ) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API}ipasset?owner=${owner}&chainId=${chainId}&pageLimit=${pageLimit}&pageOffset=${pageOffset}`,
+      `${process.env.NEXT_PUBLIC_API}ipasset?owner=${owner}&chainId=${chainId}&pageLimit=${pageLimit}&pageOffset=${pageOffset}&order=${order}&status=${status}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       }
     );
-    const data = await res.json();
+    const data: IpAsset[] = await res.json();
     return data;
   } catch (error) {
     notification.error({

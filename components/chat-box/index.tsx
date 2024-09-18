@@ -49,7 +49,7 @@ const ChatBox = () => {
 
   useEffect(() => {
     
-    console.log(sessionContent);
+    scrollToBottom();
     if (sessionContent.length > 0) {
       var lastMessage = sessionContent[sessionContent.length - 1];
       if (lastMessage && lastMessage?.value && lastMessage?.from != "bot") {

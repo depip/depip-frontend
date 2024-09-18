@@ -39,7 +39,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/app"
+                  href="/app-depip"
                   className="text-white hover:underline"
                   aria-current="page"
                 >
