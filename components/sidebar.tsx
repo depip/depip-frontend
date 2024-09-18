@@ -173,9 +173,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             <div className="self-stretch h-32 flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch h-32 flex-col justify-start items-start gap-1 flex">
                 <Link
-                  href={`/home`}
+                  href={`/app`}
                   className={`self-stretch px-3 py-2  rounded-lg justify-start items-center gap-3 inline-flex ${
-                    pathname === "/home" ? "bg-[#1c1c1c]/5" : ""
+                    pathname === "/app" ? "bg-[#1c1c1c]/5" : ""
                   }`}
                 >
                   <div className="w-5 h-5 relative">
@@ -231,9 +231,9 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   </div>
                 </Link>
                 <Link
-                  href={`/app`}
+                  href={`/ai`}
                   className={`self-stretch px-3 py-2  rounded-lg justify-start items-center gap-3 inline-flex ${
-                    pathname === "/app" ? "bg-[#1c1c1c]/5" : ""
+                    pathname === "/ai" ? "bg-[#1c1c1c]/5" : ""
                   }`}
                 >
                   <div className="self-stretch justify-start items-center gap-3 inline-flex">
@@ -264,7 +264,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
           </div>
-          {pathname === "/app" && (
+          {pathname === "/ai" && (
             <div className="self-stretch shrink basis-0 flex-col justify-start items-start gap-8 flex">
               {/* <Button onClick={() => newSessionId()} className="w-auto px-5 h-10">
               <div className="w-4 h-4 relative">
@@ -522,7 +522,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
           )}
-          {pathname !== "/app" && listIP.length > 0 && (
+          {pathname !== "/ai" && listIP.length > 0 && (
             <div className="w-full">
               <div className="justify-between items-baseline flex">
                 <div className="grow shrink basis-0 text-[#1c1c1c]/40 text-sm font-medium font-geist leading-tight">

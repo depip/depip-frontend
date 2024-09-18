@@ -55,7 +55,7 @@ const DefaultPage = () => {
         <div className="justify-start items-start gap-3 inline-flex w-full">
           <div
             onClick={() => {
-              router.push("/app");
+              router.push("/ai");
               setDataChat({
                 from: address ?? "user",
                 value: [
@@ -95,7 +95,7 @@ const DefaultPage = () => {
           </div>
           <div
             onClick={() => {
-              router.push("/app");
+              router.push("/ai");
               setDataChat({
                 from: address ?? "user",
                 value: [
@@ -136,7 +136,7 @@ const DefaultPage = () => {
           </div>
           <div
             onClick={() => {
-              router.push("/app");
+              router.push("/ai");
               setDataChat({
                 from: address ?? "user",
                 value: [
@@ -176,7 +176,7 @@ const DefaultPage = () => {
           </div>
           <div
             onClick={() => {
-              router.push("/app");
+              router.push("/ai");
               setDataChat({
                 from: address ?? "user",
                 value: [
