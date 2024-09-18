@@ -132,7 +132,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       storytestnet.id.toString(),
       "1000",
       "0",
-      "ASC",
+      "DESC",
       ""
     );
     if (res) {

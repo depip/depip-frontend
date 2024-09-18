@@ -57,8 +57,8 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
   const { listIP } = useDepip();
   const { address } = useAccount();
   const options = [
-    { value: "ASC", label: "Newest" },
-    { value: "DESC", label: "Oldest" },
+    { value: "DESC", label: "Newest" },
+    { value: "ASC", label: "Oldest" },
   ];
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(options[0]);

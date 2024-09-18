@@ -42,7 +42,6 @@ const ChatBox = () => {
       };
 
       setSessionContent([...sessionContent, reply]);
-      console.log('sessionContent tu bot repply');
       setLoading(false);
     }
   };
