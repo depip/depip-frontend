@@ -28,16 +28,16 @@ const FormRegisterIPAsset = () => {
     });
     if (res) {
       // toggleSidebar();
-      // const dataChat = {
-      //   from: address ?? "user",
-      //   value: [
-      //     {
-      //       type: "string",
-      //       content: JSON.stringify(res),
-      //     },
-      //   ],
-      // };
-      // setDataChat(dataChat);
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: JSON.stringify(res),
+          },
+        ],
+      };
+      setDataChat(dataChat);
       if (res.status == "success") {
         // setIsSubmit(true);
         notification.success({
@@ -133,7 +133,9 @@ const FormRegisterIPAsset = () => {
           <div className="px-6 py-3 rounded-[80px] justify-center items-center gap-2 flex">
             <div className="rounded-lg flex-col justify-center items-start inline-flex">
               <button
-                onClick={() => {router.back();}}
+                onClick={() => {
+                  router.back();
+                }}
                 className="self-stretch text-gray-800 text-xs font-light font-pixel uppercase leading-[18px]"
               >
                 Cancel

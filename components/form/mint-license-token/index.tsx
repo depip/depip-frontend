@@ -14,7 +14,7 @@ type Props = {
 };
 const FormMintLicenseToken: React.FC<Props> = ({ id }) => {
   // const { toggleSidebar } = useSidebar();
-  // const { setDataChat, setIsSubmit } = useDepip();
+  const { setDataChat, setIsSubmit } = useDepip();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<IpAsset>(null);
   const {
@@ -40,16 +40,16 @@ const FormMintLicenseToken: React.FC<Props> = ({ id }) => {
     });
     if (res) {
       // toggleSidebar();
-      // const dataChat = {
-      //   from: address ?? "user",
-      //   value: [
-      //     {
-      //       type: "string",
-      //       content: JSON.stringify(res),
-      //     },
-      //   ],
-      // };
-      // setDataChat(dataChat);
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: JSON.stringify(res),
+          },
+        ],
+      };
+      setDataChat(dataChat);
       // if (res.status == "success") {
       //   setIsSubmit(true);
       // }

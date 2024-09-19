@@ -45,21 +45,22 @@ const FormRegisterPilTerm = () => {
     });
     if (res) {
       // toggleSidebar();
-      // const dataChat = {
-      //   from: address ?? "user",
-      //   value: [
-      //     {
-      //       type: "string",
-      //       content: JSON.stringify(res),
-      //     },
-      //   ],
-      // };
-      // setDataChat(dataChat);
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: JSON.stringify(res),
+          },
+        ],
+      };
+      setDataChat(dataChat);
       if (res.status == "success") {
         // setIsSubmit(true);
         notification.success({
           message: "Successfully",
         });
+        // router.push(`/ip-assets/${selectedItem.ip_id}`);
       } else {
         notification.error({
           message: JSON.stringify(res),

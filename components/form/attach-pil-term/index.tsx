@@ -20,7 +20,7 @@ type Props = {
 };
 const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
   // const { toggleSidebar } = useSidebar();
-  // const { setDataChat, setIsSubmit } = useDepip();
+  const { setDataChat, setIsSubmit } = useDepip();
   const [primaryWallet] = useWallets();
   const [isLoading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -43,16 +43,16 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
     });
     if (res) {
       // toggleSidebar();
-      // const dataChat = {
-      //   from: address ?? "user",
-      //   value: [
-      //     {
-      //       type: "string",
-      //       content: JSON.stringify(res),
-      //     },
-      //   ],
-      // };
-      // setDataChat(dataChat);
+      const dataChat = {
+        from: address ?? "user",
+        value: [
+          {
+            type: "string",
+            content: JSON.stringify(res),
+          },
+        ],
+      };
+      setDataChat(dataChat);
       // if (res.status == "success") {
       //   setIsSubmit(true);
       // }
