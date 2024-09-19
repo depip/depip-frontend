@@ -42,7 +42,7 @@ const Index = () => {
               </div>
               <div className="justify-center items-center gap-1.5 inline-flex">
                 <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
-                  {data?.status}
+                  {data?.status?.replace(/_/g, " ").toLowerCase()}
                 </div>
               </div>
             </div>

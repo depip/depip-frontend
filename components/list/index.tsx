@@ -237,11 +237,23 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
             href={`/ip-assets/${item?.ip_id}`}
             className="grow shrink basis-0 rounded-lg flex-col justify-start items-start gap-3 inline-flex min-w-[210px] max-w-[210px] group cursor-pointer"
           >
-            <div className="self-stretch rounded-lg justify-start items-start gap-2 inline-flex overflow-hidden border">
-              <img
-                className="w-[210px] h-[210px]"
-                src={item?.ipAssetData?.metadata_offchain?.image?.url}
-              />
+            <div className="self-stretch rounded-lg justify-center items-center gap-2 inline-flex overflow-hidden border w-[210px] h-[210px]">
+              {item?.ipAssetData?.metadata_offchain?.image?.url ? (
+                <img
+                  className="w-[210px] h-[210px] rounded"
+                  src={item?.ipAssetData?.metadata_offchain?.image?.url}
+                />
+              ) : (
+                <svg
+                  className="w-[40px] h-[40px] text-gray-300"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 18"
+                >
+                  <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                </svg>
+              )}
             </div>
             <div className="self-stretch flex-col justify-start items-start gap-3 flex  h-[70px]">
               <div className="self-stretch flex-col justify-start items-start gap-1 flex">
@@ -251,7 +263,7 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
                 </div>
                 <div className="justify-center items-center gap-1.5 inline-flex">
                   <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
-                    {item?.status}
+                    {item?.status?.replace(/_/g, " ").toLowerCase()}
                   </div>
                 </div>
               </div>
