@@ -1,39 +1,27 @@
 "use client";
 import { useParams } from "next/navigation";
-import api from "@/serivces/story-api";
 import { useEffect, useState } from "react";
 import Layout from "@/components/layout";
-import ChatBox from "@/components/chat-box";
 import Link from "next/link";
 import ButtonChat from "@/components/button-chat";
+import { useDepip } from "@/provider/depip.provider";
+import { IpAsset } from "@/types/types";
 
 const Index = () => {
   const { id } = useParams();
-  const [data, setData] = useState<any>();
-  const [data2, setData2] = useState<any>();
+  const [data, setData] = useState<IpAsset>();
+  const { listIP } = useDepip();
 
-  const getDetail = async (tokenId) => {
-    const res = await api.getDetail(
-      "0xB9a173286C1052D9f5cd1223E64f111E10e033f2",
-      tokenId
-    );
-    if (res) {
-      setData2(res);
-    }
-  };
   const getData = async () => {
-    const res = await api.getIPAsset(id);
-    if (res && res?.data) {
-      setData(res.data);
-      if (res?.data?.nftMetadata?.tokenId) {
-        getDetail(res?.data?.nftMetadata?.tokenId);
-      }
-    }
+    const item = listIP.find((item) => item.ip_id === id);
+    setData(item);
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (listIP.length > 0) {
+      getData();
+    }
+  }, [listIP]);
   return (
     <Layout>
       <div className="flex pt-[118px]">
@@ -43,17 +31,18 @@ const Index = () => {
               <div className="w-[200px] h-[200px] rounded-lg justify-start items-start gap-2 flex">
                 <img
                   className="w-full h-full object-cover rounded-lg"
-                  src={data2?.image_url}
+                  src={data?.ipAssetData?.metadata_offchain?.image?.url}
                 />
               </div>
             </div>
             <div className="self-stretch h-[40px] flex-col justify-start items-start gap-3 flex">
               <div className="self-stretch text-black text-lg font-normal font-pixel uppercase leading-7">
-                {data2?.name}
+                {data?.ipAssetData?.metadata_onchain?.metadata?.name ||
+                  data?.name}
               </div>
               <div className="justify-center items-center gap-1.5 inline-flex">
                 <div className="text-[#1c1c1c]/40 text-xs font-medium font-geist leading-[18px]">
-                  Registered
+                  {data?.status}
                 </div>
               </div>
             </div>

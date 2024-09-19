@@ -555,10 +555,11 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                         </div>
                         <div className="justify-start items-baseline flex flex-col grow">
                           <div className="text-[#1c1c1c] text-xs font-medium font-geist leading-normal">
-                            {item?.name}
+                            {item?.ipAssetData?.metadata_onchain?.metadata
+                              ?.name || item?.name}
                           </div>
                           <div className="text-[#1c1c1c]/80 text-xs font-medium font-geist leading-normal">
-                            {item?.token_id}
+                            {item?.status}
                           </div>
                         </div>
                       </Link>
