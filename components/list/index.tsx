@@ -247,7 +247,7 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
             <div className="self-stretch rounded-lg justify-center items-center gap-2 inline-flex overflow-hidden border w-[210px] h-[210px]">
               {item?.ipAssetData?.metadata_offchain?.image?.url ? (
                 <img
-                  className="w-[210px] h-[210px] rounded"
+                  className="w-[210px] h-[210px] rounded object-cover"
                   src={item?.ipAssetData?.metadata_offchain?.image?.url}
                 />
               ) : (

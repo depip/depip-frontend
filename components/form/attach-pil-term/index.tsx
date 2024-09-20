@@ -30,7 +30,7 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
     formState: { errors },
   } = useForm();
   const { address } = useAccount();
-  const { listIP } = useDepip();
+  const { listIP, setReloadListIP } = useDepip();
   const [selectedItem, setSelectedItem] = useState<IpAsset>(null);
   const onSubmit = (data) => {
     checkAndSetPermission(data);
@@ -60,7 +60,11 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
         notification.success({
           message: "Successfully",
         });
-        router.push(`/ip-assets/${selectedItem.ip_id}`);
+
+        setTimeout(() => {
+          setReloadListIP(true);
+          router.push(`/ip-assets/${selectedItem.ip_id}`);
+        }, 5000);
       } else {
         notification.error({
           message: JSON.stringify(res),

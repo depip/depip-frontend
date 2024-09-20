@@ -24,7 +24,7 @@ const FormMintLicenseToken: React.FC<Props> = ({ id }) => {
   } = useForm();
   // const { smartAddress } = useDepip();
   const { address } = useAccount();
-  const { sessionKey, listIP } = useDepip();
+  const { setReloadListIP, listIP } = useDepip();
   const [primaryWallet] = useWallets();
   const router = useRouter();
   const onSubmit = (data) => {
@@ -57,7 +57,10 @@ const FormMintLicenseToken: React.FC<Props> = ({ id }) => {
         notification.success({
           message: "Successfully",
         });
-        router.push(`/ip-assets/${selectedItem.ip_id}`);
+        setTimeout(() => {
+          setReloadListIP(true);
+          router.push(`/ip-assets/${selectedItem.ip_id}`);
+        }, 5000);
       } else {
         notification.error({
           message: JSON.stringify(res),

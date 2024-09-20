@@ -80,7 +80,7 @@ const MintAndRegistryIp = () => {
         setTimeout(() => {
           setReloadListIP(true);
           // router.push(`/ip-assets/${res?.ipasset?.ipId}`);
-        }, 3000);
+        }, 5000);
       } else {
         dataChat = {
           from: address ?? "user",

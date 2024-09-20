@@ -70,7 +70,7 @@ const FileUpload = ({ setValue, previews, setPreviews }) => {
             key={index}
             src={preview}
             alt={`Preview ${index}`}
-            className="w-[100px] h-[100px] m-1 rounded-lg border-2 border-gray-200"
+            className="w-[100px] h-[100px] m-1 rounded-lg border-2 border-gray-200 object-cover"
           />
         ))}
 

@@ -80,18 +80,18 @@ const Index = () => {
                   PIL Terms
                 </div>
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 inline-flex">
-                  <div className="justify-end items-center gap-2 inline-flex">
-                    <div className="text-[#4e92f7] text-sm font-medium font-geist leading-tight">
-                      {data?.number_license_attached}
-                    </div>
-                    {data?.license_attaches?.map((item) => (
+                  {data?.license_attaches?.map((item) => (
+                    <div className="justify-end items-center gap-2 inline-flex">
+                      <div className="text-[#4e92f7] text-sm font-medium font-geist leading-tight">
+                        {item?.license_term_id}
+                      </div>
                       <div className="px-1 py-0.5 rounded border border-[#edf2f1] justify-center items-center gap-2 flex">
                         <div className="text-[#1c1c1c] text-xs font-normal font-geist leading-[18px]">
                           {item?.license_term?.name}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                   <Link
                     href={`/attach-pil-term/${id}`}
                     className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex"
@@ -110,7 +110,7 @@ const Index = () => {
                 </div>
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-3 flex">
                   {data?.license_attaches?.map((item) => (
-                    <div className="self-stretch text-[#141414] text-sm font-normal font-geist uppercase leading-none">
+                    <div className="self-stretch text-[#141414] text-xs font-normal font-geist uppercase leading-none">
                       {item?.license_term?.license_template}
                     </div>
                   ))}
