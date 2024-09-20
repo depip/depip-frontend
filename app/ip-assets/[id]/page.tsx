@@ -68,7 +68,19 @@ const Index = () => {
                   IP Asset ID
                 </div>
                 <div className="grow shrink basis-0 flex-col justify-center items-start gap-2 flex">
-                  <div className=" justify-end items-center gap-2 inline-flex">
+                  <div className="justify-end items-center gap-2 inline-flex">
+                    <div className="text-[#4e92f7] text-sm font-medium font-geist leading-tight">
+                      {id}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="self-stretch min-h-14 py-3 border-b border-[#1d1f1e]/10 justify-start items-center gap-3 inline-flex">
+                <div className="w-[120px] text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
+                  PIL Terms
+                </div>
+                <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 inline-flex">
+                  <div className="justify-end items-center gap-2 inline-flex">
                     <div className="text-[#4e92f7] text-sm font-medium font-geist leading-tight">
                       {data?.number_license_attached}
                     </div>
@@ -80,19 +92,6 @@ const Index = () => {
                       </div>
                     ))}
                   </div>
-
-                  <div className="justify-end items-center gap-2 inline-flex">
-                    <div className="text-[#4e92f7] text-sm font-medium font-geist leading-tight">
-                      {id}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="self-stretch h-14 py-3 border-b border-[#1d1f1e]/10 justify-start items-center gap-3 inline-flex">
-                <div className="w-[120px] text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
-                  PIL Terms
-                </div>
-                <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 inline-flex">
                   <Link
                     href={`/attach-pil-term/${id}`}
                     className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex"
@@ -109,9 +108,9 @@ const Index = () => {
                 <div className="w-[120px] text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
                   License
                 </div>
-                <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
+                <div className="grow shrink basis-0 flex-col justify-start items-start gap-3 flex">
                   {data?.license_attaches?.map((item) => (
-                    <div className="self-stretch text-[#141414] text-[10px] font-normal font-pixel uppercase leading-none">
+                    <div className="self-stretch text-[#141414] text-sm font-normal font-geist uppercase leading-none">
                       {item?.license_term?.license_template}
                     </div>
                   ))}
