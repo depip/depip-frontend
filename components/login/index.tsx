@@ -26,7 +26,7 @@ const Login = () => {
             <div className="text-center text-black text-5xl font-bold font-['Cabinet Grotesk Variable'] leading-[52.80px]">
               Welcome to DePIP studio
             </div>
-            <div className="text-center text-gray-400 text-xl font-normal font-['Geist Variable'] leading-7">
+            <div className="text-center text-gray-400 text-xl font-normal font-geist leading-7">
               Connect your wallet to exprience
             </div>
           </div>

@@ -61,9 +61,9 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
     { value: "ASC", label: "Oldest" },
   ];
   const router = useRouter();
-  const [selectedOption, setSelectedOption] = useState(options[0]);
-  const handleChange = (option) => {
-    setSelectedOption(option);
+  const [selectedOption, setSelectedOption] = useState(options[0].value);
+  const handleChange = (e) => {
+    setSelectedOption(e.target.value);
   };
   useEffect(() => {
     if (listIP) {
@@ -82,7 +82,7 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
       storytestnet.id.toString(),
       "1000",
       "0",
-      selectedOption.value,
+      selectedOption,
       tabActive
     );
     if (res) {
@@ -109,7 +109,7 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
               fill-opacity="0.2"
             />
           </svg>
-          <div className="self-stretch text-center text-[#1c1c1c]/40 text-sm font-normal font-['Geist Variable'] leading-tight">
+          <div className="self-stretch text-center text-[#1c1c1c]/40 text-sm font-normal font-geist leading-tight">
             You don't have any assets yet.
             <br />
             Register new IP asset now.
@@ -219,16 +219,23 @@ const ListIpAssets: React.FC<Props> = ({ isFull = false }) => {
               </div> */}
             </div>
           </div>
-          <Select
-            styles={customStyles}
-            options={options}
-            value={selectedOption}
+          <select
             onChange={handleChange}
-          />
+            className="min-w-[150px] text-gray-800 text-base font-light font-geist leading-normal border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2"
+          >
+            {options.map((option, i) => (
+              <option
+                value={option.value}
+                selected={option.value == selectedOption}
+              >
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       )}
       <div
-        className={`flex flex-wrap w-full gap-3 ${
+        className={`flex flex-wrap w-full gap-10 ${
           isFull ? "overflow-auto" : "h-[300px] overflow-hidden"
         }`}
       >
