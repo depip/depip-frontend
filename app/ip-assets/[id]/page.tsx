@@ -6,15 +6,31 @@ import Link from "next/link";
 import ButtonChat from "@/components/button-chat";
 import { useDepip } from "@/provider/depip.provider";
 import { IpAsset } from "@/types/types";
+import { getAddress } from "viem";
+import api from "@/serivces/story-api";
+import { useAccount } from "@particle-network/connectkit";
+import { storytestnet } from "@/config/chain";
 
 const Index = () => {
   const { id } = useParams();
   const [data, setData] = useState<IpAsset>();
   const { listIP } = useDepip();
+  const { address } = useAccount();
 
   const getData = async () => {
-    const item = listIP.find((item) => item.ip_id === id);
-    setData(item);
+    const newAdd = getAddress(address);
+    const res = await api.getListIPAsset(
+      newAdd,
+      storytestnet.id.toString(),
+      "1000",
+      "0",
+      "DESC",
+      "",
+      id.toString()
+    );
+    if (res) {
+      setData(res[0]);
+    }
   };
 
   useEffect(() => {
@@ -46,12 +62,25 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <div className="self-stretch h-[168px] flex-col justify-start items-start flex">
-              <div className="self-stretch h-14 py-3 border-b border-[#1d1f1e]/10 justify-start items-center gap-3 inline-flex">
+            <div className="self-stretch min-h-[168px] flex-col justify-start items-start flex">
+              <div className="self-stretch min-h-14 py-3 border-b border-[#1d1f1e]/10 justify-start items-center gap-3 inline-flex">
                 <div className="w-[120px] text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
                   IP Asset ID
                 </div>
-                <div className="grow shrink basis-0 flex-col justify-center items-start gap-2 inline-flex">
+                <div className="grow shrink basis-0 flex-col justify-center items-start gap-2 flex">
+                  <div className=" justify-end items-center gap-2 inline-flex">
+                    <div className="text-[#4e92f7] text-sm font-medium font-geist leading-tight">
+                      {data?.number_license_attached}
+                    </div>
+                    {data?.license_attaches?.map((item) => (
+                      <div className="px-1 py-0.5 rounded border border-[#edf2f1] justify-center items-center gap-2 flex">
+                        <div className="text-[#1c1c1c] text-xs font-normal font-geist leading-[18px]">
+                          {item?.license_term?.name}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
                   <div className="justify-end items-center gap-2 inline-flex">
                     <div className="text-[#4e92f7] text-sm font-medium font-geist leading-tight">
                       {id}
@@ -76,16 +105,21 @@ const Index = () => {
                   </Link>
                 </div>
               </div>
-              <div className="self-stretch h-14 py-3 border-b border-[#1d1f1e]/10 justify-start items-center gap-3 inline-flex">
+              <div className="self-stretch min-h-14 py-3 border-b border-[#1d1f1e]/10 justify-start items-center gap-3 inline-flex">
                 <div className="w-[120px] text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
                   License
                 </div>
-                <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 inline-flex">
+                <div className="grow shrink basis-0 flex-col justify-start items-start gap-2 flex">
+                  {data?.license_attaches?.map((item) => (
+                    <div className="self-stretch text-[#141414] text-[10px] font-normal font-pixel uppercase leading-none">
+                      {item?.license_term?.license_template}
+                    </div>
+                  ))}
                   <Link
                     href={`/mint-license/${id}`}
                     className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex"
                   >
-                    <div className="rounded-lg flex-col justify-center items-start inline-flex">
+                    <div className="rounded-lg flex-col justify-center items-start flex">
                       <div className="self-stretch text-[#141414] text-[10px] font-normal font-pixel uppercase leading-none">
                         Mint license
                       </div>
