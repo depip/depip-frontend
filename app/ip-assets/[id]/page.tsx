@@ -109,11 +109,11 @@ const Index = () => {
                   License
                 </div>
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-3 flex">
-                  {data?.license_attaches?.map((item) => (
+                  {/* {data?.license_attaches?.map((item) => (
                     <div className="self-stretch text-[#141414] text-xs font-normal font-geist uppercase leading-none">
                       {item?.license_term?.license_template}
                     </div>
-                  ))}
+                  ))} */}
                   <Link
                     href={`/mint-license/${id}`}
                     className="px-4 py-2 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex"
