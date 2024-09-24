@@ -37,14 +37,6 @@ const config = createConfig({
       metadata: { name: "Depip", icon: "", description: "", url: "" },
       walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID || "",
     }),
-    authWalletConnectors({
-      authTypes: ["google"],
-      fiatCoin: "USD",
-      promptSettingConfig: {
-        promptMasterPasswordSettingWhenLogin: 1,
-        promptPaymentPasswordSettingWhenSign: 1,
-      },
-    }),
   ],
   plugins: [
     aa({
