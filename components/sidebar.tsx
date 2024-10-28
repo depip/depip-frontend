@@ -304,7 +304,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                         value: [
                           {
                             type: "string",
-                            content: "What is IP?",
+                            content: "What is IP asset?",
                           },
                         ],
                       });
@@ -329,7 +329,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </div>
                     <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                       <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                        What is IP?
+                        What is IP asset?
                       </div>
                     </div>
                   </div>
@@ -343,7 +343,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                           {
                             type: "string",
                             content:
-                              "Can you show me full process to interact with Story Protocol by Depip server?",
+                              "Can you show me full process to interact with Story Protocol?",
                           },
                         ],
                       });
@@ -382,7 +382,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                           {
                             type: "string",
                             content:
-                              "Can you create IP asset for me by Depip server",
+                              "Can you tell me how to create IP asset?",
                           },
                         ],
                       });
@@ -407,7 +407,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     </div>
                     <div className="grow shrink basis-0 flex-col justify-center items-start gap-0.5 inline-flex">
                       <div className="self-stretch text-zinc-900 text-base font-medium font-geist leading-normal">
-                        Register IP asset
+                        Create IP asset
                       </div>
                     </div>
                   </div>
@@ -420,7 +420,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                         value: [
                           {
                             type: "string",
-                            content: "Register PIL term",
+                            content: "Can you tell me how to register PIL term?",
                           },
                         ],
                       });
