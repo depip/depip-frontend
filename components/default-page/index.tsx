@@ -61,7 +61,7 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "What is IP?",
+                    content: "What is IP asset?",
                   },
                 ],
               });
@@ -89,7 +89,7 @@ const DefaultPage = () => {
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
-                What is IP?
+                What is IP asset?
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ const DefaultPage = () => {
                   {
                     type: "string",
                     content:
-                      "Can you show me full process to interact with Story Protocol by Depip server?",
+                      "Can you show me full process to interact with Story Protocol?",
                   },
                 ],
               });
@@ -142,7 +142,7 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "Can you register IP asset for me by Depip server",
+                    content: "Can you tell me how to create IP asset?",
                   },
                 ],
               });
@@ -170,7 +170,7 @@ const DefaultPage = () => {
             </div>
             <div className="self-stretch h-6 flex-col justify-center items-start gap-0.5 flex">
               <div className="self-stretch text-zinc-900/80 text-base font-medium font-geist leading-normal uppercase">
-                Register IP asset
+                Create IP asset
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@ const DefaultPage = () => {
                 value: [
                   {
                     type: "string",
-                    content: "Register PIL term",
+                    content: "Can you tell me how to register PIL term?",
                   },
                 ],
               });
