@@ -2,6 +2,7 @@ import Button from "@/components/button";
 import { useDepip } from "@/provider/depip.provider";
 import { useSidebar } from "@/provider/sidebar.provider";
 import api from "@/serivces/form-api";
+import api2 from "@/serivces/story-api";
 import {
   useAccount,
   useSmartAccount,
@@ -15,6 +16,9 @@ import { useRouter } from "next/navigation";
 import Dropdown from "@/components/dropdown";
 import { IpAsset } from "@/types/types";
 import Link from "next/link";
+import { Select } from "antd";
+import { getAddress } from "viem";
+import { storytestnet } from "@/config/chain";
 type Props = {
   id?: string;
 };
@@ -28,12 +32,49 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
   const { address } = useAccount();
   const { listIP, setReloadListIP } = useDepip();
+  const [termDetail, setTermDetail] = useState<any>(null);
   const [selectedItem, setSelectedItem] = useState<IpAsset>(null);
   const onSubmit = (data) => {
     checkAndSetPermission(data);
+  };
+  const checkTermId = () => {
+    getDetail();
+  };
+  const handleChange = () => {
+    setTermDetail(null);
+  };
+
+  const getTypeTerm = () => {
+    if (termDetail && termDetail.licenseTerms.length > 0) {
+      const commercialUse = termDetail.licenseTerms.find(
+        (item) => item?.trait_type === "Commercial Use"
+      );
+      if (commercialUse?.value === "false") {
+        return "Non-Commercial Social Remixing";
+      }
+      if (commercialUse?.value === "true") {
+        const derivativesReciprocal = termDetail.licenseTerms.find(
+          (item) => item?.trait_type === "Derivatives Reciprocal"
+        );
+        if (derivativesReciprocal?.value === "false") {
+          return "Commercial Remix";
+        }
+        return "Commercial Use";
+      }
+    }
+  };
+
+  const getDetail = async () => {
+    const termId = getValues("termId");
+    console.log(termId);
+    const res = await api2.getLicenseTerm(termId);
+    if (res.data) {
+      setTermDetail(res.data);
+    }
   };
 
   const attachFunc = async (data) => {
@@ -279,6 +320,7 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
+        onChange={handleChange}
         className="w-full flex flex-col gap-4"
       >
         <div className="flex-col justify-start items-start gap-4 flex">
@@ -316,7 +358,7 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
             <div className="self-stretch text-gray-800 text-sm font-semibold font-geist leading-tight">
               License term ID
             </div>
-            <div className="w-full flex flex-col gap-1">
+            <div className="w-full flex gap-3 items-center">
               <input
                 className={`rounded-lg border text-gray-800 text-base font-light font-geist leading-normal p-4 w-full ${
                   errors.termId ? "border-red-500" : "border-zinc-900/10"
@@ -326,12 +368,71 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
                 type="text"
                 {...register("termId", { required: true })}
               />
+              <button
+                type="button"
+                onClick={checkTermId}
+                className="h-8 px-4 py-1 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex text-[#1c1c1c] text-[10px] font-normal font-pixel uppercase leading-none"
+              >
+                Check
+              </button>
               {errors.termId && (
                 <p className=" text-sm text-red-600 dark:text-red-500">
                   License term ID Address is required
                 </p>
               )}
             </div>
+            {termDetail && (
+              <div className="h-[150px] p-4 bg-[#1c1c1c]/5 rounded-lg flex-col justify-start items-start gap-3 inline-flex">
+                <div className="justify-end items-center gap-2 inline-flex">
+                  <div className="text-[#4e92f7] text-base font-medium font-geist leading-normal">
+                    {termDetail?.id}
+                  </div>
+                  <div className="px-1.5 py-0.5 bg-white rounded border border-[#edf2f1] justify-center items-center gap-2 flex">
+                    <div className="text-[#1c1c1c] text-xs font-normal font-geist leading-[18px]">
+                      {getTypeTerm()} license
+                    </div>
+                  </div>
+                </div>
+                <div className="self-stretch h-[82px] w-100 flex-col justify-start items-start gap-2 flex">
+                  <div className="self-stretch justify-start items-center gap-3 inline-flex">
+                    <div className="grow shrink basis-0 text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
+                      Currency
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-2 inline-flex">
+                      <div className="self-stretch justify-end items-center gap-2 inline-flex">
+                        <div className="grow shrink basis-0 text-[#4e92f7] text-sm font-medium font-geist leading-tight">
+                          {termDetail?.terms?.currency}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch justify-start items-center gap-3 inline-flex">
+                    <div className="grow shrink basis-0 text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
+                      Minting fee
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-end gap-2 inline-flex">
+                      <div className="justify-end items-center gap-2 inline-flex">
+                        <div className="text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                          {termDetail?.terms?.defaultMintingFee}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="self-stretch justify-start items-center gap-3 inline-flex">
+                    <div className="text-[#5f5f6e] text-sm font-normal font-geist leading-tight">
+                      Commercial revemue share
+                    </div>
+                    <div className="grow shrink basis-0 flex-col justify-center items-end gap-2 inline-flex">
+                      <div className="justify-end items-center gap-2 inline-flex">
+                        <div className="text-[#1c1c1c] text-sm font-medium font-geist leading-tight">
+                          {termDetail?.terms?.commercialRevShare}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="self-stretch justify-start items-start gap-2 inline-flex">

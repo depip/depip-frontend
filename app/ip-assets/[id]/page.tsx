@@ -127,7 +127,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <Link
+            {/* <Link
               href={`https://ip.dev.aurascan.io/ip/${id}`}
               target="_blank"
               className="rounded-[80px] justify-center items-center gap-1 inline-flex"
@@ -137,7 +137,7 @@ const Index = () => {
                   View on IPScan
                 </div>
               </div>
-            </Link>
+            </Link> */}
           </div>
         ) : (
           <div className="w-1/2 flex-col justify-start items-start gap-4 inline-flex p-4 animate-pulse">

@@ -59,7 +59,7 @@ const Dropdown: React.FC<ButtonProps> = ({
       )}
 
       {isOpen && (
-        <div className="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-lg max-h-80 overflow-auto">
+        <div className="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-lg max-h-80 overflow-auto z-50">
           {listIP.map((item: IpAsset) => (
             <Item item={item} handleSelect={handleSelect} />
           ))}

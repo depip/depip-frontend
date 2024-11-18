@@ -1,8 +1,6 @@
 import { IpAsset } from "@/types/types";
 import { notification } from "antd";
-const url = "https://edge.stg.storyprotocol.net/api/v1/assets";
-const apiKey = "D-P66oBXaF9BA_2OtPIq3Y5MnJM=";
-const chainId = "1513";
+
 // const listAll = async (param) => {
 //   try {
 //     const res = await fetch(url, {
@@ -102,6 +100,31 @@ const getListIPAsset = async (
   }
 };
 
+const getLicenseTerm = async (licenseTermId: string) => {
+  try {
+    const url = `https://api.storyprotocol.net/api/v1/licenses/terms/${licenseTermId}`;
+    const apiKey = "4CWuPKSRTTxC7WvjPNsaZlAqJmrGL7OhNniUrZawdu8";
+    const chainId = "1513";
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "X-API-Key": apiKey,
+        "X-CHAIN": chainId,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    notification.error({
+      message: "Could not get data",
+    });
+    return false;
+  }
+};
+
 export default {
   getListIPAsset,
+  getLicenseTerm,
 };
