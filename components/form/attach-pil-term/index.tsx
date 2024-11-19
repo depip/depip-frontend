@@ -27,6 +27,7 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
   const { setDataChat, setIsSubmit } = useDepip();
   const [primaryWallet] = useWallets();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [isChecking, setIsChecking] = useState<boolean>(false);
   const router = useRouter();
   const {
     register,
@@ -70,11 +71,13 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
 
   const getDetail = async () => {
     const termId = getValues("termId");
-    console.log(termId);
+    // console.log(termId);
+    setIsChecking(true);
     const res = await api2.getLicenseTerm(termId);
     if (res.data) {
       setTermDetail(res.data);
     }
+    setIsChecking(false);
   };
 
   const attachFunc = async (data) => {
@@ -371,7 +374,10 @@ const FormAttachPilTerm: React.FC<Props> = ({ id }) => {
               <button
                 type="button"
                 onClick={checkTermId}
-                className="h-8 px-4 py-1 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex text-[#1c1c1c] text-[10px] font-normal font-pixel uppercase leading-none"
+                disabled={isChecking}
+                className={`h-8 px-4 py-1 bg-[#1c1c1c]/5 rounded-[80px] justify-center items-center gap-1 inline-flex text-[10px] font-normal font-pixel uppercase leading-none ${
+                  isChecking ? "text-gray-100" : "text-[#1c1c1c]"
+                }`}
               >
                 Check
               </button>
